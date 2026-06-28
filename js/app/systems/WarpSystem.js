@@ -31,6 +31,14 @@ export function initWarpSystem() {
 
     document.addEventListener('mousedown', (e) => {
         if (e.button === 0) { // Permitir rotación en cualquier sección (Nexo y Flows)
+            // Evitar rotación completamente si algún teseracto (.knowledge-base-container) está abierto
+            const isTesseractOpen = Array.from(document.querySelectorAll('.knowledge-base-container'))
+                .some(container => !container.classList.contains('hidden'));
+                
+            if (isTesseractOpen) {
+                return;
+            }
+
             isDragging = true;
             dragDist = 0;
             previousMousePosition = { x: e.clientX, y: e.clientY };
