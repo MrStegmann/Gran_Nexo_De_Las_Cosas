@@ -19,15 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration);
     };
 
-    const greetings = [
-        "¡Has venido! ¿Echabas de menos este sitio? A mi me encanta, tan lleno de estrellas mágicas, de puntos mágicos, de... ¡Magia!",
-        "Uy, hola. ¿Qué se te ha olvidado? Yo no he encontrado ningún reloj perdido... No he visto ningún reloj perdido por aquí.",
-        "Brilla. No brilla. Brilla. No brilla... ¡Ah! ¡Hola! ¿Necesita ayuda?",
-        "¡Hola! ¡Bienvenido al Nexo!"
-    ]
+    const greetings = window.MascotSpeeches ? window.MascotSpeeches.greetings : ["¡Hola! ¡Bienvenido al Nexo!"];
 
     // Saludo inicial
     setTimeout(() => {
-        window.azulitoSay(greetings[Math.floor(Math.random() * greetings.length)]);
+        if (greetings && greetings.length > 0) {
+            window.azulitoSay(greetings[Math.floor(Math.random() * greetings.length)]);
+        }
     }, 1000);
 });

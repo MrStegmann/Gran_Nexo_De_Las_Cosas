@@ -130,9 +130,10 @@ export function initInteraction() {
                             nodeData.data.labelEl.style.textShadow = '0 0 15px rgba(255,255,255,1), 0 0 40px rgba(0,240,255,1)';
                         }
                         
-                        // Mascot dialogue specific to Magic Flow
-                        if (nodeData.group.userData.type === 'magicFlow' && window.azulitoSay) {
-                            window.azulitoSay(nodeData.group.userData.desc);
+                        // Mascot dialogue specific to Magic Flow and Skills Flow
+                        if ((nodeData.group.userData.type === 'magicFlow' || nodeData.group.userData.type === 'skillsFlow') && window.azulitoSay) {
+                            const desc = window.MascotSpeeches?.nodes?.[nodeData.group.userData.id] || nodeData.group.userData.desc;
+                            if (desc) window.azulitoSay(desc);
                         }
                     }
                 }

@@ -45,16 +45,8 @@ export function initNavigation() {
         }
 
         // Interacción de la mascota al navegar
-        if (window.azulitoSay) {
-            const msgs = {
-                'inicio': "¡Brrrrum! ¡De vuelta al Nexo! ¡A ver qué luces brillantes encendemos ahora! ¡Pica, pica!",
-                'mecanicas': "¡Pfff, las reglas! Eso es facilísimo. Solo tiras un dado, le sumas tu... eh... agilidad, o era fuerza, y... mmm... ¡Bah! Yo me lo sé de memoria, ¡pero te dejo leerlo a ti para que aprendas!",
-                'hechizos': "¡Buum! ¡Pium, pium! ¡Me encantan los hechizos de colores! ¡Pero no me chamusques las escamas, porfi!",
-                'habilidades': "¡Fiuuu! Si aprendes las habilidades chulas podrás dar volteretas y hacer el súper-ataque-dragón. ¡O algo parecido!",
-                'fichas': "¡Vaya, aquí están las fichas! ¡Puedes leer todos los tomos de creación de personajes o usar el asistente mágico paso a paso!",
-                'inventario': "¡Caramba! ¡Aquí tienes todas las armas, armaduras y escudos! ¡Asegúrate de llevar buena armadura para evitar el daño masivo!",
-                'runas': "¡Runas! ¡Trazos matemáticos que doblan la realidad! ¿Sabías que si dibujas mal un trazado te puedes quedar sin cejas? ¡Es verdad, yo lo vi!"
-            };
+        if (window.azulitoSay && window.MascotSpeeches && window.MascotSpeeches.navigation) {
+            const msgs = window.MascotSpeeches.navigation;
             if (msgs[sectionKey]) {
                 window.azulitoSay(msgs[sectionKey]);
             }
