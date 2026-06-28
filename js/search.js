@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Lista de archivos JSON a indexar (rutas relativas desde el index.html)
     const jsonSources = [
-        { url: 'sistema_de_rol/spells/Arcane/hechizos_arcanos.json', label: 'Magia Arcana' },
-        { url: 'sistema_de_rol/spells/Elemental/hechizos_elementales.json', label: 'Magia Elemental' },
-        { url: 'sistema_de_rol/spells/Faith/HolyLight/hechizos_luz_sagrada.json', label: 'Luz Sagrada' },
-        { url: 'sistema_de_rol/spells/Shadow/hechizos_sombras.json', label: 'Sombras' },
+        { url: 'js/meta/arcane.json', label: 'Magia Arcana' },
+        { url: 'js/meta/elemental.json', label: 'Magia Elemental' },
+        { url: 'js/meta/holy_light.json', label: 'Luz Sagrada' },
+        { url: 'js/meta/shadow.json', label: 'Sombras' },
         { url: 'js/meta/strength_skills.json', label: 'Habilidad (Fuerza)' },
         { url: 'js/meta/dex_skills.json', label: 'Habilidad (Destreza)' }
         // Se pueden añadir más según sea necesario

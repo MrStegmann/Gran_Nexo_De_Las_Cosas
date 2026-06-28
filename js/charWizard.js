@@ -11,10 +11,10 @@
     // ============================================================
 
     const DATA_PATHS = {
-        races: 'sistema_de_rol/data/races.json',
-        positiveTraits: 'sistema_de_rol/data/positive_traits.json',
-        negativeTraits: 'sistema_de_rol/data/negative_traits.json',
-        attrTalents: 'sistema_de_rol/data/atributes_talents.json',
+        races: 'js/meta/races.json',
+        positiveTraits: 'js/meta/positive_traits.json',
+        negativeTraits: 'js/meta/negative_traits.json',
+        attrTalents: 'js/meta/attributes_talents.json',
     };
 
     // Fuente de verdad para claves internas del Addon
