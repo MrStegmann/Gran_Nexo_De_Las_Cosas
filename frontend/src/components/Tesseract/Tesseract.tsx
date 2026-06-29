@@ -194,18 +194,6 @@ export const Tesseract: React.FC<TesseractProps> = ({
         <div className="absolute inset-3.75 border border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_20%,transparent)] pointer-events-none z-10 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-color,#00f0ff)_5%,transparent)] rounded-md"></div>
         <div className="tesseract-connectors absolute inset-0 pointer-events-none z-10"></div>
 
-        {/* Close Button */}
-        {onClose && (
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-black/40 border hover:bg-black/80 transition-colors text-xl font-bold cursor-pointer"
-            style={{ borderColor: color, color: color }}
-            aria-label="Cerrar"
-          >
-            &times;
-          </button>
-        )}
-
         {/* Content Container */}
         <div className="relative z-20 w-full h-full flex flex-col text-white pt-10 md:pt-4">
           
