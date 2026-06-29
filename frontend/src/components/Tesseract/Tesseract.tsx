@@ -79,13 +79,12 @@ export const Tesseract: React.FC<TesseractProps> = ({
   sections,
   color = '#00f0ff',
   className = '',
-  style,
-  onClose
+  style
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSectionId, setActiveSectionId] = useState<string | null>(sections && sections.length > 0 ? sections[0].id : null);
   const [isMobileIndexOpen, setIsMobileIndexOpen] = useState(false);
-  
+
   // Match navigation state
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
   const [totalMatches, setTotalMatches] = useState(0);
@@ -95,7 +94,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
     if (!sections) return [];
     if (!searchQuery.trim()) return sections;
     const q = searchQuery.toLowerCase();
-    return sections.filter(sec => 
+    return sections.filter(sec =>
       sec.title.toLowerCase().includes(q) || sec.markdown.toLowerCase().includes(q)
     );
   }, [sections, searchQuery]);
@@ -108,7 +107,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
   }, [searchQuery, filteredSections, activeSectionId]);
 
   const activeSection = sections?.find(s => s.id === activeSectionId);
-  
+
   const headings = useMemo(() => {
     if (!activeSection) return [];
     return extractHeadings(activeSection.markdown);
@@ -150,7 +149,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
             (m as HTMLElement).style.border = 'none';
           }
         });
-        
+
         marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
@@ -160,24 +159,24 @@ export const Tesseract: React.FC<TesseractProps> = ({
   const prevMatch = () => setCurrentMatchIndex(prev => (prev - 1 + totalMatches) % totalMatches);
 
   const customComponents = useMemo(() => ({
-    p: ({ children }: any) => <p className="mb-4 leading-relaxed opacity-90 text-sm md:text-base">{renderWithHighlights(children, searchQuery)}</p>,
+    p: ({ children }: any) => <p className="mb-4 leading-relaxed opacity-90 text-[13px] sm:text-sm md:text-base">{renderWithHighlights(children, searchQuery)}</p>,
     h1: ({ children }: any) => {
       const text = String(children).replace(/\n/g, '');
       const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-      return <h1 id={id} className="text-2xl md:text-3xl font-bold mb-6 mt-8 border-b border-opacity-30 pb-2" style={{ borderColor: color }}>{renderWithHighlights(children, searchQuery)}</h1>;
+      return <h1 id={id} className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 mt-8 border-b border-opacity-30 pb-2" style={{ borderColor: color }}>{renderWithHighlights(children, searchQuery)}</h1>;
     },
     h2: ({ children }: any) => {
       const text = String(children).replace(/\n/g, '');
       const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-      return <h2 id={id} className="text-xl md:text-2xl font-semibold mb-4 mt-6 text-opacity-90 text-white">{renderWithHighlights(children, searchQuery)}</h2>;
+      return <h2 id={id} className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 mt-6 text-opacity-90 text-white">{renderWithHighlights(children, searchQuery)}</h2>;
     },
     h3: ({ children }: any) => {
       const text = String(children).replace(/\n/g, '');
       const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-      return <h3 id={id} className="text-lg md:text-xl font-medium mb-3 mt-5 text-opacity-80 text-white">{renderWithHighlights(children, searchQuery)}</h3>;
+      return <h3 id={id} className="text-base sm:text-lg md:text-xl font-medium mb-3 mt-5 text-opacity-80 text-white">{renderWithHighlights(children, searchQuery)}</h3>;
     },
-    ul: ({ children }: any) => <ul className="list-disc pl-6 mb-4 space-y-1 opacity-90">{children}</ul>,
-    ol: ({ children }: any) => <ol className="list-decimal pl-6 mb-4 space-y-1 opacity-90">{children}</ol>,
+    ul: ({ children }: any) => <ul className="list-disc pl-6 mb-4 space-y-1 opacity-90 text-[13px] sm:text-sm md:text-base">{children}</ul>,
+    ol: ({ children }: any) => <ol className="list-decimal pl-6 mb-4 space-y-1 opacity-90 text-[13px] sm:text-sm md:text-base">{children}</ol>,
     li: ({ children }: any) => <li>{renderWithHighlights(children, searchQuery)}</li>,
     strong: ({ children }: any) => <strong className="font-bold text-white" style={{ textShadow: `0 0 5px ${color}40` }}>{renderWithHighlights(children, searchQuery)}</strong>,
     blockquote: ({ children }: any) => <blockquote className="border-l-4 pl-4 italic opacity-80 my-4" style={{ borderColor: color }}>{renderWithHighlights(children, searchQuery)}</blockquote>,
@@ -195,24 +194,24 @@ export const Tesseract: React.FC<TesseractProps> = ({
         <div className="tesseract-connectors absolute inset-0 pointer-events-none z-10"></div>
 
         {/* Content Container */}
-        <div className="relative z-20 w-full h-full flex flex-col text-white pt-10 md:pt-4">
-          
+        <div className="relative z-20 w-full h-full flex flex-col text-white pt-0">
+
           {/* Si no hay secciones, usamos el modo clásico */}
           {!sections ? (
             children
           ) : (
             <div className="flex flex-col md:flex-row h-full overflow-hidden">
-              
+
               {/* Left Sidebar (Desktop) / Top Area (Mobile) */}
-              <aside className="w-full md:w-64 flex-shrink-0 flex flex-col border-b md:border-b-0 md:border-r border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_30%,transparent)] pb-4 md:pb-0 md:pr-4 overflow-hidden relative z-20">
+              <aside className="w-full md:w-64 shrink-0 flex flex-col border-b md:border-b-0 md:border-r border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_30%,transparent)] pb-4 md:pb-0 md:pr-4 overflow-hidden relative z-20">
                 <div className="mb-4">
                   <div className="flex gap-2 mb-2 items-center">
-                    <input 
-                      type="text" 
-                      placeholder="Buscar..." 
+                    <input
+                      type="text"
+                      placeholder="Buscar..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-black/50 border rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all text-sm"
+                      className="w-full bg-black/50 border rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all text-xs md:text-sm"
                       style={{ borderColor: `${color}60`, outlineColor: color }}
                     />
                   </div>
@@ -226,15 +225,15 @@ export const Tesseract: React.FC<TesseractProps> = ({
                     </div>
                   )}
                 </div>
-                
+
                 {/* Mobile Accordion Toggle */}
                 <div className="md:hidden">
-                  <button 
+                  <button
                     onClick={() => setIsMobileIndexOpen(!isMobileIndexOpen)}
-                    className="w-full flex justify-between items-center bg-black/40 border border-transparent rounded px-3 py-2 text-sm uppercase tracking-wider font-semibold"
+                    className="w-full flex justify-between items-center bg-black/40 border border-transparent rounded px-3 py-2 text-xs uppercase tracking-wider font-semibold"
                     style={{ color }}
                   >
-                    <span>Índice</span>
+                    <span>{activeSection ? activeSection.title : 'Índice'}</span>
                     <span>{isMobileIndexOpen ? '▲' : '▼'}</span>
                   </button>
                 </div>
@@ -246,7 +245,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
                       <li key={sec.id}>
                         <button
                           onClick={() => { setActiveSectionId(sec.id); setIsMobileIndexOpen(false); }}
-                          className={`w-full text-left px-3 py-2 rounded transition-colors text-sm ${activeSectionId === sec.id ? 'bg-black/60 font-bold' : 'hover:bg-black/40 opacity-80 hover:opacity-100'}`}
+                          className={`w-full text-left px-3 py-2 rounded transition-colors text-xs md:text-sm ${activeSectionId === sec.id ? 'bg-black/60 font-bold' : 'hover:bg-black/40 opacity-80 hover:opacity-100'}`}
                           style={{ color: activeSectionId === sec.id ? color : 'white', borderLeft: activeSectionId === sec.id ? `3px solid ${color}` : '3px solid transparent' }}
                         >
                           {sec.title}
@@ -254,7 +253,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
                       </li>
                     ))}
                     {filteredSections.length === 0 && (
-                      <li className="text-center text-sm opacity-50 py-4">No se encontraron resultados</li>
+                      <li className="text-center text-xs opacity-50 py-4">No se encontraron resultados</li>
                     )}
                   </ul>
                 </div>
@@ -276,12 +275,12 @@ export const Tesseract: React.FC<TesseractProps> = ({
               </main>
 
               {/* Right Sidebar (ToC) - Desktop Only */}
-              <aside className="hidden lg:flex w-64 flex-shrink-0 flex-col border-l border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_30%,transparent)] pl-4 overflow-y-auto custom-scrollbar">
+              <aside className="hidden lg:flex w-64 shrink-0 flex-col border-l border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_30%,transparent)] pl-4 overflow-y-auto custom-scrollbar">
                 <h3 className="uppercase tracking-widest text-xs font-bold mb-4 opacity-70 mt-2" style={{ color }}>En esta sección</h3>
                 <ul className="space-y-2">
                   {headings.map((h, i) => (
                     <li key={i} style={{ paddingLeft: `${(h.level - 1) * 0.75}rem` }}>
-                      <a 
+                      <a
                         href={`#${h.id}`}
                         className="text-xs opacity-70 hover:opacity-100 transition-opacity block truncate"
                         title={h.text}
