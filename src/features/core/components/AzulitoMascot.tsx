@@ -19,14 +19,21 @@ export const AzulitoMascot: React.FC = () => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
   const [showSpeech, setShowSpeech] = useState(false);
+  const lastSpokenSelectedNodeId = React.useRef<string | null>(null);
 
   useEffect(() => {
     if (hoveredNodeId) {
       setSpeechAndMood(AZULITO_SPEECHES[hoveredNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
     } else if (selectedNodeId) {
-      setSpeechAndMood(AZULITO_SPEECHES[selectedNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
+      if (lastSpokenSelectedNodeId.current !== selectedNodeId) {
+        setSpeechAndMood(AZULITO_SPEECHES[selectedNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
+        lastSpokenSelectedNodeId.current = selectedNodeId;
+      } else {
+        setSpeechAndMood('', 'talk');
+      }
     } else {
       setSpeechAndMood('', 'talk');
+      lastSpokenSelectedNodeId.current = null;
     }
   }, [selectedNodeId, hoveredNodeId, setSpeechAndMood]);
 

@@ -1,5 +1,6 @@
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { MagicFlow } from '../../../components/MagicFlow';
 import { Tesseract } from '../../../components/Tesseract/Tesseract';
@@ -7,6 +8,66 @@ import { BackButton } from '../../core/components/BackButton';
 import { skillsAttributes } from '../data/skillsData';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { SkillList } from './SkillList';
+import { NodeId } from '../../constellation/enums/NodeId';
+import { StarMap } from '../../constellation/components/StarMap';
+import { FutharkRunes } from '../../constellation/components/FutharkRunes';
+import { nodeThemes } from '../../constellation/data/constellationData';
+
+const HabilidadesBackground: React.FC = () => {
+  const coreRef = useRef<THREE.Mesh>(null);
+  const shellRef = useRef<THREE.Mesh>(null);
+  const theme = nodeThemes[NodeId.HABILIDADES];
+
+  useFrame((_, delta) => {
+    if (coreRef.current) {
+      coreRef.current.rotation.y += delta * 0.6;
+      coreRef.current.rotation.x += delta * 0.3;
+    }
+    if (shellRef.current) {
+      shellRef.current.rotation.y -= delta * 0.4;
+      shellRef.current.rotation.z += delta * 0.2;
+    }
+  });
+
+  if (!theme) return null;
+
+  return (
+    <>
+      <StarMap />
+      <FutharkRunes />
+      <group position={[0, 0, 0]} scale={[1.5, 1.5, 1.5]}>
+        <pointLight color={theme.color} intensity={2.0} distance={2000} />
+        <pointLight color={0xffffff} intensity={0.5} distance={2500} />
+        
+        <mesh ref={coreRef} geometry={theme.geom} castShadow receiveShadow>
+          <meshStandardMaterial
+            color={0xffffff}
+            roughness={0.1}
+            metalness={0.8}
+            emissive={theme.emissive}
+            emissiveIntensity={0.5}
+            wireframe
+            transparent
+            opacity={0.4}
+          />
+        </mesh>
+
+        <mesh ref={shellRef} geometry={theme.shellGeom}>
+          <meshStandardMaterial
+            color={theme.color}
+            roughness={0.1}
+            metalness={0.9}
+            wireframe
+            transparent
+            opacity={0.1}
+            emissive={theme.emissive.clone().multiplyScalar(0.2)}
+            emissiveIntensity={0.1}
+          />
+        </mesh>
+      </group>
+    </>
+  );
+};
 
 export const SkillsFeature: React.FC = () => {
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
@@ -39,7 +100,7 @@ export const SkillsFeature: React.FC = () => {
       {/* Main Canvas for MagicFlow */}
       <div className="w-full h-full relative">
         <Canvas
-          camera={{ position: [0, 0, 15], fov: 75 }}
+          camera={{ position: [0, 0, 15], fov: 75, near: 0.1, far: 30000 }}
           gl={{ alpha: true, antialias: true }}
         >
           {/* Post-processing identical to main scene for consistency */}
@@ -55,8 +116,10 @@ export const SkillsFeature: React.FC = () => {
             <MagicFlow
               nodes={currentNodes}
               onClick={handleNodeClick}
+              onHover={(nodeId) => useConstellationStore.getState().setHoveredNode(nodeId as NodeId | null)}
             />
           )}
+          {selectedAttribute && <HabilidadesBackground />}
         </Canvas>
       </div>
 

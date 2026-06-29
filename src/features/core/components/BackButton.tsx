@@ -129,16 +129,16 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick, colorHex }) => 
   };
 
   return (
-    <div className="absolute bottom-18 left-4 sm:left-8 md:bottom-0 md:top-0 md:left-0 md:w-24 z-30 pointer-events-none">
+    <div className="absolute bottom-18 left-4 sm:left-8 md:bottom-14 md:left-8 z-30 pointer-events-none">
       <button
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group pointer-events-auto relative w-16 h-16 md:w-full md:h-full cursor-pointer outline-none border-none hover:border-none focus:outline-none focus:border-none ring-0 focus:ring-0"
+        className="group pointer-events-auto relative w-16 h-16 cursor-pointer outline-none border-none hover:border-none focus:outline-none focus:border-none ring-0 focus:ring-0"
         style={{ background: 'transparent', backgroundColor: 'transparent', boxShadow: 'none', border: 'none', outline: 'none' }}
         aria-label="Volver al menú principal"
       >
-        <div className="absolute inset-0 md:inset-auto md:bottom-14 md:right-0 md:w-16 md:h-16 transition-transform duration-200 group-hover:scale-110 group-active:scale-95">
+        <div className="absolute inset-0 transition-transform duration-200 group-hover:scale-110 group-active:scale-95">
           {/* 3D Canvas */}
           <div className={`absolute inset-0 w-full h-full pointer-events-none overflow-visible transition-all duration-300 ${isHovered ? 'drop-shadow-[0_0_8px_currentColor]' : ''}`} style={{ color: colorHex }}>
             <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>

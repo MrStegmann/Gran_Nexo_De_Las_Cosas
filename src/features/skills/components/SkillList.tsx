@@ -7,10 +7,10 @@ export const SkillList: React.FC<{ skills: any[], color: string }> = ({ skills, 
   const filters = ['Todos', 'Activa', 'Pasiva'];
 
   const filteredSkills = skills?.filter(s => {
-    const matchesFilter = filter === 'Todos' || s['Tipo de habilidad'] === filter;
+    const matchesFilter = filter === 'Todos' || s['Tipo de habilidad'] === filter || s.Tipo === filter;
     const matchesSearch = searchQuery === '' || 
-      s.Nombre.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      s.Descripción.toLowerCase().includes(searchQuery.toLowerCase());
+      s.Nombre?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      s.Descripción?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   }) || [];
 
@@ -48,9 +48,12 @@ export const SkillList: React.FC<{ skills: any[], color: string }> = ({ skills, 
             <h3 className="text-lg font-bold mb-2" style={{ color }}>{s.Nombre}</h3>
             <p className="text-sm opacity-90 mb-3 flex-1">{s.Descripción}</p>
             <div className="text-xs opacity-70 grid grid-cols-2 gap-2 mt-auto pt-2 border-t" style={{ borderColor: `${color}20` }}>
-              <div><strong>Tipo:</strong> {s['Tipo de habilidad']}</div>
-              <div><strong>Efecto:</strong> {s.Efecto}</div>
+              <div><strong>Tipo:</strong> {s['Tipo de habilidad'] || s.Tipo}</div>
+              {s.Efecto && <div><strong>Efecto:</strong> {s.Efecto}</div>}
               {s.Coste && <div><strong>Coste:</strong> {s.Coste}</div>}
+              {s['Coste de Acciones'] !== undefined && <div><strong>Coste Acciones:</strong> {s['Coste de Acciones']}</div>}
+              {s['Coste de Ranuras'] !== undefined && <div><strong>Ranuras:</strong> {s['Coste de Ranuras']}</div>}
+              {s['Turnos de Enfriamiento (Cooldown)'] !== undefined && <div><strong>Cooldown:</strong> {s['Turnos de Enfriamiento (Cooldown)']}</div>}
             </div>
           </div>
         ))}
