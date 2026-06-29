@@ -70,6 +70,7 @@ const FOOTER_THEMES: Record<string, { border: string, shadow: string, scanline: 
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
+  const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
   const activeTheme = selectedNodeId && FOOTER_THEMES[selectedNodeId] ? FOOTER_THEMES[selectedNodeId] : FOOTER_THEMES.DEFAULT;
 
@@ -89,12 +90,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <AzulitoMascot />
 
       {/* Global Back Button */}
-      {selectedNodeId && (
+      {selectedNodeId && !selectedAttribute && (
         <BackButton
           onClick={() => {
-            const setReturningNode = useConstellationStore.getState().setReturningNode;
-            setReturningNode(selectedNodeId);
-            setSelectedNode(null);
+            const state = useConstellationStore.getState();
+            state.setReturningNode(selectedNodeId);
+            state.setSelectedNode(null);
           }}
           colorHex={activeTheme.colorHex}
         />

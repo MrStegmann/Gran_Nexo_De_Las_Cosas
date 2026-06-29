@@ -21,7 +21,8 @@ export const InsideNode: React.FC<InsideNodeProps> = ({ nodeId, position }) => {
     }
   });
 
-  if (!theme) return null;
+  // Do not render the wireframe geometric shape for MagicFlow
+  if (!theme || nodeId === NodeId.HECHIZOS) return null;
 
   return (
     <group position={position}>

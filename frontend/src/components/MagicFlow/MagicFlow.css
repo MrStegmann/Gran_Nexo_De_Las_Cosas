@@ -1,0 +1,11 @@
+.magic-flow-label {
+  pointer-events: none;
+  user-select: none;
+}
+
+.magic-flow-desc {
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

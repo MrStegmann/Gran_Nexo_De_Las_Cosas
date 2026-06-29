@@ -22,7 +22,7 @@ for (let i = 0; i < 16; i++) {
   }
 }
 
-const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean; isClosing: boolean }> = ({ colorHex, isHovered, isClosing }) => {
+const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean }> = ({ colorHex, isHovered }) => {
   const lineRef = useRef<THREE.LineSegments>(null);
   const groupRef = useRef<THREE.Group>(null);
   const currentSpeed = useRef(0.8);
@@ -34,11 +34,8 @@ const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean; isClosing:
     let targetSpeed = 0.8;
     let targetOpacity = 0.6;
 
-    if (isClosing) {
-      targetSpeed = 0.8 * 1.70; // 70% faster when clicked
-      targetOpacity = 1.0;
-    } else if (isHovered) {
-      targetSpeed = 0.8 * 1.10; // 10% faster when hovered (extra 5%)
+    if (isHovered) {
+      targetSpeed = 0.8 * 1.10; // 10% faster when hovered
       targetOpacity = 0.9;
     }
 
@@ -126,14 +123,9 @@ export interface BackButtonProps {
 
 export const BackButton: React.FC<BackButtonProps> = ({ onClick, colorHex }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   const handleClick = () => {
-    if (isClosing) return;
-    setIsClosing(true);
-    setTimeout(() => {
-      onClick();
-    }, 400); // Wait for the 70% rotation effect
+    onClick();
   };
 
   return (
@@ -151,7 +143,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick, colorHex }) => 
           <div className={`absolute inset-0 w-full h-full pointer-events-none overflow-visible transition-all duration-300 ${isHovered ? 'drop-shadow-[0_0_8px_currentColor]' : ''}`} style={{ color: colorHex }}>
             <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
               <ambientLight intensity={1} />
-              <TesseractMesh colorHex={colorHex} isHovered={isHovered} isClosing={isClosing} />
+              <TesseractMesh colorHex={colorHex} isHovered={isHovered} />
             </Canvas>
           </div>
 
