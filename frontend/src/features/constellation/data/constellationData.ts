@@ -5,7 +5,7 @@ export const constellationData = [
     { id: NodeId.MECANICAS, label: 'Mecánicas', pos: new THREE.Vector3(-50, 120, -320), mobilePos: new THREE.Vector3(-45, 180, -320) },
     { id: NodeId.HECHIZOS, label: 'Hechizos', pos: new THREE.Vector3(140, 60, -120), mobilePos: new THREE.Vector3(45, 108, -120) },
     { id: NodeId.RUNAS, label: 'Runas', pos: new THREE.Vector3(190, 80, -160), mobilePos: new THREE.Vector3(100, 200, -220) },
-    { id: NodeId.HABILIDADES, label: 'Habilidades', pos: new THREE.Vector3(90, -110, -250), mobilePos: new THREE.Vector3(45, -36, -250) },
+    { id: NodeId.HABILIDADES, label: 'Habilidades', pos: new THREE.Vector3(-90, -110, -250), mobilePos: new THREE.Vector3(-110, -36, -250) },
     { id: NodeId.FICHAS, label: 'Fichas', pos: new THREE.Vector3(-120, -80, -80), mobilePos: new THREE.Vector3(-45, -108, -80) },
     { id: NodeId.INVENTARIO, label: 'Inventario', pos: new THREE.Vector3(-130, 10, -280), mobilePos: new THREE.Vector3(45, -180, -280) }
 ];

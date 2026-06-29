@@ -1,0 +1,40 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes tesseractPulse {
+    0% {
+        box-shadow: 0 0 20px color-mix(in srgb, var(--theme-color, #00f0ff) 10%, transparent), inset 0 0 30px color-mix(in srgb, var(--theme-color, #00f0ff) 10%, transparent);
+    }
+    50% {
+        box-shadow: 0 0 40px color-mix(in srgb, var(--theme-color, #00f0ff) 30%, transparent), inset 0 0 60px color-mix(in srgb, var(--theme-color, #00f0ff) 20%, transparent);
+    }
+    100% {
+        box-shadow: 0 0 20px color-mix(in srgb, var(--theme-color, #00f0ff) 10%, transparent), inset 0 0 30px color-mix(in srgb, var(--theme-color, #00f0ff) 10%, transparent);
+    }
+}
+
+.tesseract-layout-bg {
+    /* Tesseract Void Background */
+    background:
+        linear-gradient(color-mix(in srgb, var(--theme-color, #00f0ff) 5%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--theme-color, #00f0ff) 5%, transparent) 1px, transparent 1px),
+        rgba(5, 5, 10, 0.85);
+    background-size: 30px 30px;
+    background-position: center;
+    animation: tesseractPulse 6s ease-in-out infinite;
+}
+
+.tesseract-connectors {
+    /* Tesseract W-Axis Connectors */
+    background:
+        linear-gradient(to bottom right, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 0 0 / 15px 15px no-repeat,
+        linear-gradient(to bottom left, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 100% 0 / 15px 15px no-repeat,
+        linear-gradient(to top right, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 0 100% / 15px 15px no-repeat,
+        linear-gradient(to top left, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 100% 100% / 15px 15px no-repeat;
+}

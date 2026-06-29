@@ -13,3 +13,4 @@ Crear una página web interactiva e inmersiva que permita consultar información
 - UX intuitiva y fácil de visualizar para todos los usuarios.
 - UI basada en ThreeJS, con movimiento interactivo.
 - Responsivo: Foco Mobile-first. Usa las media query de Tailwindcss para asignar los tamaños dinámicos. Tamaños de botones grandes para moviles con espacios mínimos (muy poco espacio).
+- Todos los nombres de componentes, variables, funciones, etc; deben estas escritas en ingles y seguir las convenciones estandar de case use.

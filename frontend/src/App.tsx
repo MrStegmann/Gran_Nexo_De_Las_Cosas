@@ -1,5 +1,7 @@
 import { Layout } from './features/core/components/Layout';
 import { useConstellationStore } from './features/constellation/store/useConstellationStore';
+import { NodeId } from './features/constellation/enums/NodeId';
+import { MechanicsFeature } from './features/mechanics/components/MechanicsFeature';
 import './App.css';
 
 function App() {
@@ -8,8 +10,10 @@ function App() {
 
   return (
     <Layout>
-      <div className="flex flex-col items-center justify-center min-h-[80vh] w-full text-center p-8">
-
+      <div className="flex flex-col items-center justify-start md:justify-center min-h-screen w-full text-center p-0 md:p-8">
+        {selectedNodeId === NodeId.MECANICAS && (
+          <MechanicsFeature />
+        )}
       </div>
     </Layout>
   );
