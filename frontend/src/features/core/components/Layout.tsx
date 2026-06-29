@@ -91,7 +91,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Global Back Button */}
       {selectedNodeId && (
         <TesseractButton 
-          onClick={() => setSelectedNode(null)} 
+          onClick={() => {
+            const setReturningNode = useConstellationStore.getState().setReturningNode;
+            setReturningNode(selectedNodeId);
+            setSelectedNode(null);
+          }} 
           colorHex={activeTheme.colorHex} 
         />
       )}

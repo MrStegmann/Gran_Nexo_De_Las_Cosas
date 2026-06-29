@@ -14,6 +14,7 @@ export interface LeyNodeProps {
 export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
   const setHoveredNode = useConstellationStore((state) => state.setHoveredNode);
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
+  const setTransitioningNode = useConstellationStore((state) => state.setTransitioningNode);
   const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
 
@@ -121,8 +122,8 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
         onPointerOut={(e) => { e.stopPropagation(); setHoveredNode(null); document.body.style.cursor = 'default'; }}
         onClick={(e) => {
           e.stopPropagation();
-          setSelectedNode(id);
-          console.log(`Nodo seleccionado: ${label} (${id})`);
+          setTransitioningNode(id);
+          console.log(`Nodo seleccionado para transición: ${label} (${id})`);
           
           // Trigger shockwave
           isShockwaveActive.current = true;
