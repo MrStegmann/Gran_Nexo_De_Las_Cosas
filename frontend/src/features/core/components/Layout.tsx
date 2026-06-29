@@ -3,7 +3,7 @@ import { ConstellationScene } from '../../constellation/components/Scene';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { NodeId } from '../../constellation/enums/NodeId';
 import { AzulitoMascot } from './AzulitoMascot';
-import { TesseractButton } from './TesseractButton';
+import { BackButton } from './BackButton';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -90,7 +90,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Global Back Button */}
       {selectedNodeId && (
-        <TesseractButton
+        <BackButton
           onClick={() => {
             const setReturningNode = useConstellationStore.getState().setReturningNode;
             setReturningNode(selectedNodeId);

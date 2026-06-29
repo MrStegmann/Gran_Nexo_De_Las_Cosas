@@ -28,7 +28,13 @@ export const Constellation: React.FC = () => {
   }, [isMobile]);
 
   if (selectedNodeId) {
-    return <InsideNode nodeId={selectedNodeId} />;
+    const selectedNode = nodes.find(n => n.id === selectedNodeId);
+    return (
+      <group>
+        <StarMap />
+        <InsideNode nodeId={selectedNodeId} position={selectedNode?.pos} />
+      </group>
+    );
   }
 
   return (

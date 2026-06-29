@@ -70,9 +70,9 @@ export const MechanicsFeature: React.FC = () => {
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
 
   return (
-    <div className="w-[98%] mt-[1%] md:w-full md:mt-0 max-w-5xl h-[75vh] md:h-[80vh] pointer-events-auto relative">
-      <Tesseract 
-        color="#ffb700" 
+    <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
+      <Tesseract
+        color="#ffb700"
         sections={sampleSections}
         onClose={() => setSelectedNode(null)}
       />

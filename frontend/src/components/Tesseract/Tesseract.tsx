@@ -186,12 +186,12 @@ export const Tesseract: React.FC<TesseractProps> = ({
   return (
     <div className={`w-full h-full flex justify-center items-center p-4 box-border animate-[fadeIn_0.5s_ease-out_forwards] ${className}`} style={style}>
       <div
-        className="tesseract-layout-bg flex flex-col w-full h-full backdrop-blur-xl border border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_40%,transparent)] overflow-hidden relative z-0 p-3.75 box-border rounded-lg shadow-2xl"
+        className="tesseract-layout-bg flex flex-col w-full h-full bg-black/70 backdrop-blur-2xl transform-gpu border border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_40%,transparent)] overflow-hidden relative z-0 p-3.75 box-border rounded-lg shadow-2xl"
         style={{ '--theme-color': color } as React.CSSProperties}
       >
         {/* Inner Cube / Lines */}
-        <div className="absolute inset-3.75 border border-[color-mix(in_srgb,var(--theme-color,#00f0ff)_20%,transparent)] pointer-events-none z-10 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--theme-color,#00f0ff)_5%,transparent)] rounded-md"></div>
-        <div className="tesseract-connectors absolute inset-0 pointer-events-none z-10"></div>
+        <div className="tesseract-inner-cube"></div>
+        <div className="tesseract-connectors"></div>
 
         {/* Content Container */}
         <div className="relative z-20 w-full h-full flex flex-col text-white pt-0">

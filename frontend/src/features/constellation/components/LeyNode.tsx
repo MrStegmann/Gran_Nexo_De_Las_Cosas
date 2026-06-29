@@ -13,7 +13,6 @@ export interface LeyNodeProps {
 
 export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
   const setHoveredNode = useConstellationStore((state) => state.setHoveredNode);
-  const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
   const setTransitioningNode = useConstellationStore((state) => state.setTransitioningNode);
   const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
@@ -27,7 +26,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
   const coreRef = useRef<THREE.Mesh>(null);
   const shellRef = useRef<THREE.Mesh>(null);
-  
+
   // Refs for the shockwave effect
   const shockwaveRef = useRef<THREE.Mesh>(null);
   const shockwaveMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
@@ -70,7 +69,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
     if (isShockwaveActive.current && shockwaveRef.current && shockwaveMaterialRef.current) {
       shockwaveTime.current += delta;
       const progress = shockwaveTime.current / 3.0; // 3 seconds duration
-      
+
       if (progress >= 1.0) {
         isShockwaveActive.current = false;
         shockwaveRef.current.visible = false;
@@ -79,7 +78,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const scale = 1 + easeOut * 30; // Expands to 30x its initial size
         shockwaveRef.current.scale.set(scale, scale, scale);
-        
+
         // Fades out opacity
         shockwaveMaterialRef.current.opacity = 0.5 * (1 - progress);
       }
@@ -124,7 +123,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
           e.stopPropagation();
           setTransitioningNode(id);
           console.log(`Nodo seleccionado para transición: ${label} (${id})`);
-          
+
           // Trigger shockwave
           isShockwaveActive.current = true;
           shockwaveTime.current = 0;

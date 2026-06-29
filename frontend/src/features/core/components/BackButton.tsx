@@ -119,12 +119,12 @@ const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean; isClosing:
   );
 };
 
-export interface TesseractButtonProps {
+export interface BackButtonProps {
   onClick: () => void;
   colorHex: string;
 }
 
-export const TesseractButton: React.FC<TesseractButtonProps> = ({ onClick, colorHex }) => {
+export const BackButton: React.FC<BackButtonProps> = ({ onClick, colorHex }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -137,28 +137,30 @@ export const TesseractButton: React.FC<TesseractButtonProps> = ({ onClick, color
   };
 
   return (
-    <div className="absolute bottom-18 md:bottom-8 left-4 sm:left-8 z-30 flex flex-col items-center pointer-events-auto">
+    <div className="absolute bottom-18 left-4 sm:left-8 md:bottom-0 md:top-0 md:left-0 md:w-24 z-30 pointer-events-none">
       <button
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative w-16 h-16 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 outline-none border-none hover:border-none focus:outline-none focus:border-none ring-0 focus:ring-0"
+        className="group pointer-events-auto relative w-16 h-16 md:w-full md:h-full cursor-pointer outline-none border-none hover:border-none focus:outline-none focus:border-none ring-0 focus:ring-0"
         style={{ background: 'transparent', backgroundColor: 'transparent', boxShadow: 'none', border: 'none', outline: 'none' }}
         aria-label="Volver al menú principal"
       >
-        {/* 3D Canvas */}
-        <div className={`absolute inset-0 w-full h-full pointer-events-none overflow-visible transition-all duration-300 ${isHovered ? 'drop-shadow-[0_0_8px_currentColor]' : ''}`} style={{ color: colorHex }}>
-          <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
-            <ambientLight intensity={1} />
-            <TesseractMesh colorHex={colorHex} isHovered={isHovered} isClosing={isClosing} />
-          </Canvas>
-        </div>
+        <div className="absolute inset-0 md:inset-auto md:bottom-14 md:right-0 md:w-16 md:h-16 transition-transform duration-200 group-hover:scale-110 group-active:scale-95">
+          {/* 3D Canvas */}
+          <div className={`absolute inset-0 w-full h-full pointer-events-none overflow-visible transition-all duration-300 ${isHovered ? 'drop-shadow-[0_0_8px_currentColor]' : ''}`} style={{ color: colorHex }}>
+            <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
+              <ambientLight intensity={1} />
+              <TesseractMesh colorHex={colorHex} isHovered={isHovered} isClosing={isClosing} />
+            </Canvas>
+          </div>
 
-        {/* Center Icon Overlay */}
-        <div className={`relative z-10 flex items-center justify-center w-full h-full transition-transform pointer-events-none ${isHovered ? '-translate-x-1' : ''}`}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 drop-shadow-[0_0_8px_currentColor]" style={{ color: colorHex }}>
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
+          {/* Center Icon Overlay */}
+          <div className={`absolute inset-0 z-10 flex items-center justify-center transition-transform pointer-events-none ${isHovered ? '-translate-x-1' : ''}`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 drop-shadow-[0_0_8px_currentColor]" style={{ color: colorHex }}>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </div>
         </div>
       </button>
     </div>

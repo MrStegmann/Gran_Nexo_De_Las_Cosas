@@ -6,9 +6,10 @@ import { NodeId } from '../enums/NodeId';
 
 interface InsideNodeProps {
   nodeId: NodeId;
+  position?: THREE.Vector3;
 }
 
-export const InsideNode: React.FC<InsideNodeProps> = ({ nodeId }) => {
+export const InsideNode: React.FC<InsideNodeProps> = ({ nodeId, position }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const theme = nodeThemes[nodeId];
 
@@ -23,13 +24,13 @@ export const InsideNode: React.FC<InsideNodeProps> = ({ nodeId }) => {
   if (!theme) return null;
 
   return (
-    <group>
-      <mesh ref={meshRef} geometry={theme.geom} scale={[30, 30, 30]}>
+    <group position={position}>
+      <mesh ref={meshRef} geometry={theme.geom} scale={[0.6, 0.6, 0.6]}>
         <meshBasicMaterial 
           color={theme.color} 
           wireframe={true} 
           transparent={true} 
-          opacity={0.15} 
+          opacity={0.3} 
           side={THREE.DoubleSide} 
         />
       </mesh>
