@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useConstellationStore } from '../../features/constellation/store/useConstellationStore';
+import { FloatingLabel } from '../FloatingLabel';
 import './MagicFlow.css';
 
 export interface MagicFlowNodeData {
@@ -199,10 +200,8 @@ const MagicNode: React.FC<{
 
       <pointLight ref={lightRef} color={baseColor} distance={10} intensity={0} decay={2} />
 
-      <Html position={[0, -0.8, 0]} center className="pointer-events-none transition-opacity duration-300 z-10" style={{ opacity: isHovered ? 1 : 0.6 }}>
-        <div className="magic-flow-label bg-black/60 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded-full whitespace-nowrap font-medium text-sm tracking-widest uppercase shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-          {node.label}
-        </div>
+      <Html position={[0, -1.2, 0]} center zIndexRange={[9999999, 9990000]} style={{ pointerEvents: 'none' }}>
+        <FloatingLabel text={node.label} delay={Math.random() * 500} speed={40} />
         {isHovered && node.description && (
           <div className="magic-flow-desc mt-2 bg-black/80 backdrop-blur-xl border border-[color:var(--node-color)] text-white/90 p-3 rounded-lg text-xs max-w-[200px] text-center shadow-xl transition-all duration-300" style={{ '--node-color': node.color } as React.CSSProperties}>
             {node.description}

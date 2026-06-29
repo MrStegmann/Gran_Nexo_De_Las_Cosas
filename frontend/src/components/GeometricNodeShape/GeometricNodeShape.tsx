@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html, Sparkles } from '@react-three/drei';
+import { FloatingLabel } from '../FloatingLabel';
 
 export interface GeometricNodeData {
   id: string;
@@ -233,15 +234,8 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
         <meshBasicMaterial />
       </mesh>
       
-      <Html position={[0, -radius - 0.5, 0]} center className="pointer-events-none transition-opacity duration-300 z-10" style={{ opacity: htmlOpacity }}>
-        <div className="flex flex-col items-center">
-          <div 
-            className="text-white text-sm font-bold tracking-widest uppercase drop-shadow-md whitespace-nowrap" 
-            style={{ textShadow: `0 0 10px ${node.color || '#fff'}` }}
-          >
-            {node.label}
-          </div>
-        </div>
+      <Html position={[0, -radius - 0.5, 0]} center zIndexRange={[9999999, 9990000]} style={{ opacity: htmlOpacity, pointerEvents: 'none' }}>
+        <FloatingLabel text={node.label} delay={Math.random() * 500} speed={40} />
       </Html>
     </group>
   );

@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useConstellationStore } from '../store/useConstellationStore';
 import { nodeThemes } from '../data/constellationData';
 import { NodeId } from '../enums/NodeId';
+import { FloatingLabel } from '../../../components/FloatingLabel';
 
 export interface LeyNodeProps {
   id: NodeId;
@@ -87,6 +89,9 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
   return (
     <group position={pos}>
+      <Html position={[0, 12, 0]} center zIndexRange={[9999999, 9990000]} style={{ pointerEvents: 'none' }}>
+        <FloatingLabel text={label} delay={Math.random() * 500} />
+      </Html>
       <pointLight color={theme.color} intensity={9.0} distance={2000} />
       <pointLight color={0xffffff} intensity={3.75} distance={2500} />
 
