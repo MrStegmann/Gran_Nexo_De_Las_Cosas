@@ -17,15 +17,18 @@ const MOOD_IMAGES = {
 export const AzulitoMascot: React.FC = () => {
   const { speech, mood, isVisible, setSpeechAndMood } = useAzulitoStore();
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
+  const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
   const [showSpeech, setShowSpeech] = useState(false);
 
   useEffect(() => {
-    if (selectedNodeId) {
+    if (hoveredNodeId) {
+      setSpeechAndMood(AZULITO_SPEECHES[hoveredNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
+    } else if (selectedNodeId) {
       setSpeechAndMood(AZULITO_SPEECHES[selectedNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
     } else {
-      setSpeechAndMood(AZULITO_SPEECHES.DEFAULT, 'talk');
+      setSpeechAndMood('', 'talk');
     }
-  }, [selectedNodeId, setSpeechAndMood]);
+  }, [selectedNodeId, hoveredNodeId, setSpeechAndMood]);
 
   useEffect(() => {
     if (!speech) {
@@ -46,7 +49,7 @@ export const AzulitoMascot: React.FC = () => {
 
   if (!isVisible) return null;
 
-  const imageSrc = MOOD_IMAGES[mood] || azulitoDefault;
+  const imageSrc = showSpeech ? (MOOD_IMAGES[mood] || azulitoDefault) : azulitoDefault;
 
   return (
     <div className="absolute bottom-10 md:bottom-5 right-4 sm:right-8 z-30 flex items-end justify-end pointer-events-none">

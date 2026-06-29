@@ -6,6 +6,7 @@ import { OrbitControls } from '@react-three/drei';
 import { Constellation } from './Constellation';
 import { useConstellationStore } from '../store/useConstellationStore';
 import { constellationData } from '../data/constellationData';
+import { FutharkRunes } from './FutharkRunes';
 
 const CameraAdjuster: React.FC = () => {
   const { camera } = useThree();
@@ -175,6 +176,7 @@ export const ConstellationScene: React.FC = () => {
       <DynamicControls />
       <CameraAnimator />
       <Constellation />
+      <FutharkRunes />
     </Canvas>
   );
 };

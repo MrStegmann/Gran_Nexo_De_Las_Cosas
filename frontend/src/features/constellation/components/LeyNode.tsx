@@ -35,6 +35,9 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
   const shockwaveTime = useRef<number>(0);
   const isShockwaveActive = useRef<boolean>(false);
 
+  const longPressTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPress = useRef<boolean>(false);
+
   const isHovered = hoveredNodeId === id;
   const isSelected = selectedNodeId === id;
 
@@ -122,10 +125,47 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
       {/* Hitbox */}
       <mesh
-        onPointerOver={(e) => { e.stopPropagation(); setHoveredNode(id); document.body.style.cursor = 'pointer'; }}
-        onPointerOut={(e) => { e.stopPropagation(); setHoveredNode(null); document.body.style.cursor = 'default'; }}
+        onPointerOver={(e) => { 
+          e.stopPropagation(); 
+          if (e.pointerType === 'mouse') {
+            setHoveredNode(id); 
+          }
+          document.body.style.cursor = 'pointer'; 
+        }}
+        onPointerOut={(e) => { 
+          e.stopPropagation(); 
+          setHoveredNode(null); 
+          document.body.style.cursor = 'default'; 
+          if (longPressTimeout.current) {
+            clearTimeout(longPressTimeout.current);
+            longPressTimeout.current = null;
+          }
+        }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          isLongPress.current = false;
+          if (e.pointerType !== 'mouse') {
+            longPressTimeout.current = setTimeout(() => {
+              isLongPress.current = true;
+              setHoveredNode(id);
+            }, 400); // 400ms for long press
+          }
+        }}
+        onPointerUp={(e) => {
+          e.stopPropagation();
+          if (longPressTimeout.current) {
+            clearTimeout(longPressTimeout.current);
+            longPressTimeout.current = null;
+          }
+          if (isLongPress.current && e.pointerType !== 'mouse') {
+            setHoveredNode(null);
+          }
+        }}
         onClick={(e) => {
           e.stopPropagation();
+          if (isLongPress.current) {
+            return;
+          }
           setTransitioningNode(id);
           console.log(`Nodo seleccionado para transición: ${label} (${id})`);
 
