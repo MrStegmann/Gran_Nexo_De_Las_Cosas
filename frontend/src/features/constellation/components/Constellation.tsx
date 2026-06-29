@@ -31,23 +31,23 @@ const Nexo: React.FC = () => {
 
       {/* Core */}
       <mesh castShadow receiveShadow>
-        <sphereGeometry args={[6.5, 64, 64]} />
+        <sphereGeometry args={[10.725, 64, 64]} />
         <meshBasicMaterial color={new THREE.Color(0.1, 0.4, 1.0).multiplyScalar(15)} />
       </mesh>
 
       {/* Shell */}
       <mesh ref={shellRef}>
-        <icosahedronGeometry args={[9.5, 1]} />
+        <icosahedronGeometry args={[15.675, 1]} />
         <meshBasicMaterial color={0x00aaff} wireframe transparent opacity={0.3} blending={THREE.AdditiveBlending} />
       </mesh>
 
       {/* Rings */}
       <mesh ref={ring1Ref} rotation={[Math.PI / 2, 0.2, 0]}>
-        <torusGeometry args={[12.5, 0.2, 8, 80]} />
+        <torusGeometry args={[20.625, 0.33, 8, 80]} />
         <meshBasicMaterial color={0x00f0ff} transparent opacity={0.45} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} />
       </mesh>
       <mesh ref={ring2Ref} rotation={[Math.PI / 2, -0.2, 0]}>
-        <torusGeometry args={[15.5, 0.15, 8, 80]} />
+        <torusGeometry args={[25.575, 0.2475, 8, 80]} />
         <meshBasicMaterial color={0x0055ff} transparent opacity={0.35} blending={THREE.AdditiveBlending} side={THREE.DoubleSide} />
       </mesh>
     </group>
@@ -68,9 +68,9 @@ const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
   const theme = nodeThemes[id] || {
     color: 0xffffff,
-    emissive: new THREE.Color(0xaaddff).multiplyScalar(15),
-    geom: new THREE.SphereGeometry(2.3, 32, 32),
-    shellGeom: new THREE.SphereGeometry(3.3, 16, 16)
+    emissive: new THREE.Color(0xaaddff).multiplyScalar(11.25),
+    geom: new THREE.SphereGeometry(3.795, 32, 32),
+    shellGeom: new THREE.SphereGeometry(5.445, 16, 16)
   };
 
   const coreRef = useRef<THREE.Mesh>(null);
@@ -136,8 +136,8 @@ const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
   return (
     <group position={pos}>
-      <pointLight color={theme.color} intensity={12.0} distance={2000} />
-      <pointLight color={0xffffff} intensity={5.0} distance={2500} />
+      <pointLight color={theme.color} intensity={9.0} distance={2000} />
+      <pointLight color={0xffffff} intensity={3.75} distance={2500} />
 
       {/* Core */}
       <mesh ref={coreRef} geometry={theme.geom} castShadow receiveShadow>
@@ -202,9 +202,80 @@ const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
   );
 };
 
+const AnimatedTether: React.FC<{ startPos: THREE.Vector3; endPos: THREE.Vector3; color: number }> = ({ startPos, endPos, color }) => {
+  const segments = 20;
+  const numStrands = 3;
+
+  const strands = useMemo(() => {
+    return Array.from({ length: numStrands }).map(() => ({
+      phaseOffset: Math.random() * Math.PI * 2,
+      speed: 2 + Math.random() * 2,
+    }));
+  }, []);
+
+  const lineRefs = useRef<(THREE.BufferGeometry | null)[]>([]);
+
+  useFrame((state) => {
+    const elapsedTime = state.clock.elapsedTime;
+    
+    strands.forEach((strand, index) => {
+      const geo = lineRefs.current[index];
+      if (!geo) return;
+      
+      const positions = geo.attributes.position.array as Float32Array;
+
+      for (let i = 0; i <= segments; i++) {
+        const p = i / segments;
+
+        const x = startPos.x + (endPos.x - startPos.x) * p;
+        const y = startPos.y + (endPos.y - startPos.y) * p;
+        const z = startPos.z + (endPos.z - startPos.z) * p;
+
+        let noiseX = 0;
+        let noiseY = 0;
+        let noiseZ = 0;
+
+        if (i > 0 && i < segments) {
+          const time = elapsedTime * strand.speed + strand.phaseOffset;
+          const intensity = Math.sin(p * Math.PI);
+          noiseX = Math.sin(p * Math.PI * 6 - time) * 3.0 * intensity;
+          noiseY = Math.cos(p * Math.PI * 4 + time) * 3.0 * intensity;
+          noiseZ = Math.sin(p * Math.PI * 5 + time) * 3.0 * intensity;
+        }
+
+        positions[i * 3] = x + noiseX;
+        positions[i * 3 + 1] = y + noiseY;
+        positions[i * 3 + 2] = z + noiseZ;
+      }
+
+      geo.attributes.position.needsUpdate = true;
+    });
+  });
+
+  return (
+    <group>
+      {/* Central thin straight tether */}
+      <line>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" count={2} array={new Float32Array([startPos.x, startPos.y, startPos.z, endPos.x, endPos.y, endPos.z])} itemSize={3} />
+        </bufferGeometry>
+        <lineBasicMaterial color={color} transparent opacity={0.1} blending={THREE.AdditiveBlending} />
+      </line>
+
+      {/* Floating animated magic filaments */}
+      {strands.map((_, idx) => (
+        <line key={idx}>
+          <bufferGeometry ref={(el) => (lineRefs.current[idx] = el)}>
+            <bufferAttribute attach="attributes-position" count={segments + 1} array={new Float32Array((segments + 1) * 3)} itemSize={3} />
+          </bufferGeometry>
+          <lineBasicMaterial color={new THREE.Color(color).multiplyScalar(12)} transparent opacity={0.4} blending={THREE.AdditiveBlending} />
+        </line>
+      ))}
+    </group>
+  );
+};
+
 const TetherLines: React.FC<{ nodes: Array<{ id: NodeId; label: string; pos: THREE.Vector3 }> }> = ({ nodes }) => {
-  // A simplified tether component for now, just drawing the straight lines to the center.
-  // Flowing energy strands can be added back efficiently using line segments in a useFrame.
   const lines = useMemo(() => {
     return nodes.map(data => {
       const theme = nodeThemes[data.id] || { color: 0xffffff };
@@ -214,22 +285,105 @@ const TetherLines: React.FC<{ nodes: Array<{ id: NodeId; label: string; pos: THR
         if (hechizosData) startPos = hechizosData.pos.clone();
       }
       const endPos = data.pos.clone();
-      return { startPos, endPos, color: theme.color };
+      return { startPos, endPos, color: theme.color, id: data.id };
     });
   }, [nodes]);
 
   return (
     <group>
-      {lines.map((line, idx) => {
-        const points = [line.startPos, line.endPos];
-        const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-        return (
-          <primitive key={`tether-${idx}`} object={new THREE.Line(lineGeo)}>
-            <lineBasicMaterial attach="material" color={line.color} transparent opacity={0.1} blending={THREE.AdditiveBlending} />
-          </primitive>
-        );
-      })}
+      {lines.map((line) => (
+        <AnimatedTether key={`tether-${line.id}`} startPos={line.startPos} endPos={line.endPos} color={line.color} />
+      ))}
     </group>
+  );
+};
+
+const StarMap: React.FC = () => {
+  const shaderRef = useRef<THREE.ShaderMaterial>(null);
+
+  const [geometry, uniforms] = useMemo(() => {
+    const starGeom = new THREE.BufferGeometry();
+    const starCount = 10500;
+    const starPos = new Float32Array(starCount * 3);
+    const starPhase = new Float32Array(starCount);
+
+    const radiusX = 21000;
+    const radiusY = 18000;
+    const radiusZ = 21000;
+    const centerX = 0;
+    const centerY = 0;
+    const centerZ = -200;
+
+    for (let i = 0; i < starCount; i++) {
+        const u = Math.random();
+        const v = Math.random();
+        const theta = 2 * Math.PI * u;
+        const phi = Math.acos(2 * v - 1);
+
+        const thickness = 1.0 + (Math.random() - 0.5) * 0.1; 
+
+        starPos[i * 3] = centerX + (radiusX * thickness) * Math.sin(phi) * Math.cos(theta);
+        starPos[i * 3 + 1] = centerY + (radiusY * thickness) * Math.sin(phi) * Math.sin(theta);
+        starPos[i * 3 + 2] = centerZ + (radiusZ * thickness) * Math.cos(phi);
+        
+        starPhase[i] = Math.random() * Math.PI * 2;
+    }
+
+    starGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    starGeom.setAttribute('phase', new THREE.BufferAttribute(starPhase, 1));
+
+    const shaderUniforms = {
+        time: { value: 0.0 },
+        color: { value: new THREE.Color(0xffffff) }
+    };
+
+    return [starGeom, shaderUniforms];
+  }, []);
+
+  useFrame((state) => {
+    if (shaderRef.current) {
+      shaderRef.current.uniforms.time.value = state.clock.elapsedTime;
+    }
+  });
+
+  return (
+    <points geometry={geometry}>
+      <shaderMaterial
+        ref={shaderRef}
+        uniforms={uniforms}
+        vertexShader={`
+            attribute float phase;
+            varying float vPhase;
+            void main() {
+                vPhase = phase;
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                
+                float baseSize = 8.0 + sin(phase) * 4.0;
+                float distanceScale = 5000.0 / length(mvPosition.xyz); 
+                
+                gl_PointSize = baseSize * distanceScale;
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `}
+        fragmentShader={`
+            uniform float time;
+            uniform vec3 color;
+            varying float vPhase;
+            void main() {
+                vec2 coord = gl_PointCoord - vec2(0.5);
+                if(length(coord) > 0.5) discard;
+                
+                float alpha = 0.5 + 0.5 * sin(time * 0.3 + vPhase);
+                alpha = pow(alpha, 2.0);
+                
+                gl_FragColor = vec4(color, alpha * 0.9);
+            }
+        `}
+        transparent={true}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
   );
 };
 
@@ -254,6 +408,7 @@ export const Constellation: React.FC = () => {
 
   return (
     <group>
+      <StarMap />
       <Nexo />
       {nodes.map((data) => (
         <LeyNode key={data.id} id={data.id} label={data.label} pos={data.pos} />

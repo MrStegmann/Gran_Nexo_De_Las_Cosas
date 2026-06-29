@@ -13,38 +13,38 @@ export const constellationData = [
 export const nodeThemes: Record<NodeId, { color: number, emissive: THREE.Color, geom: THREE.BufferGeometry, shellGeom: THREE.BufferGeometry }> = {
     [NodeId.MECANICAS]: {
         color: 0xffb700,
-        emissive: new THREE.Color(0xff7700).multiplyScalar(15),
-        geom: new THREE.OctahedronGeometry(2.3, 0),
-        shellGeom: new THREE.OctahedronGeometry(3.3, 0)
+        emissive: new THREE.Color(0xff7700).multiplyScalar(11.25),
+        geom: new THREE.OctahedronGeometry(3.795, 0),
+        shellGeom: new THREE.OctahedronGeometry(5.445, 0)
     },
     [NodeId.HECHIZOS]: {
         color: 0x00f0ff,
-        emissive: new THREE.Color(0x0088ff).multiplyScalar(15),
-        geom: new THREE.IcosahedronGeometry(2.3, 0),
-        shellGeom: new THREE.IcosahedronGeometry(3.3, 0)
+        emissive: new THREE.Color(0x0088ff).multiplyScalar(11.25),
+        geom: new THREE.IcosahedronGeometry(3.795, 0),
+        shellGeom: new THREE.IcosahedronGeometry(5.445, 0)
     },
     [NodeId.RUNAS]: {
         color: 0xffffff,
-        emissive: new THREE.Color(0x88ccff).multiplyScalar(15),
-        geom: new THREE.IcosahedronGeometry(2.1, 0),
-        shellGeom: new THREE.IcosahedronGeometry(3.1, 0)
+        emissive: new THREE.Color(0x88ccff).multiplyScalar(11.25),
+        geom: new THREE.IcosahedronGeometry(3.465, 0),
+        shellGeom: new THREE.IcosahedronGeometry(5.115, 0)
     },
     [NodeId.HABILIDADES]: {
         color: 0xe000ff,
-        emissive: new THREE.Color(0x8800ff).multiplyScalar(15),
-        geom: new THREE.DodecahedronGeometry(2.3, 0),
-        shellGeom: new THREE.DodecahedronGeometry(3.3, 0)
+        emissive: new THREE.Color(0x8800ff).multiplyScalar(11.25),
+        geom: new THREE.DodecahedronGeometry(3.795, 0),
+        shellGeom: new THREE.DodecahedronGeometry(5.445, 0)
     },
     [NodeId.FICHAS]: {
         color: 0x00ff88,
-        emissive: new THREE.Color(0x00aa33).multiplyScalar(15),
-        geom: new THREE.ConeGeometry(2.1, 4.2, 4),
-        shellGeom: new THREE.ConeGeometry(3.1, 5.2, 4)
+        emissive: new THREE.Color(0x00aa33).multiplyScalar(11.25),
+        geom: new THREE.ConeGeometry(3.465, 6.93, 4),
+        shellGeom: new THREE.ConeGeometry(5.115, 8.58, 4)
     },
     [NodeId.INVENTARIO]: {
         color: 0xff3344,
-        emissive: new THREE.Color(0xcc0011).multiplyScalar(15),
-        geom: new THREE.BoxGeometry(2.4, 2.4, 2.4),
-        shellGeom: new THREE.BoxGeometry(3.4, 3.4, 3.4)
+        emissive: new THREE.Color(0xcc0011).multiplyScalar(11.25),
+        geom: new THREE.BoxGeometry(3.96, 3.96, 3.96),
+        shellGeom: new THREE.BoxGeometry(5.61, 5.61, 5.61)
     }
 };
