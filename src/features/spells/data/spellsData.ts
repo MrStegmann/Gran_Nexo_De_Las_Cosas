@@ -1,4 +1,6 @@
 import type { MagicFlowNodeData } from '../../../components/MagicFlow';
+import { AttributeId } from '../../constellation/enums/AttributeId';
+import { SchoolId } from '../enums/SchoolId';
 import arcaneSpells from '../../../data/meta/arcane.json';
 import felSpells from '../../../data/meta/fel.json';
 import natureSpells from '../../../data/meta/nature.json';
@@ -23,13 +25,13 @@ export const themeColors: Record<string, string> = {
 
 export const mainAttributes: MagicFlowNodeData[] = [
   {
-    id: 'inteligencia',
+    id: AttributeId.INTELIGENCIA,
     label: 'Inteligencia',
     color: '#0044ff', // Darker blue
     description: '¡La zona de los listillos! Aquí hay Arcano, Vil, Naturaleza, Sombras y Nigromancia. ¡No te explotes el cerebro!'
   },
   {
-    id: 'voluntad',
+    id: AttributeId.VOLUNTAD,
     label: 'Voluntad',
     color: '#ffd700',
     description: '¡Pura cabezonería mágica! Fe, Elune, Luz Sagrada, Elemental y Chi. ¡Paz mental y explosiones de luz!'
@@ -38,18 +40,18 @@ export const mainAttributes: MagicFlowNodeData[] = [
 
 
 
-export const schoolsData: Record<'inteligencia' | 'voluntad', MagicFlowNodeData[]> = {
-  inteligencia: [
-    { id: 'arcane', label: 'Arcano', color: themeColors['theme-arcane'], description: '', spells: arcaneSpells },
-    { id: 'fel', label: 'Vil', color: themeColors['theme-fel'], description: '', spells: felSpells },
-    { id: 'nature', label: 'Naturaleza', color: themeColors['theme-nature'], description: '', spells: natureSpells },
-    { id: 'shadow', label: 'Sombras', color: themeColors['theme-shadow'], description: '', spells: shadowSpells },
-    { id: 'necro', label: 'Nigromancia', color: themeColors['theme-necro'], description: '', spells: necroSpells }
+export const schoolsData: Record<typeof AttributeId.INTELIGENCIA | typeof AttributeId.VOLUNTAD, MagicFlowNodeData[]> = {
+  [AttributeId.INTELIGENCIA]: [
+    { id: SchoolId.ARCANE, label: 'Arcano', color: themeColors['theme-arcane'], description: '', spells: arcaneSpells },
+    { id: SchoolId.FEL, label: 'Vil', color: themeColors['theme-fel'], description: '', spells: felSpells },
+    { id: SchoolId.NATURE, label: 'Naturaleza', color: themeColors['theme-nature'], description: '', spells: natureSpells },
+    { id: SchoolId.SHADOW, label: 'Sombras', color: themeColors['theme-shadow'], description: '', spells: shadowSpells },
+    { id: SchoolId.NECRO, label: 'Nigromancia', color: themeColors['theme-necro'], description: '', spells: necroSpells }
   ],
-  voluntad: [
-    { id: 'elune', label: 'Elune', color: themeColors['theme-elune'], description: '', spells: eluneSpells },
-    { id: 'holy', label: 'Sagrado', color: themeColors['theme-holy'], description: '', spells: holySpells },
-    { id: 'elemental', label: 'Elemental', color: themeColors['theme-elemental'], description: '', spells: elementalSpells },
-    { id: 'chi', label: 'Chi', color: themeColors['theme-chi'], description: '', spells: chiSpells }
+  [AttributeId.VOLUNTAD]: [
+    { id: SchoolId.ELUNE, label: 'Elune', color: themeColors['theme-elune'], description: '', spells: eluneSpells },
+    { id: SchoolId.HOLY, label: 'Sagrado', color: themeColors['theme-holy'], description: '', spells: holySpells },
+    { id: SchoolId.ELEMENTAL, label: 'Elemental', color: themeColors['theme-elemental'], description: '', spells: elementalSpells },
+    { id: SchoolId.CHI, label: 'Chi', color: themeColors['theme-chi'], description: '', spells: chiSpells }
   ]
 };

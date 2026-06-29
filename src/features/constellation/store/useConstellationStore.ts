@@ -1,21 +1,22 @@
 import { create } from 'zustand';
 import { NodeId } from '../enums/NodeId';
+import { AttributeId } from '../enums/AttributeId';
 
 export interface ConstellationState {
   hoveredNodeId: NodeId | null;
   selectedNodeId: NodeId | null;
   transitioningNodeId: NodeId | null;
   returningNodeId: NodeId | null;
-  selectedAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
-  transitioningAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
-  returningAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
+  selectedAttribute: AttributeId | null;
+  transitioningAttribute: AttributeId | null;
+  returningAttribute: AttributeId | null;
   setHoveredNode: (id: NodeId | null) => void;
   setSelectedNode: (id: NodeId | null) => void;
   setTransitioningNode: (id: NodeId | null) => void;
   setReturningNode: (id: NodeId | null) => void;
-  setSelectedAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
-  setTransitioningAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
-  setReturningAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
+  setSelectedAttribute: (attr: AttributeId | null) => void;
+  setTransitioningAttribute: (attr: AttributeId | null) => void;
+  setReturningAttribute: (attr: AttributeId | null) => void;
 }
 
 export const useConstellationStore = create<ConstellationState>((set) => ({

@@ -7,6 +7,7 @@ import { Tesseract } from '../../../components/Tesseract/Tesseract';
 import { BackButton } from '../../core/components/BackButton';
 import { mainAttributes, schoolsData } from '../data/spellsData';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
+import { AttributeId } from '../../constellation/enums/AttributeId';
 import { SpellList } from './SpellList';
 
 export const SpellsFeature: React.FC = () => {
@@ -19,8 +20,8 @@ export const SpellsFeature: React.FC = () => {
   const handleNodeClick = (nodeId: string) => {
     const state = useConstellationStore.getState();
     if (!state.selectedAttribute && !state.transitioningAttribute) {
-      if (nodeId === 'inteligencia' || nodeId === 'voluntad') {
-        state.setTransitioningAttribute(nodeId as 'inteligencia' | 'voluntad');
+      if (nodeId === AttributeId.INTELIGENCIA || nodeId === AttributeId.VOLUNTAD) {
+        state.setTransitioningAttribute(nodeId as AttributeId);
       }
     } else if (state.selectedAttribute) {
       setSelectedSchool(nodeId);
@@ -28,7 +29,7 @@ export const SpellsFeature: React.FC = () => {
   };
 
   const currentNodes = selectedAttribute ? schoolsData[selectedAttribute] : mainAttributes;
-  const currentThemeHex = selectedAttribute === 'inteligencia' ? '#0044ff' : selectedAttribute === 'voluntad' ? '#ffd700' : '#ffffff';
+  const currentThemeHex = selectedAttribute === AttributeId.INTELIGENCIA ? '#0044ff' : selectedAttribute === AttributeId.VOLUNTAD ? '#ffd700' : '#ffffff';
 
   const showBlackBg = !!selectedAttribute || !!transitioningAttribute || !!returningAttribute;
 
