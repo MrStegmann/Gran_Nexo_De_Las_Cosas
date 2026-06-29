@@ -17,6 +17,7 @@ export interface GeometricNodeShapeProps {
   lineWidth?: number; // The thickness of the connecting segments
   selectedNodeId?: string | null;
   onNodeClick?: (id: string) => void;
+  onNodeHover?: (id: string | null) => void;
 }
 
 // ------------------------------------------------------------------
@@ -162,9 +163,10 @@ interface NodeProps {
   isSelected?: boolean;
   isAnySelected?: boolean;
   onClick?: (id: string) => void;
+  onHover?: (hovered: boolean) => void;
 }
 
-const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected, isAnySelected, onClick }) => {
+const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected, isAnySelected, onClick, onHover }) => {
   const [hovered, setHovered] = useState(false);
   const groupRef = useRef<THREE.Group>(null);
   const coreRef = useRef<THREE.Mesh>(null);
@@ -173,6 +175,7 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
   const baseColor = useMemo(() => new THREE.Color(node.color || '#ffffff'), [node.color]);
   const brightColor = useMemo(() => baseColor.clone().multiplyScalar(2), [baseColor]);
   const hoveredBrightColor = useMemo(() => baseColor.clone().multiplyScalar(3.5), [baseColor]);
+  const labelDelay = useMemo(() => Math.random() * 500, []);
 
   useFrame((state, delta) => {
     const targetScale = hovered ? 1.3 : 1.0;
@@ -205,8 +208,8 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
     <group 
       ref={groupRef}
       position={position}
-      onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
-      onPointerOut={(e) => { e.stopPropagation(); setHovered(false); document.body.style.cursor = 'auto'; }}
+      onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; if (onHover) onHover(true); }}
+      onPointerOut={(e) => { e.stopPropagation(); setHovered(false); document.body.style.cursor = 'auto'; if (onHover) onHover(false); }}
       onClick={(e) => { e.stopPropagation(); if (onClick) onClick(node.id); }}
     >
       <mesh ref={coreRef}>
@@ -235,7 +238,7 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
       </mesh>
       
       <Html position={[0, -radius - 0.5, 0]} center zIndexRange={[9999999, 9990000]} style={{ opacity: htmlOpacity, pointerEvents: 'none' }}>
-        <FloatingLabel text={node.label} delay={Math.random() * 500} speed={40} />
+        <FloatingLabel text={node.label} delay={labelDelay} speed={40} />
       </Html>
     </group>
   );
@@ -250,7 +253,8 @@ export const GeometricNodeShape: React.FC<GeometricNodeShapeProps> = ({
   nodeRadius = 0.5, 
   lineWidth = 0.05,
   selectedNodeId,
-  onNodeClick 
+  onNodeClick,
+  onNodeHover
 }) => {
   const { viewport } = useThree();
   const isMobile = typeof window !== 'undefined' ? window.innerWidth <= 768 : viewport.width < viewport.height;
@@ -399,6 +403,9 @@ export const GeometricNodeShape: React.FC<GeometricNodeShapeProps> = ({
           isSelected={node.id === selectedNodeId}
           isAnySelected={!!selectedNodeId}
           onClick={onNodeClick}
+          onHover={(hovered) => {
+            if (onNodeHover) onNodeHover(hovered ? node.id : null);
+          }}
         />
       ))}
     </group>

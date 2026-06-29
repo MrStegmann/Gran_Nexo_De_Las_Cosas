@@ -18,6 +18,7 @@ export interface MagicFlowNodeData {
 export interface MagicFlowProps {
   nodes: MagicFlowNodeData[];
   onClick?: (nodeId: string) => void;
+  onHover?: (nodeId: string | null) => void;
 }
 
 // Global uniform for the filament material
@@ -127,6 +128,7 @@ const MagicNode: React.FC<{
 
   const baseColor = useMemo(() => new THREE.Color(node.color), [node.color]);
   const haloTex = useMemo(() => createGlowTexture(node.color), [node.color]);
+  const labelDelay = useMemo(() => Math.random() * 500, []);
 
   // Animation values
   const currentEmissive = useRef(1.0);
@@ -201,12 +203,7 @@ const MagicNode: React.FC<{
       <pointLight ref={lightRef} color={baseColor} distance={10} intensity={0} decay={2} />
 
       <Html position={[0, -1.2, 0]} center zIndexRange={[9999999, 9990000]} style={{ pointerEvents: 'none' }}>
-        <FloatingLabel text={node.label} delay={Math.random() * 500} speed={40} />
-        {isHovered && node.description && (
-          <div className="magic-flow-desc mt-2 bg-black/80 backdrop-blur-xl border border-[color:var(--node-color)] text-white/90 p-3 rounded-lg text-xs max-w-[200px] text-center shadow-xl transition-all duration-300" style={{ '--node-color': node.color } as React.CSSProperties}>
-            {node.description}
-          </div>
-        )}
+        <FloatingLabel text={node.label} delay={labelDelay} speed={40} />
       </Html>
 
       {/* Invisible Hitbox for easier hovering */}
@@ -319,7 +316,7 @@ const MagicFlowCameraAnimator: React.FC<{ nodePositions: THREE.Vector3[], nodes:
   return null;
 };
 
-export const MagicFlow: React.FC<MagicFlowProps> = ({ nodes, onClick }) => {
+export const MagicFlow: React.FC<MagicFlowProps> = ({ nodes, onClick, onHover }) => {
   const { viewport } = useThree();
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const selectedAttribute = useConstellationStore(state => state.selectedAttribute);
@@ -477,7 +474,11 @@ export const MagicFlow: React.FC<MagicFlowProps> = ({ nodes, onClick }) => {
           node={node}
           position={nodePositions[i]}
           isHovered={hoveredNodeId === node.id}
-          onHover={(hovered) => setHoveredNodeId(hovered ? node.id : null)}
+          onHover={(hovered) => {
+            const newHoveredId = hovered ? node.id : null;
+            setHoveredNodeId(newHoveredId);
+            if (onHover) onHover(newHoveredId);
+          }}
           onClick={onClick}
         />
       ))}

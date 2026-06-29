@@ -76,3 +76,4 @@ export const FloatingLabel: React.FC<FloatingLabelProps> = ({
     </div>
   );
 };
+

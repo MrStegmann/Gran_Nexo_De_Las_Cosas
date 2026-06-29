@@ -9,6 +9,9 @@ import { mainAttributes, schoolsData } from '../data/spellsData';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { AttributeId } from '../../constellation/enums/AttributeId';
 import { SpellList } from './SpellList';
+import { useAzulitoStore } from '../../core/store/useAzulitoStore';
+import { AZULITO_SPEECHES } from '../../core/constants/azulitoSpeeches';
+import { NodeId } from '../../constellation/enums/NodeId';
 
 export const SpellsFeature: React.FC = () => {
   const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
@@ -32,6 +35,19 @@ export const SpellsFeature: React.FC = () => {
   const currentThemeHex = selectedAttribute === AttributeId.INTELIGENCIA ? '#0044ff' : selectedAttribute === AttributeId.VOLUNTAD ? '#ffd700' : '#ffffff';
 
   const showBlackBg = !!selectedAttribute || !!transitioningAttribute || !!returningAttribute;
+
+  const handleNodeHover = (nodeId: string | null) => {
+    if (nodeId) {
+      const node = currentNodes.find(n => n.id === nodeId);
+      if (node && node.description) {
+        useAzulitoStore.getState().setSpeechAndMood(node.description, 'talk');
+      } else if (node) {
+        useAzulitoStore.getState().setSpeechAndMood(`Explorando ${node.label}...`, 'talk');
+      }
+    } else {
+      useAzulitoStore.getState().setSpeechAndMood(AZULITO_SPEECHES[NodeId.HECHIZOS] || '', 'talk');
+    }
+  };
 
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-auto z-0 flex flex-col justify-center items-center">
@@ -65,11 +81,13 @@ export const SpellsFeature: React.FC = () => {
               lineWidth={0.08}
               selectedNodeId={selectedSchool}
               onNodeClick={handleNodeClick}
+              onNodeHover={handleNodeHover}
             />
           ) : (
             <MagicFlow
               nodes={currentNodes}
               onClick={handleNodeClick}
+              onHover={handleNodeHover}
             />
           )}
         </Canvas>
