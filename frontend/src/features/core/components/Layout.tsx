@@ -79,7 +79,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="absolute inset-0 z-0">
         <ConstellationScene />
       </div>
-      
+
       {/* UI Foreground Layer */}
       <div className="relative z-10 w-full h-full pointer-events-none flex flex-col">
         {children}
@@ -90,20 +90,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Global Back Button */}
       {selectedNodeId && (
-        <TesseractButton 
+        <TesseractButton
           onClick={() => {
             const setReturningNode = useConstellationStore.getState().setReturningNode;
             setReturningNode(selectedNodeId);
             setSelectedNode(null);
-          }} 
-          colorHex={activeTheme.colorHex} 
+          }}
+          colorHex={activeTheme.colorHex}
         />
       )}
 
       {/* Hologram Glassmorphism Footer */}
       <footer className={`absolute bottom-0 left-0 w-full z-20 pointer-events-auto backdrop-blur-md bg-white/5 border-t ${activeTheme.border} ${activeTheme.shadow} transition-all duration-500`}>
         {/* Hologram scanlines overlay */}
-        <div className={`absolute inset-0 ${activeTheme.scanline} bg-[length:100%_4px] pointer-events-none transition-all duration-500`}></div>
+        <div className={`absolute inset-0 ${activeTheme.scanline} bg-size-[100%_4px] pointer-events-none transition-all duration-500`}></div>
         <div className="relative py-3 px-4 text-center">
           <p className={`text-xs sm:text-sm font-mono tracking-[0.2em] ${activeTheme.text} ${activeTheme.textDropShadow} uppercase transition-all duration-500`}>
             © 2026 PatrickJS. Todos los derechos reservados
