@@ -7,6 +7,7 @@ export interface TesseractSection {
   id: string;
   title: string;
   markdown: string;
+  customComponent?: React.ReactNode;
 }
 
 export interface TesseractProps {
@@ -262,11 +263,15 @@ export const Tesseract: React.FC<TesseractProps> = ({
               {/* Main Content Area */}
               <main className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-4 relative">
                 {activeSection ? (
-                  <div className="markdown-body max-w-3xl mx-auto">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={customComponents}>
-                      {activeSection.markdown}
-                    </ReactMarkdown>
-                  </div>
+                  activeSection.customComponent ? (
+                    activeSection.customComponent
+                  ) : (
+                    <div className="markdown-body max-w-3xl mx-auto">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={customComponents}>
+                        {activeSection.markdown}
+                      </ReactMarkdown>
+                    </div>
+                  )
                 ) : (
                   <div className="flex items-center justify-center h-full opacity-50">
                     <p>Selecciona una sección en el índice para leer.</p>

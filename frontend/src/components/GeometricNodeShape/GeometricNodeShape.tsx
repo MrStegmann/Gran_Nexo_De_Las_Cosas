@@ -198,7 +198,7 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
     }
   });
 
-  const htmlOpacity = (isAnySelected && !isSelected) ? 0 : (hovered ? 1 : 0.7);
+  const htmlOpacity = isAnySelected ? 0 : (hovered ? 1 : 0.7);
 
   return (
     <group 

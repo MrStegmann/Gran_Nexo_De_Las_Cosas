@@ -1,4 +1,13 @@
 import type { MagicFlowNodeData } from '../../../components/MagicFlow';
+import arcaneSpells from '../../../data/meta/arcane.json';
+import felSpells from '../../../data/meta/fel.json';
+import natureSpells from '../../../data/meta/nature.json';
+import shadowSpells from '../../../data/meta/shadow.json';
+import necroSpells from '../../../data/meta/necromance.json';
+import eluneSpells from '../../../data/meta/elune.json';
+import holySpells from '../../../data/meta/holy_light.json';
+import elementalSpells from '../../../data/meta/elemental.json';
+import chiSpells from '../../../data/meta/chi.json';
 
 export const themeColors: Record<string, string> = {
   'theme-arcane': '#00f0ff',
@@ -27,18 +36,20 @@ export const mainAttributes: MagicFlowNodeData[] = [
   }
 ];
 
+
+
 export const schoolsData: Record<'inteligencia' | 'voluntad', MagicFlowNodeData[]> = {
   inteligencia: [
-    { id: 'arcane', label: 'Arcano', color: themeColors['theme-arcane'], description: 'Magia pura y matemáticas cósmicas.' },
-    { id: 'fel', label: 'Vil', color: themeColors['theme-fel'], description: 'Fuego verde y caos desatado.' },
-    { id: 'nature', label: 'Naturaleza', color: themeColors['theme-nature'], description: 'Plantas, venenos y equilibrio vital.' },
-    { id: 'shadow', label: 'Sombras', color: themeColors['theme-shadow'], description: 'Vacío, susurros y locura.' },
-    { id: 'necro', label: 'Nigromancia', color: themeColors['theme-necro'], description: 'La muerte no es el final.' }
+    { id: 'arcane', label: 'Arcano', color: themeColors['theme-arcane'], description: '', spells: arcaneSpells },
+    { id: 'fel', label: 'Vil', color: themeColors['theme-fel'], description: '', spells: felSpells },
+    { id: 'nature', label: 'Naturaleza', color: themeColors['theme-nature'], description: '', spells: natureSpells },
+    { id: 'shadow', label: 'Sombras', color: themeColors['theme-shadow'], description: '', spells: shadowSpells },
+    { id: 'necro', label: 'Nigromancia', color: themeColors['theme-necro'], description: '', spells: necroSpells }
   ],
   voluntad: [
-    { id: 'elune', label: 'Elune', color: themeColors['theme-elune'], description: 'Magia lunar y protección astral.' },
-    { id: 'holy', label: 'Sagrado', color: themeColors['theme-holy'], description: 'Luz pura, sanación y justicia.' },
-    { id: 'elemental', label: 'Elemental', color: themeColors['theme-elemental'], description: 'Tierra, fuego, viento y agua.' },
-    { id: 'chi', label: 'Chi', color: themeColors['theme-chi'], description: 'Energía interior y equilibrio.' }
+    { id: 'elune', label: 'Elune', color: themeColors['theme-elune'], description: '', spells: eluneSpells },
+    { id: 'holy', label: 'Sagrado', color: themeColors['theme-holy'], description: '', spells: holySpells },
+    { id: 'elemental', label: 'Elemental', color: themeColors['theme-elemental'], description: '', spells: elementalSpells },
+    { id: 'chi', label: 'Chi', color: themeColors['theme-chi'], description: '', spells: chiSpells }
   ]
 };

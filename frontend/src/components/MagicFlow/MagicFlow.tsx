@@ -10,6 +10,8 @@ export interface MagicFlowNodeData {
   label: string;
   color: string; // hex string e.g. '#00f0ff'
   description?: string;
+  spells?: any[];
+  skills?: any[];
 }
 
 export interface MagicFlowProps {

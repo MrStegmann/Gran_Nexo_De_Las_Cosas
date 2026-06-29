@@ -17,7 +17,7 @@
       "tipo_4": "Te crecen alas de fénix arcanos hechas de magia pura que puedes controlar para volar."
     },
     "preparacion": "Puede grabarse sobre una superficie, objetos o sobre personas.",
-    "image_url": "../../frontend/src/assets/runa_caida_pluma.png"
+    "image_url": "assets/runa_caida_pluma.png"
   },
   {
     "id": "runa_ignitis",
@@ -37,6 +37,6 @@
       "tipo_4": "Crea una columna de llamas que golpea a los enemigos que estén sobre las runas y circundantes. Repele a todos e Indencia a todos"
     },
     "preparacion": "Puede ser grabada en cualquier superficie, pero suele grabarse en el suelo.",
-    "image_url": "../../frontend/src/assets/runa_ignitis.png"
+    "image_url": "assets/runa_ignitis.png"
   }
 ]

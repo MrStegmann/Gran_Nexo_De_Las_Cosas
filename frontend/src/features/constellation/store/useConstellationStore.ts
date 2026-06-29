@@ -6,16 +6,16 @@ export interface ConstellationState {
   selectedNodeId: NodeId | null;
   transitioningNodeId: NodeId | null;
   returningNodeId: NodeId | null;
-  selectedAttribute: 'inteligencia' | 'voluntad' | null;
-  transitioningAttribute: 'inteligencia' | 'voluntad' | null;
-  returningAttribute: 'inteligencia' | 'voluntad' | null;
+  selectedAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
+  transitioningAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
+  returningAttribute: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null;
   setHoveredNode: (id: NodeId | null) => void;
   setSelectedNode: (id: NodeId | null) => void;
   setTransitioningNode: (id: NodeId | null) => void;
   setReturningNode: (id: NodeId | null) => void;
-  setSelectedAttribute: (attr: 'inteligencia' | 'voluntad' | null) => void;
-  setTransitioningAttribute: (attr: 'inteligencia' | 'voluntad' | null) => void;
-  setReturningAttribute: (attr: 'inteligencia' | 'voluntad' | null) => void;
+  setSelectedAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
+  setTransitioningAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
+  setReturningAttribute: (attr: 'inteligencia' | 'voluntad' | 'constitucion' | 'fuerza' | 'destreza' | null) => void;
 }
 
 export const useConstellationStore = create<ConstellationState>((set) => ({

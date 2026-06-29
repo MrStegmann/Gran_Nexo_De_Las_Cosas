@@ -3,6 +3,10 @@ import { useConstellationStore } from './features/constellation/store/useConstel
 import { NodeId } from './features/constellation/enums/NodeId';
 import { MechanicsFeature } from './features/mechanics/components/MechanicsFeature';
 import { SpellsFeature } from './features/spells/components/SpellsFeature';
+import { SheetsFeature } from './features/sheets/components/SheetsFeature';
+import { SkillsFeature } from './features/skills/components/SkillsFeature';
+import { InventoryFeature } from './features/inventory/components/InventoryFeature';
+import { RunesFeature } from './features/runes/components/RunesFeature';
 import './App.css';
 
 function App() {
@@ -17,6 +21,18 @@ function App() {
         )}
         {selectedNodeId === NodeId.HECHIZOS && (
           <SpellsFeature />
+        )}
+        {selectedNodeId === NodeId.RUNAS && (
+          <RunesFeature />
+        )}
+        {selectedNodeId === NodeId.FICHAS && (
+          <SheetsFeature />
+        )}
+        {selectedNodeId === NodeId.HABILIDADES && (
+          <SkillsFeature />
+        )}
+        {selectedNodeId === NodeId.INVENTARIO && (
+          <InventoryFeature />
         )}
       </div>
     </Layout>

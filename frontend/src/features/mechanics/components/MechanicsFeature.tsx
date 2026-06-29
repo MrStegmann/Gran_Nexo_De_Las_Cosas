@@ -2,67 +2,37 @@ import React from 'react';
 import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 
-const sampleSections: TesseractSection[] = [
+import combateMd from '../../../assets/documents/system/Combate.md?raw';
+import estadosMd from '../../../assets/documents/system/Estados.md?raw';
+import heridasMd from '../../../assets/documents/system/Heridas.md?raw';
+import reglasMd from '../../../assets/documents/system/Reglas.md?raw';
+import recursosMd from '../../../assets/documents/system/Recursos.md?raw';
+
+const systemSections: TesseractSection[] = [
+  {
+    id: 'reglas',
+    title: 'Reglas',
+    markdown: reglasMd
+  },
   {
     id: 'combate',
     title: 'Combate',
-    markdown: `
-# Reglas de Combate
-
-El combate en el Gran Nexo es dinámico y rápido.
-
-## Iniciativa
-Todos los participantes lanzan un d20 y añaden su modificador de Agilidad. Los empates se resuelven a favor de quien tenga mayor atributo base.
-
-## Acciones en tu turno
-Durante tu turno puedes realizar:
-* Una Acción Principal (Atacar, Lanzar Hechizo)
-* Una Acción Rápida (Moverte, Usar Objeto)
-* Una Reacción (fuera de tu turno)
-
-### Atacar
-Tira 1d20 + modificador de arma contra la Defensa del objetivo.
-
-> "El buen ataque es el que no se ve venir." - *Mael, Maestro de Espadas*
-    `
+    markdown: combateMd
   },
   {
     id: 'estados',
     title: 'Estados',
-    markdown: `
-# Estados Alterados
-
-Los personajes pueden sufrir varias condiciones durante la aventura.
-
-## Ceguera
-El personaje sufre desventaja en todas las tiradas de ataque y percepción visual.
-* **Cura:** Magia Restauradora o tras 1 descanso largo.
-
-## Envenenamiento
-Recibe 1d4 de daño directo al inicio de cada turno.
-* **Cura:** Antídoto o Magia Purificadora.
-
-### Veneno Paralizante
-Una variante letal que además reduce tu movimiento a 0.
-    `
+    markdown: estadosMd
+  },
+  {
+    id: 'heridas',
+    title: 'Heridas',
+    markdown: heridasMd
   },
   {
     id: 'recursos',
     title: 'Recursos',
-    markdown: `
-# Gestión de Recursos
-
-Los héroes usan distintos recursos para potenciar sus habilidades.
-
-## Puntos de Vida (HP)
-Representan la vitalidad. Si llegan a 0, el personaje cae Inconsciente.
-
-## Puntos de Magia (MP)
-Se usan para conjurar magia y activar habilidades arcanas. Se recuperan descansando.
-
-### Descanso Corto
-Recuperas la mitad de tus MP máximos y puedes gastar *Dados de Golpe* para sanar HP.
-    `
+    markdown: recursosMd
   }
 ];
 
@@ -73,7 +43,7 @@ export const MechanicsFeature: React.FC = () => {
     <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
       <Tesseract
         color="#ffb700"
-        sections={sampleSections}
+        sections={systemSections}
         onClose={() => setSelectedNode(null)}
       />
     </div>
