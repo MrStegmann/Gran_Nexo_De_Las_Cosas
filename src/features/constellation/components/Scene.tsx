@@ -16,7 +16,7 @@ const CameraAdjuster: React.FC = () => {
       const isMobile = window.innerWidth <= 768;
       if (isMobile) {
         // Move camera further back on mobile to see all vertically distributed nodes
-        camera.position.set(0, 0, 250); 
+        camera.position.set(0, 0, 250);
       } else {
         camera.position.set(0, 0, 50);
       }
@@ -39,32 +39,32 @@ const CameraAnimator: React.FC = () => {
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
   const setTransitioningNode = useConstellationStore((state) => state.setTransitioningNode);
   const setReturningNode = useConstellationStore((state) => state.setReturningNode);
-  
+
   const transitionTime = React.useRef(0);
 
   useFrame((_, delta) => {
     if (transitioningNodeId) {
       transitionTime.current += delta;
-      
+
       const nodeData = constellationData.find(n => n.id === transitioningNodeId);
       if (nodeData) {
         const isMobile = window.innerWidth <= 768;
         const targetPos = isMobile && nodeData.mobilePos ? nodeData.mobilePos : nodeData.pos;
-        
+
         // Exponential acceleration: starts at 0 and grows very fast
-        const speedMultiplier = Math.exp(transitionTime.current * 3.5) - 1; 
+        const speedMultiplier = Math.exp(transitionTime.current * 3.5) - 1;
         const moveSpeed = Math.min(speedMultiplier * delta, 0.9);
-        
+
         camera.position.lerp(targetPos, moveSpeed);
-        
+
         // Orient towards target smoothly
         const targetRotation = new THREE.Quaternion().setFromRotationMatrix(
           new THREE.Matrix4().lookAt(camera.position, targetPos, camera.up)
         );
         camera.quaternion.slerp(targetRotation, Math.min(moveSpeed * 1.5, 1));
-        
+
         const dist = camera.position.distanceTo(targetPos);
-        
+
         // Tunnel effect occurs at max speed
         const pCam = camera as THREE.PerspectiveCamera;
         // Increase FOV drastically only when speedMultiplier is high
@@ -72,7 +72,7 @@ const CameraAnimator: React.FC = () => {
         pCam.fov = THREE.MathUtils.lerp(pCam.fov, targetFov, delta * 15);
         pCam.updateProjectionMatrix();
 
-        if (dist < 10) { 
+        if (dist < 10) {
           setSelectedNode(transitioningNodeId);
           setTransitioningNode(null);
           // Reset FOV for the inner view
@@ -83,19 +83,19 @@ const CameraAnimator: React.FC = () => {
       }
     } else if (returningNodeId) {
       transitionTime.current += delta;
-      
+
       const isMobile = window.innerWidth <= 768;
       const targetPos = isMobile ? new THREE.Vector3(0, 0, 250) : new THREE.Vector3(0, 0, 50);
-      
+
       // Easing out interpolation: starts fast and slows down gracefully as it approaches the target
       const moveSpeed = Math.min(delta * 5.0, 1.0);
       camera.position.lerp(targetPos, moveSpeed);
-      
+
       // Interpolate the look-at target from the node's position to the center [0,0,-200]
       // This ensures the camera appears to come "out" of the node before panning to the center
       const nodeData = constellationData.find(n => n.id === returningNodeId);
       const nodePos = nodeData ? (isMobile && nodeData.mobilePos ? nodeData.mobilePos : nodeData.pos) : new THREE.Vector3(0, 0, 0);
-      
+
       const lookProgress = Math.min(transitionTime.current / 1.5, 1.0);
       const lookEase = lookProgress * lookProgress * (3 - 2 * lookProgress); // smoothstep
       const currentLookTarget = new THREE.Vector3().copy(nodePos).lerp(new THREE.Vector3(0, 0, -200), lookEase);
@@ -104,9 +104,9 @@ const CameraAnimator: React.FC = () => {
         new THREE.Matrix4().lookAt(camera.position, currentLookTarget, camera.up)
       );
       camera.quaternion.slerp(targetRotation, Math.min(delta * 10.0, 1.0));
-      
+
       const dist = camera.position.distanceTo(targetPos);
-      
+
       // Smoothly restore FOV back to 75
       const pCam = camera as THREE.PerspectiveCamera;
       pCam.fov = THREE.MathUtils.lerp(pCam.fov, 75, delta * 10);
@@ -114,7 +114,7 @@ const CameraAnimator: React.FC = () => {
 
       // Because we ease-out, it will smoothly approach the target. 
       // We use a very small threshold so the final snap is completely invisible
-      if (dist < 0.1 || transitionTime.current > 3.0) { 
+      if (dist < 0.1 || transitionTime.current > 3.0) {
         setReturningNode(null);
         pCam.fov = 75;
         pCam.position.copy(targetPos);
@@ -137,14 +137,16 @@ const DynamicControls: React.FC = () => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
   const returningNodeId = useConstellationStore((state) => state.returningNodeId);
-  
+
   return (
-    <OrbitControls 
-      makeDefault 
-      enableDamping 
-      dampingFactor={0.05} 
-      target={[0, 0, -200]} 
-      enableZoom={true} 
+    <OrbitControls
+      makeDefault
+      enableDamping
+      dampingFactor={0.05}
+      target={[0, 0, -200]}
+      enableZoom={true}
+      minDistance={50}
+      maxDistance={600}
       enabled={!selectedNodeId && !transitioningNodeId && !returningNodeId}
     />
   );
@@ -159,17 +161,17 @@ export const ConstellationScene: React.FC = () => {
       <CameraAdjuster />
       <color attach="background" args={['#020205']} />
       <fogExp2 attach="fog" args={['#020205', 0.002]} />
-      
+
       {/* 
         We use postprocessing for the bloom effect.
         The parameters match the UnrealBloomPass:
         intensity, luminanceThreshold, luminanceSmoothing
       */}
       <EffectComposer>
-        <Bloom 
-          luminanceThreshold={0.2} 
-          mipmapBlur 
-          intensity={1.8} 
+        <Bloom
+          luminanceThreshold={0.2}
+          mipmapBlur
+          intensity={1.8}
         />
       </EffectComposer>
 

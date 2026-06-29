@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -40,6 +40,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
   const isHovered = hoveredNodeId === id;
   const isSelected = selectedNodeId === id;
+  const labelDelay = useMemo(() => Math.random() * 500, []);
 
   useFrame((_, delta) => {
     if (coreRef.current) {
@@ -93,7 +94,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
   return (
     <group position={pos}>
       <Html position={[0, 12, 0]} center zIndexRange={[9999999, 9990000]} style={{ pointerEvents: 'none' }}>
-        <FloatingLabel text={label} delay={Math.random() * 500} />
+        <FloatingLabel text={label} delay={labelDelay} />
       </Html>
       <pointLight color={theme.color} intensity={9.0} distance={2000} />
       <pointLight color={0xffffff} intensity={3.75} distance={2500} />
