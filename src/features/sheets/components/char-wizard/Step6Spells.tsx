@@ -191,6 +191,8 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[50vh] custom-scrollbar pr-2 pb-4">
             {filteredSpells.map((s, idx) => {
               const isSelected = state.selectedSpells.includes(s.Nombre);
+              const cost = typeof s['Ranuras de hechizo'] === 'number' ? s['Ranuras de hechizo'] : 0;
+              const isDisabled = !isSelected && availableSlots < cost;
               const stats = [];
               if (s['Ranuras de hechizo'] !== undefined) stats.push({ label: 'Ranuras', value: String(s['Ranuras de hechizo']) });
               if (s.Acciones !== undefined) stats.push({ label: 'Acciones', value: String(s.Acciones) });
@@ -198,9 +200,11 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
               return (
                 <div 
                   key={idx} 
-                  onClick={() => handleToggleSpell(s)}
-                  className={`cursor-pointer transition-all rounded-lg overflow-hidden ${
-                    isSelected ? 'ring-2 ring-[#00ff88] scale-[1.02] shadow-[0_0_15px_rgba(0,255,136,0.3)]' : 'opacity-80 hover:opacity-100 hover:scale-[1.01]'
+                  onClick={() => !isDisabled && handleToggleSpell(s)}
+                  className={`transition-all rounded-lg overflow-hidden ${
+                    isSelected ? 'ring-2 ring-[#00ff88] scale-[1.02] shadow-[0_0_15px_rgba(0,255,136,0.3)] cursor-pointer' : 
+                    isDisabled ? 'opacity-30 grayscale cursor-not-allowed' :
+                    'opacity-80 hover:opacity-100 hover:scale-[1.01] cursor-pointer'
                   }`}
                 >
                   <Card
@@ -234,6 +238,8 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[50vh] custom-scrollbar pr-2 pb-4">
             {filteredSkills.map((s, idx) => {
               const isSelected = state.selectedSkills.includes(s.Nombre);
+              const cost = typeof s['Coste de Ranuras'] === 'number' ? s['Coste de Ranuras'] : 0;
+              const isDisabled = !isSelected && availableSlots < cost;
               const stats = [];
               if (s['Coste de Ranuras'] !== undefined) stats.push({ label: 'Ranuras', value: String(s['Coste de Ranuras']) });
               if (s['Coste de Acciones'] !== undefined) stats.push({ label: 'Acciones', value: String(s['Coste de Acciones']) });
@@ -242,9 +248,11 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
               return (
                 <div 
                   key={idx} 
-                  onClick={() => handleToggleSkill(s)}
-                  className={`cursor-pointer transition-all rounded-lg overflow-hidden ${
-                    isSelected ? 'ring-2 ring-[#00ff88] scale-[1.02] shadow-[0_0_15px_rgba(0,255,136,0.3)]' : 'opacity-80 hover:opacity-100 hover:scale-[1.01]'
+                  onClick={() => !isDisabled && handleToggleSkill(s)}
+                  className={`transition-all rounded-lg overflow-hidden ${
+                    isSelected ? 'ring-2 ring-[#00ff88] scale-[1.02] shadow-[0_0_15px_rgba(0,255,136,0.3)] cursor-pointer' : 
+                    isDisabled ? 'opacity-30 grayscale cursor-not-allowed' :
+                    'opacity-80 hover:opacity-100 hover:scale-[1.01] cursor-pointer'
                   }`}
                 >
                   <Card

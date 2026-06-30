@@ -12,7 +12,7 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
   const cat = CATEGORY_DATA[state.categoria];
   
   const usedPositiveSlots = () => {
-    return state.rasgosPositivos.reduce((sum, r) => sum + (r.nivel === 2 ? 2 : 1), 0);
+    return state.rasgosPositivos.reduce((sum, r) => sum + (r.nivel || 1), 0);
   };
 
   const slotsUsed = usedPositiveSlots();
@@ -53,8 +53,8 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
     e.stopPropagation();
     const existing = state.rasgosPositivos.find(r => r.nombre === traitName);
     if (existing) {
-      const currentCost = existing.nivel === 2 ? 2 : 1;
-      const newCost = level === 2 ? 2 : 1;
+      const currentCost = existing.nivel || 1;
+      const newCost = level || 1;
       const slotsWithoutThis = slotsUsed - currentCost;
       if (slotsWithoutThis + newCost > slotsTotal) return;
       setState({
@@ -93,7 +93,7 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
           <div className="flex items-center gap-2 text-green-400 font-bold mb-1">
             <span className="text-xl">✦</span> Ranuras positivas: <span className="text-white ml-2 text-xl">{slotsUsed} / {slotsTotal}</span>
           </div>
-          <div className="text-xs text-green-500/70">(Nv.1 = 1 ranura · Nv.2 = 2 ranuras)</div>
+          <div className="text-xs text-green-500/70">(Nv.1 = 1 ranura · Nv.2 = 2 ranuras · Nv.3 = 3 ranuras)</div>
         </div>
         <div className="flex-1 p-4 bg-red-500/10 border border-red-500/30 rounded flex flex-col justify-center">
           <div className="flex items-center gap-2 text-red-400 font-bold mb-1">
@@ -132,8 +132,8 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
               {hasLevels && (
                 <div className={`mt-4 flex gap-2 ${sel ? '' : 'hidden'}`}>
                   {levels.map(l => {
-                    const currentCost = sel?.nivel === 2 ? 2 : 1;
-                    const newCost = l === 2 ? 2 : 1;
+                    const currentCost = sel?.nivel || 1;
+                    const newCost = l || 1;
                     const slotsWithoutThis = slotsUsed - currentCost;
                     const btnDisabled = slotsWithoutThis + newCost > slotsTotal;
                     

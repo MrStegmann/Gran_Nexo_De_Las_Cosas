@@ -24,7 +24,7 @@ const initTextures = () => {
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.shadowColor = '#00f0ff';
-                ctx.shadowBlur = 20;
+                ctx.shadowBlur = 10;
                 ctx.fillText(sym, 32, 32);
             }
             const tex = new THREE.CanvasTexture(canvas);
@@ -70,9 +70,9 @@ const RuneColumn = () => {
         s.z = -5000 + r * Math.cos(phi);
         
         const scaleFactor = r / 1000;
-        s.spacing = (25 + Math.random() * 20) * scaleFactor;
+        s.spacing = 30 * scaleFactor;
         
-        const baseSize = 20 + Math.random() * 50; 
+        const baseSize = 30; 
         const finalSize = baseSize * scaleFactor;
 
         for (let i = 0; i < count; i++) {
@@ -83,7 +83,7 @@ const RuneColumn = () => {
                 sprite.position.set(s.x, s.y - (i * s.spacing), s.z);
                 sprite.material.opacity = 0;
                 sprite.scale.set(0.01, 0.01, 1);
-                sprite.userData = { targetScale: finalSize, targetOpacity: Math.random() * 0.15 + 0.1 };
+                sprite.userData = { targetScale: finalSize, targetOpacity: 0.1 };
             }
         }
         
@@ -133,9 +133,7 @@ const RuneColumn = () => {
                 const sprite = spritesRef.current[i];
                 if (sprite) {
                     sprite.position.y -= s.driftSpeed * delta;
-                    if(Math.random() > 0.98) {
-                        sprite.material.opacity = Math.random() * 0.2 + 0.1;
-                    }
+                    // No random opacity flicker for uniform brightness
                 }
             }
             if (s.timer > s.idleDuration) {

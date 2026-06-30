@@ -140,9 +140,16 @@ const DynamicControls: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    document.body.style.cursor = isDragging ? 'move' : 'default';
+    if (isDragging) {
+      document.body.style.cursor = 'grabbing';
+      document.body.classList.add('is-dragging');
+    } else {
+      document.body.style.cursor = 'default';
+      document.body.classList.remove('is-dragging');
+    }
     return () => {
       document.body.style.cursor = 'default';
+      document.body.classList.remove('is-dragging');
     };
   }, [isDragging]);
 

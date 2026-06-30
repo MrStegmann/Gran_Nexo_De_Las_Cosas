@@ -131,12 +131,16 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
           if (e.pointerType === 'mouse') {
             setHoveredNode(id); 
           }
-          document.body.style.cursor = 'pointer'; 
+          if (!document.body.classList.contains('is-dragging')) {
+            document.body.style.cursor = 'pointer'; 
+          }
         }}
         onPointerOut={(e) => { 
           e.stopPropagation(); 
           setHoveredNode(null); 
-          document.body.style.cursor = 'default'; 
+          if (!document.body.classList.contains('is-dragging')) {
+            document.body.style.cursor = 'default'; 
+          }
           if (longPressTimeout.current) {
             clearTimeout(longPressTimeout.current);
             longPressTimeout.current = null;

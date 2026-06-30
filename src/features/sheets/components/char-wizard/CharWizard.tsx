@@ -71,7 +71,7 @@ export const CharWizard: React.FC = () => {
       setCurrentStep(c => c + 1);
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
       }, 10);
     } else if (currentStep === 6) {
       setShowFinishModal(true);
@@ -83,7 +83,7 @@ export const CharWizard: React.FC = () => {
       setCurrentStep(c => c - 1);
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
       }, 10);
     }
   };
@@ -220,7 +220,7 @@ export const CharWizard: React.FC = () => {
                   setCurrentStep(0);
                   setTimeout(() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
                   }, 10);
                 });
               }}
