@@ -1,0 +1,40 @@
+.floating-label-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; 
+  user-select: none;
+  position: relative;
+  z-index: 9999999 !important;
+}
+
+.floating-label-text {
+  font-family: 'Inter', 'Roboto', monospace;
+  font-size: 14.7px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #f4f9ff; /* Color blanquecino */
+  text-transform: uppercase;
+  pointer-events: none;
+  font-weight: 800; /* Hacer la fuente un poco más gruesa para soportar el bordeado */
+  
+  /* Bordeado pesado (simulado con múltiples sombras muy oscuras/cian oscuro) */
+  text-shadow: 
+    -1.5px -1.5px 0 #001a33,
+     1.5px -1.5px 0 #001a33,
+    -1.5px  1.5px 0 #001a33,
+     1.5px  1.5px 0 #001a33,
+     0px 4px 6px rgba(0, 0, 0, 0.9);
+  
+  /* Micro-animation for floating effect */
+  animation: floatingTextEffect 3s ease-in-out infinite;
+  
+  /* Ensure Futhark runes display clearly */
+  white-space: nowrap;
+}
+
+@keyframes floatingTextEffect {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}

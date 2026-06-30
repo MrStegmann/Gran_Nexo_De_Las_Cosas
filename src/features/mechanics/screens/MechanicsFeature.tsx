@@ -1,0 +1,65 @@
+import React from 'react';
+import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
+import { useConstellationStore } from '../../constellation/store/useConstellationStore';
+import { TesseractSectionId } from '../../../enums/TesseractSectionId';
+
+import combateMd from '../../../assets/documents/system/Combate.md?raw';
+import estadosMd from '../../../assets/documents/system/Estados.md?raw';
+import heridasMd from '../../../assets/documents/system/Heridas.md?raw';
+import reglasMd from '../../../assets/documents/system/Reglas.md?raw';
+import recursosMd from '../../../assets/documents/system/Recursos.md?raw';
+
+import { Combat } from '../components/Combat';
+import { States } from '../components/States';
+import { Wounds } from '../components/Wounds';
+import { Rules } from '../components/Rules';
+import { Resources } from '../components/Resources';
+
+const systemSections: TesseractSection[] = [
+  {
+    id: TesseractSectionId.RULES,
+    title: 'Reglas',
+    markdown: reglasMd,
+    customComponent: <Rules />
+  },
+  {
+    id: TesseractSectionId.COMBAT,
+    title: 'Combate',
+    markdown: combateMd,
+    customComponent: <Combat />
+  },
+  {
+    id: TesseractSectionId.STATES,
+    title: 'Estados',
+    markdown: estadosMd,
+    customComponent: <States />
+  },
+  {
+    id: TesseractSectionId.WOUNDS,
+    title: 'Heridas',
+    markdown: heridasMd,
+    customComponent: <Wounds />
+  },
+  {
+    id: TesseractSectionId.RESOURCES,
+    title: 'Recursos',
+    markdown: recursosMd,
+    customComponent: <Resources />
+  }
+];
+
+export const MechanicsFeature: React.FC = () => {
+  const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
+  const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
+  const returningNodeId = useConstellationStore((state) => state.returningNodeId);
+
+  return (
+    <div className={`w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40 transition-opacity duration-700 ${transitioningNodeId || returningNodeId ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <Tesseract
+        color="#ffb700"
+        sections={systemSections}
+        onClose={() => setSelectedNode(null)}
+      />
+    </div>
+  );
+};
