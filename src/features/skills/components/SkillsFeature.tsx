@@ -73,6 +73,8 @@ export const SkillsFeature: React.FC = () => {
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
   const transitioningAttribute = useConstellationStore((state) => state.transitioningAttribute);
   const returningAttribute = useConstellationStore((state) => state.returningAttribute);
+  const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
+  const returningNodeId = useConstellationStore((state) => state.returningNodeId);
 
   const handleNodeClick = (nodeId: string) => {
     const state = useConstellationStore.getState();
@@ -97,7 +99,7 @@ export const SkillsFeature: React.FC = () => {
       />
 
       {/* Main Canvas for MagicFlow */}
-      <div className="w-full h-full relative">
+      <div className={`w-full h-full relative transition-opacity duration-700 ${transitioningNodeId || returningNodeId ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <Canvas
           camera={{ position: [0, 0, 15], fov: 75, near: 0.1, far: 30000 }}
           gl={{ alpha: true, antialias: true }}

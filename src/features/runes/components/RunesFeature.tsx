@@ -114,9 +114,11 @@ const runesSections: TesseractSection[] = [
 
 export const RunesFeature: React.FC = () => {
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
+  const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
+  const returningNodeId = useConstellationStore((state) => state.returningNodeId);
 
   return (
-    <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40 flex items-center justify-center">
+    <div className={`w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40 flex items-center justify-center transition-opacity duration-700 ${transitioningNodeId || returningNodeId ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <Tesseract
         color="#ffffff"
         sections={runesSections}

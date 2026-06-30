@@ -4,11 +4,11 @@ import { Layout } from './features/core/components/Layout';
 import { useConstellationStore } from './features/constellation/store/useConstellationStore';
 import { NodeId } from './features/constellation/enums/NodeId';
 import { AttributeId } from './features/constellation/enums/AttributeId';
-import { MechanicsFeature } from './features/mechanics/components/MechanicsFeature';
+import { MechanicsFeature } from './features/mechanics/screens/MechanicsFeature';
 import { SpellsFeature } from './features/spells/components/SpellsFeature';
-import { SheetsFeature } from './features/sheets/components/SheetsFeature';
+import { SheetsFeature } from './features/sheets/screens/SheetsFeature';
 import { SkillsFeature } from './features/skills/components/SkillsFeature';
-import { InventoryFeature } from './features/inventory/components/InventoryFeature';
+import { InventoryFeature } from './features/inventory/screens/InventoryFeature';
 import { RunesFeature } from './features/runes/components/RunesFeature';
 import './App.css';
 

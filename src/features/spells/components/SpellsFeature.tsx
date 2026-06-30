@@ -18,6 +18,8 @@ export const SpellsFeature: React.FC = () => {
   const selectedSchool = useConstellationStore((state) => state.selectedSchool);
   const transitioningAttribute = useConstellationStore((state) => state.transitioningAttribute);
   const returningAttribute = useConstellationStore((state) => state.returningAttribute);
+  const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
+  const returningNodeId = useConstellationStore((state) => state.returningNodeId);
   const setSelectedAttribute = useConstellationStore((state) => state.setSelectedAttribute);
   const setSelectedSchool = useConstellationStore((state) => state.setSelectedSchool);
 
@@ -60,7 +62,7 @@ export const SpellsFeature: React.FC = () => {
 
 
       {/* Main Canvas for MagicFlow */}
-      <div className="w-full h-full relative">
+      <div className={`w-full h-full relative transition-opacity duration-700 ${transitioningNodeId || returningNodeId ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <Canvas
           camera={{ position: [0, 0, 15], fov: 75 }}
           gl={{ alpha: true, antialias: true }}

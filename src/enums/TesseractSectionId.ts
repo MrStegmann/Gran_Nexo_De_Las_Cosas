@@ -12,7 +12,7 @@ export const TesseractSectionId = {
 
   // Inventory
   GUIDE: 'guide',
-  ARMORS: 'amors',
+  ARMORS: 'armors',
   SHIELDS: 'shields',
   WEAPONS: 'weapons',
 

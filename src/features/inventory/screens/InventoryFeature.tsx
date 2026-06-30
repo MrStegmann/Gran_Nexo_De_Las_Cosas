@@ -3,39 +3,45 @@ import { Tesseract, type TesseractSection } from '../../../components/Tesseract/
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { TesseractSectionId } from '../../../enums/TesseractSectionId';
 
-import amorsMd from '../../../assets/documents/inventory/amors.md?raw';
-import guideMd from '../../../assets/documents/inventory/guide.md?raw';
-import shieldsMd from '../../../assets/documents/inventory/shields.md?raw';
-import weaponsMd from '../../../assets/documents/inventory/weapons.md?raw';
+import { Guide } from '../components/Guide';
+import { Armors } from '../components/Armors';
+import { Shields } from '../components/Shields';
+import { Weapons } from '../components/Weapons';
 
 const inventorySections: TesseractSection[] = [
   {
     id: TesseractSectionId.GUIDE,
     title: 'Guía',
-    markdown: guideMd
+    markdown: '',
+    customComponent: <Guide />
   },
   {
     id: TesseractSectionId.ARMORS,
     title: 'Armaduras',
-    markdown: amorsMd
+    markdown: '',
+    customComponent: <Armors />
   },
   {
     id: TesseractSectionId.SHIELDS,
     title: 'Escudos',
-    markdown: shieldsMd
+    markdown: '',
+    customComponent: <Shields />
   },
   {
     id: TesseractSectionId.WEAPONS,
     title: 'Armas',
-    markdown: weaponsMd
+    markdown: '',
+    customComponent: <Weapons />
   }
 ];
 
 export const InventoryFeature: React.FC = () => {
   const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
+  const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
+  const returningNodeId = useConstellationStore((state) => state.returningNodeId);
 
   return (
-    <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40 flex items-center justify-center">
+    <div className={`w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40 flex items-center justify-center transition-opacity duration-700 ${transitioningNodeId || returningNodeId ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <Tesseract
         color="#ff3344"
         sections={inventorySections}
