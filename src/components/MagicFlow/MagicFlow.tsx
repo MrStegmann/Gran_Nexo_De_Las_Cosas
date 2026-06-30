@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState, useEffect } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -134,7 +134,7 @@ const MagicNode: React.FC<{
   const currentEmissive = useRef(1.0);
   const currentScale = useRef(1.0);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const targetEmissive = isHovered ? 2.0 : 1.0;
     const targetScale = isHovered ? 1.2 : 1.0;
 
@@ -174,8 +174,7 @@ const MagicNode: React.FC<{
         onHover(true);
         if (onClick) document.body.style.cursor = 'pointer';
       }}
-      onPointerOut={(e) => {
-        onHover(false);
+      onPointerOut={(_) => {
         if (onClick) document.body.style.cursor = 'auto';
       }}
       onClick={(e) => {
@@ -453,7 +452,7 @@ export const MagicFlow: React.FC<MagicFlowProps> = ({ nodes, onClick, onHover })
       <MagicFlowCameraAnimator nodePositions={nodePositions} nodes={nodes} />
       {(!selectedAttribute || transitioningAttribute) && (
         <group ref={tubesGroupRef}>
-          {filamentsData.map((data, i) => {
+          {filamentsData.map((_, i) => {
             // Initial empty geometry to be updated in useFrame
             const initialGeom = new THREE.BufferGeometry();
             return (

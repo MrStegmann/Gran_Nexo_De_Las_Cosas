@@ -11,7 +11,6 @@ import { Traits } from '../components/Traits';
 import { Equipment } from '../components/Equipment';
 import { Pets } from '../components/Pets';
 import { Specials } from '../components/Specials';
-import { StepByStep } from '../components/StepByStep';
 import { CharWizard } from '../components/char-wizard/CharWizard';
 
 const sheetSections: TesseractSection[] = [

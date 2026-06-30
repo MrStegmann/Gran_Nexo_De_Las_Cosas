@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Layout } from './features/core/components/Layout';
 import { useConstellationStore } from './features/constellation/store/useConstellationStore';

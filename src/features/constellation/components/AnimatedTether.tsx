@@ -60,7 +60,7 @@ export const AnimatedTether: React.FC<{ startPos: THREE.Vector3; endPos: THREE.V
       {/* Central thin straight tether */}
       <line>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={2} array={new Float32Array([startPos.x, startPos.y, startPos.z, endPos.x, endPos.y, endPos.z])} itemSize={3} />
+          <bufferAttribute attach="attributes-position" count={2} args={[new Float32Array([startPos.x, startPos.y, startPos.z, endPos.x, endPos.y, endPos.z]), 3]} />
         </bufferGeometry>
         <lineBasicMaterial color={color} transparent opacity={0.1} blending={THREE.AdditiveBlending} />
       </line>
@@ -69,7 +69,7 @@ export const AnimatedTether: React.FC<{ startPos: THREE.Vector3; endPos: THREE.V
       {strands.map((_, idx) => (
         <line key={idx}>
           <bufferGeometry ref={(el) => (lineRefs.current[idx] = el as any)}>
-            <bufferAttribute attach="attributes-position" count={segments + 1} array={new Float32Array((segments + 1) * 3)} itemSize={3} />
+            <bufferAttribute attach="attributes-position" count={segments + 1} args={[new Float32Array((segments + 1) * 3), 3]} />
           </bufferGeometry>
           <lineBasicMaterial color={new THREE.Color(color).multiplyScalar(12)} transparent opacity={0.4} blending={THREE.AdditiveBlending} />
         </line>

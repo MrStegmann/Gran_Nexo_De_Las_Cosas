@@ -177,7 +177,7 @@ const GeometricNode: React.FC<NodeProps> = ({ node, position, radius, isSelected
   const hoveredBrightColor = useMemo(() => baseColor.clone().multiplyScalar(3.5), [baseColor]);
   const labelDelay = useMemo(() => Math.random() * 500, []);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const targetScale = hovered ? 1.3 : 1.0;
     const targetOpacity = (isAnySelected && !isSelected) ? 0.0 : 1.0;
 

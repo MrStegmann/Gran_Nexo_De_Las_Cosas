@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { MagicFlow } from '../../../components/MagicFlow';
@@ -20,7 +20,6 @@ export const SpellsFeature: React.FC = () => {
   const returningAttribute = useConstellationStore((state) => state.returningAttribute);
   const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
   const returningNodeId = useConstellationStore((state) => state.returningNodeId);
-  const setSelectedAttribute = useConstellationStore((state) => state.setSelectedAttribute);
   const setSelectedSchool = useConstellationStore((state) => state.setSelectedSchool);
 
   const handleNodeClick = (nodeId: string) => {
@@ -34,14 +33,14 @@ export const SpellsFeature: React.FC = () => {
     }
   };
 
-  const currentNodes = selectedAttribute ? schoolsData[selectedAttribute] : mainAttributes;
+  const currentNodes = (selectedAttribute && selectedAttribute in schoolsData) ? schoolsData[selectedAttribute as keyof typeof schoolsData] : mainAttributes;
   const currentThemeHex = selectedAttribute === AttributeId.INTELIGENCIA ? '#0044ff' : selectedAttribute === AttributeId.VOLUNTAD ? '#ffd700' : '#ffffff';
 
   const showBlackBg = !!selectedAttribute || !!transitioningAttribute || !!returningAttribute;
 
   const handleNodeHover = (nodeId: string | null) => {
     if (nodeId) {
-      const node = currentNodes.find(n => n.id === nodeId);
+      const node = currentNodes.find((n: any) => n.id === nodeId);
       if (node && node.description) {
         useAzulitoStore.getState().setSpeechAndMood(node.description, 'talk');
       } else if (node) {
@@ -114,14 +113,14 @@ export const SpellsFeature: React.FC = () => {
                 }
               }
             }}
-            colorHex={selectedSchool ? (currentNodes.find(n => n.id === selectedSchool)?.color || currentThemeHex) : currentThemeHex}
+            colorHex={selectedSchool ? (currentNodes.find((n: any) => n.id === selectedSchool)?.color || currentThemeHex) : currentThemeHex}
           />
         </div>
       )}
 
       {/* Tesseract Overlay */}
       {selectedSchool && (() => {
-        const selectedSchoolData = currentNodes.find(n => n.id === selectedSchool);
+        const selectedSchoolData = currentNodes.find((n: any) => n.id === selectedSchool);
         if (!selectedSchoolData) return null;
 
         return (

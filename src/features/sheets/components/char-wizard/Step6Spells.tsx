@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import type { CharacterState } from './types';
 import { CATEGORY_DATA } from './constants';
 import { schoolsData } from '../../../spells/data/spellsData';

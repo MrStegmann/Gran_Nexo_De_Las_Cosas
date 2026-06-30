@@ -71,7 +71,6 @@ const FOOTER_THEMES: Record<string, { border: string, shadow: string, scanline: 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
-  const setSelectedNode = useConstellationStore((state) => state.setSelectedNode);
   const activeTheme = selectedNodeId && FOOTER_THEMES[selectedNodeId] ? FOOTER_THEMES[selectedNodeId] : FOOTER_THEMES.DEFAULT;
 
   return (

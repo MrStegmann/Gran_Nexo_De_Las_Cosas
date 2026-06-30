@@ -8,7 +8,7 @@ interface Step7Props {
   metaData: MetaData | null;
 }
 
-export const Step7Summary: React.FC<Step7Props> = ({ state, setState, metaData }) => {
+export const Step7Summary: React.FC<Step7Props> = ({ state, metaData }) => {
   const [exportString, setExportString] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
 

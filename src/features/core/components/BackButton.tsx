@@ -29,7 +29,7 @@ const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean }> = ({ col
 
   const geom = useMemo(() => new THREE.BufferGeometry(), []);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     // Determine target speed based on state
     let targetSpeed = 0.8;
     let targetOpacity = 0.6;
@@ -52,7 +52,7 @@ const TesseractMesh: React.FC<{ colorHex: string; isHovered: boolean }> = ({ col
   // Custom time accumulator to handle variable speeds smoothly
   const timeAccumulator = useRef(0);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     timeAccumulator.current += delta * currentSpeed.current;
     const t = timeAccumulator.current;
 

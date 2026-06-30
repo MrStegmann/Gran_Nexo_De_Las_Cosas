@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 
