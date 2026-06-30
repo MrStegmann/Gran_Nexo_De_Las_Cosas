@@ -1,37 +1,38 @@
-# Puntos de vida
-Todos los jugadores tienen como vida base 20 (Normal) puntos de vida.
-Los puntos de vida se pueden aumentar al subir de nivel, subiendo el atributo Constitución, beneficios mágicos ó armaduras especiales.
+# Recursos del Personaje
 
-Cada punto de Constitución añade +1 a la vida máxima.
+## Puntos de Vida (HP)
 
-Cuando la vida llega a 0, se considera que el personaje se encuentra en un estado pre-muerto. 
-Esto implica que el personaje aún puede ser salvado de la muerte por otro jugador mediante hechizos mágicos, el uso de una poción de sanación o la aplicación de algún conocimiento médico.
-Si un jugador con 0 puntos de vida no es salvado dentro de la misma sesión, pasará a estar muerto.
+Todos los jugadores tienen como vida base **20 puntos de vida** (Normal). Los puntos de vida se pueden aumentar al subir de nivel, subiendo el atributo Constitución, mediante beneficios mágicos o armaduras especiales.
 
-Un jugador muerto puede ser resucitado como zombie por otro personaje. Sin embargo, el zombie estará bajo el completo control del amo que lo levante.
+| Característica   | Descripción                                                                                                                                                                                                        |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Escalado**     | Cada punto de Constitución añade **+1** a la vida máxima.                                                                                                                                                          |
+| **Pre-muerte**   | Cuando la vida llega a 0, el personaje se encuentra en estado pre-muerto. Aún puede ser salvado por otro jugador mediante hechizos, pociones o conocimientos médicos. Si no es salvado en la misma sesión, morirá. |
+| **Muerte**       | Un jugador muerto puede ser resucitado como zombie por otro personaje, quedando bajo el completo control de su amo.                                                                                                |
+| **Recuperación** | Se pueden recuperar con pociones, sanaciones mágicas o intervención médica.                                                                                                                                        |
 
-Los puntos de vida se pueden recuperar con pociones, sanaciones mágicas o intervención médica.
+---
 
-# Maná
-El maná es usado por los personajes que usen hechizos de inteligencia (arcano, vil, sombras, naturaleza, nigromancia).
+## Maná
 
-Al entrar en estado de pre-muerte, los personajes pierden todo su maná.
+El maná es usado por los personajes que usen hechizos de inteligencia (Arcano, Vil, Sombras, Naturaleza, Nigromancia).
 
-Al final del turno del personaje, podrá tirar 1D4 + Regeneración de Maná.
+| Característica                  | Descripción                                                                                            |
+| :------------------------------ | :----------------------------------------------------------------------------------------------------- |
+| **Escalado**                    | Cada punto de Inteligencia (INT) añade **+1** al máximo de Maná.                                       |
+| **Regeneración**                | Al final de su turno, el personaje tira **1d4 + Regeneración de Maná**.                                |
+| **Agotamiento (Fatiga Mágica)** | Si el maná se agota, el personaje puede seguir lanzando hechizos a costa de perder **puntos de vida**. |
+| **Penalización por Pre-muerte** | Al entrar en estado de pre-muerte, los personajes **pierden todo su maná**.                            |
 
-Cuando se agota el maná del personaje, este podrá seguir lanzando hechizos a coste de perder puntos de vida. Esto se conocerá como fatiga mágica.
+---
 
-Escala con Inteligencia (INT). Cada punto de inteligencia añade +1 al máximo de Maná.
+## Espíritu
 
-# Espíritu
-El espíritu es usado por los personajes que usen hechizos de voluntad (fe, chi, elemental).
+El espíritu es usado por los personajes que usen hechizos de voluntad (Fe, Chi, Elemental). Es un recurso **limitado** y no se regenera con el tiempo.
 
-Al entrar en estado de pre-muerte, NO pierden su espíritu.
-
-Es un recurso limitado ya que sólo se puede recuperar realizando oraciones, meditación o armonizando con los elementos. El espíritu no se regenera con el tiempo.
-
-Tras superar una tirada D20 Voluntad + Talento (revisar apartado de Magias), se realiza 1d4 + Talento. El resultado será el espíritu recuperado.
-
-Cuando el espíritu se agota, los personajes no podrán lanzar más hechizos aún a coste de su salud. Por lo que, una vez perdido todo el espíritu, no podrán lanzar más hechizos.
-
-Escala con Voluntad (VOL). Cada punto de voluntad añade +1 al máximo de Espíritu.
+| Característica                  | Descripción                                                                                                                                                                                                             |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Escalado**                    | Cada punto de Voluntad (VOL) añade **+1** al máximo de Espíritu.                                                                                                                                                        |
+| **Regeneración**                | Solo se recupera realizando oraciones, meditación o armonizando con los elementos. Requiere superar una tirada de **1d20 Voluntad + Talento** (revisar apartado de Magias). Si tiene éxito, recupera **1d4 + Talento**. |
+| **Agotamiento**                 | Cuando el espíritu se agota, **no se pueden lanzar más hechizos** (ni siquiera a costa de salud).                                                                                                                       |
+| **Penalización por Pre-muerte** | Al entrar en estado de pre-muerte, los personajes **NO pierden su espíritu**.                                                                                                                                           |

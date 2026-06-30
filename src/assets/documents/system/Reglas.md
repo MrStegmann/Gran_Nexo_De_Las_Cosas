@@ -1,124 +1,129 @@
-# Alcance
-El alcance efectivo de ataques a distancia o hechizos, va delimitado por el Máster de forma aproximada, a lo que sería lo lógico para cada situación Por lo que los siguientes valores deberían ser utilizados a modo de referencia. Por lo tanto, se considera que:
+# Reglas Generales
 
-* Un arco largo puede llegar a una distancia efectiva de 40 metros.
-* Los hechizos, pistolas y arcos cortos tienen un alcance efectivo de 30 metros.
-* Un rifle de precisión puede alcanzar los 50 metros.
-* Una escopeta puede alcanzar los 10 metros.
+## Alcance
+El alcance efectivo de ataques a distancia o hechizos va delimitado por el Máster de forma aproximada, a lo que sería lógico para cada situación. Por lo que los siguientes valores deberían ser utilizados a modo de referencia:
 
-Esto se tiene en cuenta cuando se quiere evitar algunas situaciones inverosímiles por parte de los personajes en cuanto a su distancia ataque. En otras palabras, para que no se flipen.
+| Arma / Tipo                           | Alcance Efectivo (Aprox) |
+| :------------------------------------ | :----------------------- |
+| **Arco Largo**                        | 40 metros                |
+| **Hechizos, Pistolas y Arcos Cortos** | 30 metros                |
+| **Rifle de Precisión**                | 50 metros                |
+| **Escopeta**                          | 10 metros                |
 
-# Fatiga
-La Fatiga es un estado que se obtiene al no realizar ningún tipo de descanso, ni comer ni beber agua, afectando negativamente a  las capacidades del personaje.
+Esto se tiene en cuenta para evitar situaciones inverosímiles por parte de los personajes (para que no se "flipen").
 
-Al obtener este estado, todas las tiradas se verán reducidas de forma gradual restando -1 por cada periodo prolongado (a juicio del Máster porque en el momento en que escribo esto no se me ocurre nada mejor).
+---
 
-La acumulación excesiva de este estado puede conllevar a la muerte del personaje.
+## Fatiga
+La Fatiga es un estado que se obtiene al no realizar ningún tipo de descanso, ni comer ni beber agua, afectando negativamente a las capacidades del personaje.
 
-# Diferencia de tamaño y fuerza
+- Al obtener este estado, todas las tiradas se verán reducidas de forma gradual restando **-1 por cada periodo prolongado** (a juicio del Máster).
+
+- La acumulación excesiva de este estado puede conllevar a la muerte del personaje.
+
+---
+
+## Diferencia de Tamaño y Fuerza
 Se refiere a la diferencia clara de tamaño que pueda existir entre dos razas independientemente de sus talentos asignados. Esto queda a interpretación del máster.
 
-El ejemplo más claro de este tipo de encuentros, podrían ser un Gnomo que se defiende con Def. Robusta frente al ataque de un Orco o un Tauren. Por muy alto que sea el dado, incluso si fuera defensa CRITICA, el Gnomo quedará derribado.
+*Ejemplo: Un Gnomo que se defiende con Def. Robusta frente al ataque de un Orco o un Tauren. Por muy alto que sea el dado, incluso si fuera defensa CRÍTICA, el Gnomo quedará derribado.*
 
-# Críticos y pifias
-Tanto para los críticos como para las pifias se tendrá en cuenta, exclusivamente, los naturales. Es decir, solo será crítico si el dado que tiras, sin sumarle atributos ni talentos, es 20, al igual que para que sea pifia debe ser 1.
+---
 
-* Una Pifia frente a otra Pifia, se resuelve en gana Defensa. Aunque se considera que el ataque no fue efectivo a pesar de que la Defensa tampoco lo fuera.
+## Críticos y Pifias
+Tanto para los críticos como para las pifias se tendrá en cuenta, exclusivamente, los dados naturales (sin sumar atributos ni talentos: 20 es Crítico, 1 es Pifia).
 
-# Supercrítico
-Es cuando el atacante consigue un Crítico en su ataque frente a una Pifia de la defensa.
-En este caso, harás el máximo daño.
+- **Pifia vs Pifia:** Se resuelve en que gana la Defensa, aunque se considera que el ataque no fue efectivo a pesar de que la Defensa tampoco lo fuera.
 
-# Super contraataque
-Es cuando el defensor consigue un Crítico en su defensa frente a una Pifia del atacante.
-En este caso, tienes un bonus al ataque de +5.
+---
 
-# Emboscadas
-Las emboscadas son situaciones especiales de oportunidad para acabar con un enemigo o, que un enemigo acabe contigo. Solo pueden hacerse Cuerpo a Cuerpo.
+## Supercrítico y Super Contraataque
 
-Las emboscadas solo se pueden llevar a cabo si nadie te ha visto antes o te haya detectado. Esto significa que, si, durante un combate, usas invisibilidad para desaparecer de la vista de todos, si ya te han visto o escuchado NO tienes oportunidad de Emboscada.
+| Situación              | Condición                                                          | Efecto                                                      |
+| :--------------------- | :----------------------------------------------------------------- | :---------------------------------------------------------- |
+| **Supercrítico**       | El atacante saca **Crítico** frente a una **Pifia** de la defensa. | Harás el **máximo daño** posible.                           |
+| **Super Contraataque** | El defensor saca **Crítico** frente a una **Pifia** del atacante.  | Tienes un bonus al ataque de **+5** en tu siguiente acción. |
 
-Las emboscadas deben superar una tirada de Sigilo frente a Percepción. Si el emboscador gana a la percepción del emboscado, se mantiene en modo emboscada. De perder frente la percepción, el modo emboscada termina, sin embargo, el emboscador sigue pudiendo sorprender al objetivo, pero éste tendrá posibilidad de defenderse del ataque, además de que no habrá posibilidad de muerte instantánea.
+---
 
-* Nota: Las tiradas enfrentadas pueden repetirse si la emboscada dura demasiado o si el emboscador hace algún ruido.
+## Emboscadas
+Situaciones especiales de oportunidad para acabar con un enemigo (o que acaben contigo). Solo pueden hacerse **Cuerpo a Cuerpo**.
 
-Cuando el objetivo de la emboscada está al alcance, el emboscador lanzará un D20 + Destreza.
-Si el resultado es Crítico, el emboscador matará instantáneamente al objetivo.
-En este caso, el emboscado podrá hacer una tirada de Salvación. Si logra un crítico, se resuelve el daño normal.
-Si el resultado es Pifia, se considera que la emboscada ha fracasado y no haces ningún daño.
-Si el resultado es >10, se realiza una tirada de daño como si fuera crítica en el caso de usar armas finas. En caso contrario, será una tirada normal..
-Si el resultado es <10, se realiza una tirada de daño normal en el caso de usar armas finas. En caso contrario, será la mitad de daño..
+Solo se pueden llevar a cabo si **nadie te ha visto o detectado antes**. Si durante un combate usas invisibilidad pero ya te habían detectado, NO tienes oportunidad de emboscada.
 
-# Ataques de oportunidad
-Los ataques de oportunidad ocurren durante tu turno y son situaciones en contra tuya al realizar ciertas acciones como darle la espalda a un enemigo que te tenga en visión y rango.
+1. **Tirada Inicial:** El emboscador tira **Sigilo vs Percepción**.
 
-Todos los que cumplan las condiciones para un ataque de oportunidad, podrán aprovecharla, siguiendo el orden de los turnos.
+   - **Éxito:** Mantiene el modo emboscada.
+   
+   - **Fallo:** El modo emboscada termina, pero el emboscador sigue pudiendo sorprender al objetivo. Este tendrá posibilidad de defenderse y no habrá muerte instantánea.
+   
+   *(Las tiradas pueden repetirse si la emboscada dura mucho o el emboscador hace ruido).*
 
-* Situaciones que generan ataque de oportunidad:
-    * Tratas de lanzar un hechizo básico o potente con un enemigo cuerpo a cuerpo.
-    * Darle la espalda a un enemigo.
-    * Huir dejando de ver al enemigo.
-    * Cargar armas a distancia pesadas con un enemigo cuerpo a cuerpo.
+2. **Ataque de Emboscada (a Rango Efectivo):** Se tira **1d20 + Destreza**.
 
-* No es un ataque de oportunidad:
-    * Estar flanqueado.
-    * Gastar una acción para empujar o derribar al enemigo antes de huir o darle la espalda.
+   - **Crítico:** Mata instantáneamente al objetivo. (El emboscado puede hacer una tirada de Salvación; si logra crítico, sufre daño normal).
+   
+   - **\>10:** Daño de arma. Si es arma fina, se calcula como daño crítico. Si no, daño normal.
+   
+   - **<10:** Daño de arma. Si es arma fina, daño normal. Si no, mitad de daño.
+   
+   - **Pifia:** La emboscada fracasa. No se hace daño.
 
-# Terreno adverso
-El terreno adverso es un escenario que limita las capacidades de los jugadores y/o npc’s, incluso, llegando a provocarles daño en el tiempo.
+---
 
-* Frío extremo
-Durante el tiempo que se permanezca en un ambiente de Frío Extremo y no se esté lo suficientemente protegido (pociones, hechizos, ropa) deberá enfrentarse a una tirada de salvación 1d20 + Constitución + Res. Frío.
-Si el personaje no supera la dificultad establecida, sufrirá una acumulación de Hipotermia. Al llegar a 5 acumulaciones, el personaje muere por Hipotermia.
-Se puede reducir las acumulaciones haciendo que el personaje entre en calor.
+## Ataques de Oportunidad
+Ocurren durante tu turno y son situaciones en tu contra al realizar ciertas acciones (como dar la espalda a un enemigo con visión y rango). Todos los que cumplan las condiciones podrán aprovecharla siguiendo el orden de turnos.
 
-* Calor extremo
-Durante el tiempo que se permanezca en un ambiente de Calor Extremo y no se esté preparado para ello (pociones, hechizos, ropa) deberá enfrentarse a una tirada de salvación 1d20 + Constitución + Res. Calor.
-Si el personaje no supera la dificultad establecida, sufrirá una acumulación de Insolación. Al llegar a 5 acumulaciones, el personaje muere por Insolación.
-Se pueden reducir las acumulaciones buscando lugares frescos.
+| Situación                                                            | ¿Genera Ataque de Oportunidad? |
+| :------------------------------------------------------------------- | :----------------------------: |
+| Lanzar un hechizo básico/potente frente a un enemigo cuerpo a cuerpo | Sí                             |
+| Dar la espalda a un enemigo                                          | Sí                             |
+| Huir dejando de ver al enemigo                                       | Sí                             |
+| Cargar armas a distancia pesadas frente a un enemigo cuerpo a cuerpo | Sí                             |
+| Estar flanqueado                                                     | No                             |
+| Empujar/derribar al enemigo exitosamente antes de huir               | No                             |
 
-* Suelo embarrado
-El suelo embarrado limita el movimiento a la mitad y, además, elimina el movimiento gratis, con lo que, si el personaje va a moverse SIEMPRE debe hacer tirada de atletismo.
+---
 
-* Suelo putrefacto
-El suelo putrefacto es un lugar muerto y en descomposición que afecta a la salud de los personajes. Permanecer demasiado tiempo en un suelo putrefacto afectará a la vida de los personajes y a sus atributos.
-Los dos primeros turnos que se permanezca en un Suelo putrefacto no afectarán a los personajes. Inmediatamente después, si siguen dentro del suelo, comenzarán a perder 1 de vida y de todos sus atributos y talentos hasta un mínimo de 0.
+## Terreno Adverso
+Un escenario que limita las capacidades de los jugadores/NPCs y que puede llegar a provocar daño en el tiempo.
 
-* Suelo resbaladizo
-El suelo resbaladizo es una situación donde los personajes no son capaces o se ven afectados por una inestabilidad constante al moverse o realizar ciertas acciones. Este tipo de suelo requiere para todas las acciones defensivas, movimiento, acrobacias una tirada de Destreza y Acrobacias para mantener el equilibrio. De fallar, la acción queda anulada y el personaje quedaría en estado de Derribado.
+| Terreno               | Efectos                                                                                                                                                                                  |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frío Extremo**      | Si no se protege, debe salvar con **1d20 + CON + Res. Frío**. Si falla, obtiene acumulación de *Hipotermia* (a 5 acumulaciones, muere). Entrar en calor las reduce.                      |
+| **Calor Extremo**     | Si no se protege, debe salvar con **1d20 + CON + Res. Calor**. Si falla, obtiene acumulación de *Insolación* (a 5 acumulaciones, muere). Buscar fresco las reduce.                       |
+| **Suelo Embarrado**   | Limita el movimiento a la mitad. Elimina el movimiento gratis (SIEMPRE requiere tirada de Atletismo para moverse).                                                                       |
+| **Suelo Putrefacto**  | Afecta la salud. 2 turnos de gracia. Al 3er turno se pierde -1 de HP y -1 a todos los atributos/talentos por turno (hasta mínimo 0).                                                     |
+| **Suelo Resbaladizo** | Todas las acciones defensivas, de movimiento o acrobacias requieren tirada de **Destreza + Acrobacias** para mantener el equilibrio. Si falla, la acción se anula y queda **Derribado**. |
 
-# Distancia de percepción
-La distancia de percepción es la distancia a la que los personajes, de forma general, pueden percibir, ya sea mediante la audición o la vista, pueden detectar algo.
+---
 
-Esta distancia será una referencia para el Máster para poder decidir si permite o no la percepción física si los personajes con respecto a lo que quieren percibir está muy lejos. Claramente, todo esto tiene muchas variantes (si es posible que puedan escuchar algo o ver algo dadas las circunstancias de la situación), pero, generalmente, la distancia de percepción base será de 200 metros.
+## Distancia de Percepción
+La distancia aproximada (visual o auditiva) a la que los personajes pueden detectar algo. Es una referencia para el Máster (varía según la situación), pero generalmente la **distancia de percepción base es de 200 metros**.
 
-# Doble empuñadura
-Empuñar dos armas (un arma en cada mano) te permite realizar dos ataques en una sola acción. Cada ataque tendrá su correspondiente tirada con su penalización por doble empuñadura y, el objetivo del ataque se tendrá que defender de ambos ataques.
+---
 
-Por ejemplo, eres la pícara del grupo y realizas un ataque contra un objetivo con tus dos dagas. Harás 2d20 Destreza + Combate Ágil. Mientras que tu objetivo se defenderá (según convenga) con 2d20 Fuerza + Defensa Robusta, 2d20 Destreza + Defensa ágil ó una combinación de ambas.
+## Doble Empuñadura
+Empuñar un arma en cada mano permite realizar **dos ataques** en una sola acción (cada ataque con su tirada y penalización). El objetivo se defiende de ambos ataques.
+*Solo las armas con el atributo "Doble empuñadura" pueden usarse así.* Atacar desarmado con ambos puños aplica penalización de Combate Ágil. Las armas de 2 manos o versátiles siempre reciben penalización incluso si atacas con una.
 
-Sólo las armas con el atributo Doble empuñadura pueden ser empuñadas de esta manera.
-Atacar desarmado puede considerarse doble empuñadura si atacas con ambos puños (Se aplicará la penalización de Combate ágil).
+### Penalizaciones por Doble Empuñadura
 
-Las armas de 2 manos o las que pueden usarse a dos manos, siempre recibirán penalización aunque ataques solo con una. El resto de armas sólo tienen penalización cuando se usan ambas.
+| Tipo                | Mano dominante | Mano secundaria |
+| :------------------ | :------------: | :-------------: |
+| **Combate Ágil**    | -1             | -3              |
+| **Precisión**       | -2             | -4              |
+| **Combate 1 mano**  | -4             | -6              |
+| **Combate 2 manos** | -5             | -7              |
 
-## Penalizaciones por Doble Empuñadura
+*(Los rasgos Ambidiestro Ágil y Ambidiestro Robusto eliminan ciertos aspectos de estas penalizaciones).*
 
-| Tipo | Mano dominante | Secundaria |
-|---|---|---|
-| Combate ágil | -1 | -3 |
-| Precisión | -2 | -4 |
-| Combate 1 mano | -4 | -6 |
-| Combate 2 manos | -5 | -7 |
+---
 
-* Nota: El rasgo positivo Ambidiestro Ágil y Ambidiestro Robusto elimina ciertos aspectos de estas penalizaciones.
+## Debilidades y Vulnerabilidades
+Son desventajas (ocultas o no) que aumentan el efecto de ciertas acciones sobre el objetivo.
 
-# Debilidades y Vulnerabilidades
-Las debilidades son desventajas ocultas que puede tener cualquier NPC o armaduras el cuál hace que ciertas acciones aumenten los efectos sobre dicho objetivo.
-Por su parte, una Vulnerabilidad, es lo mismo pero a un nivel superior, por lo que, podría decirse que es el doble de efecto que una debilidad.
-
-* La Debilidad tiene un +2 a los efectos recibidos.
-En este caso, si usaramos fuego contra un NPC débil al fuego, al lanzar el dado de daño, al resultado, le sumaremos un +2.
-
-* La Vulnerabilidad tiene un +4 a los efectos recibidos. Explotar una vulnerabilidad puede provocar efectos extra. (El máster sabrá lo que hace)
-En este caso, si usaramos fuego contra un NPC vulnerable al fuego, al lanzar el dado de daño, al resultado, le sumaremos un +4. Además de los efectos que pudieran sufrir, como, por ejemplo, quedar aturdido.
+| Tipo               | Penalización                                                                                       | Ejemplo                                                                        |
+| :----------------- | :------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| **Debilidad**      | **+2** a los efectos recibidos.                                                                    | Daño de fuego a NPC débil al fuego recibe +2 extra.                            |
+| **Vulnerabilidad** | **+4** a los efectos recibidos. Explotarla puede provocar efectos extra (a discreción del Máster). | Daño de fuego a NPC vulnerable recibe +4 extra y, por ejemplo, queda aturdido. |
