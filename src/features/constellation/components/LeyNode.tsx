@@ -164,6 +164,9 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
         }}
         onClick={(e) => {
           e.stopPropagation();
+          if (e.delta > 2) {
+            return;
+          }
           if (isLongPress.current) {
             return;
           }

@@ -27,6 +27,8 @@ export interface CharacterState {
   aptitudes: CharacterAptitude[];
   hechizos: string;
   habilidades: string;
+  selectedSpells: string[];
+  selectedSkills: string[];
   profesion: string;
   profesionDesc: string;
 }

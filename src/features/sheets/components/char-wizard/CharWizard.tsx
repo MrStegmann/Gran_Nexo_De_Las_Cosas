@@ -9,12 +9,14 @@ import { Step4Traits } from './Step4Traits';
 import { Step5Aptitudes } from './Step5Aptitudes';
 import { Step6Spells } from './Step6Spells';
 import { Step7Summary } from './Step7Summary';
+import { Modal } from '../../../../components/Modal/Modal';
 
 export const CharWizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [state, setState] = useState<CharacterState>(INITIAL_STATE);
   const [metaData, setMetaData] = useState<MetaData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showFinishModal, setShowFinishModal] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -66,14 +68,20 @@ export const CharWizard: React.FC = () => {
     if (!validateCurrentStep()) return;
     if (currentStep < 6) {
       setCurrentStep(c => c + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('wizard-header')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (currentStep === 6) {
+      setShowFinishModal(true);
     }
   };
 
   const handlePrev = () => {
     if (currentStep > 0) {
       setCurrentStep(c => c - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('wizard-header')?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -114,7 +122,7 @@ export const CharWizard: React.FC = () => {
     <div className="max-w-4xl mx-auto flex flex-col h-full text-white font-sans">
 
       {/* HEADER / PROGRESS BAR */}
-      <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-md pt-4 pb-2 border-b border-white/10 mb-6">
+      <div id="wizard-header" className="sticky top-0 z-10 bg-black/80 backdrop-blur-md pt-4 pb-2 border-b border-white/10 mb-6">
         <div className="text-xl font-bold text-[#00ff88] uppercase tracking-widest text-center mb-4">
           ⬡ Crear Personaje
         </div>
@@ -182,10 +190,40 @@ export const CharWizard: React.FC = () => {
                 : 'bg-indigo-600 hover:bg-indigo-500 text-white'
               }`}
           >
-            {currentStep === 6 ? '✓ Ficha completada' : 'Siguiente →'}
+            {currentStep === 6 ? 'Terminado' : 'Siguiente →'}
           </button>
         </div>
       </div>
+
+      <Modal 
+        isOpen={showFinishModal} 
+        onClose={() => setShowFinishModal(false)}
+        title="¿Has exportado los datos?"
+        actions={
+          <>
+            <button 
+              onClick={() => setShowFinishModal(false)}
+              className="px-4 py-2 rounded bg-gray-800 text-white hover:bg-gray-700 transition-colors"
+            >
+              Cancelar
+            </button>
+            <button 
+              onClick={() => {
+                setShowFinishModal(false);
+                setState(INITIAL_STATE);
+                setCurrentStep(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="px-4 py-2 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50 hover:bg-[#00ff88]/30 transition-colors"
+            >
+              Reiniciar Wizard
+            </button>
+          </>
+        }
+      >
+        <p>Recuerda aplicar la exportación en el Addon antes de finalizar.</p>
+      </Modal>
 
     </div>
   );

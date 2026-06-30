@@ -120,33 +120,20 @@ export const Step7Summary: React.FC<Step7Props> = ({ state, setState, metaData }
       <h2 className="text-3xl font-bold text-white mb-2">🏆 Profesión & Resumen Final</h2>
       <p className="text-gray-400 mb-8 pb-4 border-b border-white/10">Último paso: define tu trasfondo profesional y revisa toda la ficha.</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Profesión de Trasfondo <span className="opacity-50">(opcional)</span></label>
-          <input
-            type="text"
-            className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-[#00ff88] focus:outline-none"
-            placeholder="Ej: Herrero, Alquimista, Explorador..."
-            value={state.profesion}
-            onChange={(e) => setState({ ...state, profesion: e.target.value })}
-          />
-        </div>
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">¿Qué sabe hacer?</label>
-          <input
-            type="text"
-            className="w-full bg-black/50 border border-white/20 rounded px-4 py-3 text-white focus:border-[#00ff88] focus:outline-none"
-            placeholder="Descripción breve de su profesión..."
-            value={state.profesionDesc}
-            onChange={(e) => setState({ ...state, profesionDesc: e.target.value })}
-          />
-        </div>
+      <div className="mb-8">
+        <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Profesión de Trasfondo (En Desarrollo)</label>
+        <select
+          disabled
+          className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-gray-500 cursor-not-allowed focus:outline-none opacity-50"
+        >
+          <option>WIP - Próximamente</option>
+        </select>
       </div>
 
       <div className="p-6 bg-black/40 border border-white/10 rounded-xl shadow-lg mb-8">
         <div className="flex flex-col md:flex-row items-center justify-between border-b border-white/10 pb-6 mb-6">
           <div className="text-2xl font-bold text-white mb-4 md:mb-0">
-            {state.nombre || <em className="text-gray-500 font-normal">Sin nombre</em>} {state.apellidos}
+            {state.nombre} {state.apellidos}
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="px-3 py-1 rounded bg-white/10 text-white font-bold text-sm">{state.categoria}</span>
@@ -242,7 +229,6 @@ export const Step7Summary: React.FC<Step7Props> = ({ state, setState, metaData }
             <div className="bg-white/5 border border-white/5 p-4 rounded md:col-span-2">
               <h4 className="text-sm uppercase tracking-widest text-gray-400 mb-2 flex items-center gap-2"><span className="text-lg">🛠️</span> Profesión</h4>
               <div className="text-white font-bold">{state.profesion}</div>
-              {state.profesionDesc && <div className="text-sm text-gray-400 mt-1">{state.profesionDesc}</div>}
             </div>
           )}
         </div>
