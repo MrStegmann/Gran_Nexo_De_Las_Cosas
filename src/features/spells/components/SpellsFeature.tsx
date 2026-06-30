@@ -132,11 +132,7 @@ export const SpellsFeature: React.FC = () => {
                   markdown: selectedSchoolData.description || '',
                   filterOptions: ['Todos', 'Truco', 'Rápido', 'Básico', 'Potente'],
                   customComponent: selectedSchoolData.spells && selectedSchoolData.spells.length > 0 ? (
-                    <div className="h-full flex flex-col p-2 md:p-6">
-                      <div className="flex-1 overflow-hidden min-h-0">
-                        <SpellList spells={selectedSchoolData.spells} color={selectedSchoolData.color} />
-                      </div>
-                    </div>
+                    <SpellList spells={selectedSchoolData.spells} color={selectedSchoolData.color} />
                   ) : undefined
                 }]}
               />

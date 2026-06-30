@@ -63,7 +63,7 @@ export const INITIAL_STATE = {
   talentos: {},
   rasgosPositivos: [],
   rasgosNegativos: [],
-  aptitudes: Array(4).fill({ nombre: '', tipo: 'básica', acciones: 0, cooldown: 0, descripcion: '' }),
+  aptitudes: [],
   hechizos: '',
   habilidades: '',
   selectedSpells: [],

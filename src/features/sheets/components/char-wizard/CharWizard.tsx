@@ -10,6 +10,7 @@ import { Step5Aptitudes } from './Step5Aptitudes';
 import { Step6Spells } from './Step6Spells';
 import { Step7Summary } from './Step7Summary';
 import { Modal } from '../../../../components/Modal/Modal';
+import { buildExportString } from './exportUtils';
 
 export const CharWizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -68,9 +69,10 @@ export const CharWizard: React.FC = () => {
     if (!validateCurrentStep()) return;
     if (currentStep < 6) {
       setCurrentStep(c => c + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('wizard-header')?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 10);
     } else if (currentStep === 6) {
       setShowFinishModal(true);
     }
@@ -79,9 +81,10 @@ export const CharWizard: React.FC = () => {
   const handlePrev = () => {
     if (currentStep > 0) {
       setCurrentStep(c => c - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('wizard-header')?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 10);
     }
   };
 
@@ -209,20 +212,26 @@ export const CharWizard: React.FC = () => {
             </button>
             <button 
               onClick={() => {
-                setShowFinishModal(false);
-                setState(INITIAL_STATE);
-                setCurrentStep(0);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+                const str = buildExportString(state, metaData);
+                navigator.clipboard.writeText(str).then(() => {
+                  alert("¡Cadena copiada al portapapeles!");
+                  setShowFinishModal(false);
+                  setState(INITIAL_STATE);
+                  setCurrentStep(0);
+                  setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.querySelector('.custom-scrollbar')?.scrollTo({ top: 0, behavior: 'smooth' });
+                  }, 10);
+                });
               }}
               className="px-4 py-2 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50 hover:bg-[#00ff88]/30 transition-colors"
             >
-              Reiniciar Wizard
+              Generar y Terminar
             </button>
           </>
         }
       >
-        <p>Recuerda aplicar la exportación en el Addon antes de finalizar.</p>
+        <p>Recuerda aplicar la exportación en el Addon antes de finalizar. Si haces clic en <strong>Generar y Terminar</strong>, los datos se copiarán al portapapeles y el wizard se reiniciará.</p>
       </Modal>
 
     </div>

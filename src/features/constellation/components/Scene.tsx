@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
@@ -137,6 +137,14 @@ const DynamicControls: React.FC = () => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const transitioningNodeId = useConstellationStore((state) => state.transitioningNodeId);
   const returningNodeId = useConstellationStore((state) => state.returningNodeId);
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    document.body.style.cursor = isDragging ? 'move' : 'default';
+    return () => {
+      document.body.style.cursor = 'default';
+    };
+  }, [isDragging]);
 
   return (
     <OrbitControls
@@ -148,6 +156,8 @@ const DynamicControls: React.FC = () => {
       minDistance={50}
       maxDistance={600}
       enabled={!selectedNodeId && !transitioningNodeId && !returningNodeId}
+      onStart={() => setIsDragging(true)}
+      onEnd={() => setIsDragging(false)}
     />
   );
 };

@@ -32,6 +32,14 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
 
   const handleToggleSpell = (spell: any) => {
     const isSelected = state.selectedSpells.includes(spell.Nombre);
+    if (!isSelected) {
+      const cost = typeof spell['Ranuras de hechizo'] === 'number' ? spell['Ranuras de hechizo'] : 0;
+      if (availableSlots < cost) {
+        alert("No tienes suficientes ranuras disponibles.");
+        return;
+      }
+    }
+
     let newSelected = [];
     if (isSelected) {
       newSelected = state.selectedSpells.filter(n => n !== spell.Nombre);
@@ -50,6 +58,14 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
 
   const handleToggleSkill = (skill: any) => {
     const isSelected = state.selectedSkills.includes(skill.Nombre);
+    if (!isSelected) {
+      const cost = typeof skill['Coste de Ranuras'] === 'number' ? skill['Coste de Ranuras'] : 0;
+      if (availableSlots < cost) {
+        alert("No tienes suficientes ranuras disponibles.");
+        return;
+      }
+    }
+
     let newSelected = [];
     if (isSelected) {
       newSelected = state.selectedSkills.filter(n => n !== skill.Nombre);
@@ -172,7 +188,7 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
             Requieren <strong className="text-white">Inteligencia</strong> (arcano, vil, naturaleza, sombras, nigromancia) o <strong className="text-white">Voluntad</strong> (Fe, Elemental, Chi).
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[50vh] custom-scrollbar pr-2 pb-4">
             {filteredSpells.map((s, idx) => {
               const isSelected = state.selectedSpells.includes(s.Nombre);
               const stats = [];
@@ -215,7 +231,7 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
             Técnicas no mágicas (marciales/técnicas). No consumen maná ni espíritu, pero pueden tener cooldown.
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[50vh] custom-scrollbar pr-2 pb-4">
             {filteredSkills.map((s, idx) => {
               const isSelected = state.selectedSkills.includes(s.Nombre);
               const stats = [];

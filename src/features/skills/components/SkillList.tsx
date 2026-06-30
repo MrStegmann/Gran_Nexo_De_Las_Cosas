@@ -30,8 +30,8 @@ export const SkillList: React.FC<{ skills: any[], color: string, searchQuery?: s
   }
 
   return (
-    <div className="flex flex-col h-full text-white">
-      <div className="flex flex-col gap-6 pb-10 overflow-y-auto custom-scrollbar flex-1 pr-2">
+    <div className="flex flex-col h-full text-white p-2 md:p-6">
+      <div className="flex flex-col gap-6 pb-10 overflow-y-auto custom-scrollbar flex-1 min-h-0 pr-2">
         {groupedSkills.map((group, gIdx) => (
           <div key={gIdx} className="flex flex-col gap-4">
             <h3 className="text-xl font-bold border-b border-opacity-30 pb-2 mb-2 capitalize" style={{ borderColor: color }}>

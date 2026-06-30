@@ -154,11 +154,7 @@ export const SkillsFeature: React.FC = () => {
                   markdown: selectedAttributeData.description || '',
                   filterOptions: ['Todos', 'Activa', 'Pasiva'],
                   customComponent: selectedAttributeData.skills && selectedAttributeData.skills.length > 0 ? (
-                    <div className="h-full flex flex-col p-2 md:p-6">
-                      <div className="flex-1 overflow-hidden min-h-0">
-                        <SkillList skills={selectedAttributeData.skills} color={selectedAttributeData.color} />
-                      </div>
-                    </div>
+                    <SkillList skills={selectedAttributeData.skills} color={selectedAttributeData.color} />
                   ) : undefined
                 }]}
               />
