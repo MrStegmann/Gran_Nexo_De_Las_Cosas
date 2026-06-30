@@ -14,11 +14,12 @@ import { AZULITO_SPEECHES } from '../../core/constants/azulitoSpeeches';
 import { NodeId } from '../../constellation/enums/NodeId';
 
 export const SpellsFeature: React.FC = () => {
-  const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
+  const selectedSchool = useConstellationStore((state) => state.selectedSchool);
   const transitioningAttribute = useConstellationStore((state) => state.transitioningAttribute);
   const returningAttribute = useConstellationStore((state) => state.returningAttribute);
   const setSelectedAttribute = useConstellationStore((state) => state.setSelectedAttribute);
+  const setSelectedSchool = useConstellationStore((state) => state.setSelectedSchool);
 
   const handleNodeClick = (nodeId: string) => {
     const state = useConstellationStore.getState();
@@ -27,7 +28,7 @@ export const SpellsFeature: React.FC = () => {
         state.setTransitioningAttribute(nodeId as AttributeId);
       }
     } else if (state.selectedAttribute) {
-      setSelectedSchool(nodeId);
+      state.setSelectedSchool(nodeId);
     }
   };
 

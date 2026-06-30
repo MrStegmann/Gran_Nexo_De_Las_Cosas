@@ -62,7 +62,7 @@ Las armas definen tu potencia ofensiva y se agrupan según su talento base:
 
 Para obtener detalles de penalizaciones específicas, combinaciones avanzadas, y la guía completa de creación paso a paso de objetos, puedes acceder directamente a la sección interactiva o consultar los documentos:
 
-*   📚 **Guía de Creación:** [Guía completa de TRP3_Extended](assets/documents/inventory/guide.md) (Paso a paso con imágenes).
-*   🛡️ **Armaduras:** [Documento de Armaduras](assets/documents/inventory/amors.md) (Mitigaciones, durabilidad y requisitos).
-*   🛡️ **Escudos:** [Documento de Escudos](assets/documents/inventory/shields.md) (Bloqueo y durabilidad).
-*   ⚔️ **Armas:** [Documento de Armas](assets/documents/inventory/weapons.md) (Daños y tipos de armas).
+*   📚 **Guía de Creación:** [Guía completa de TRP3_Extended](/inventario#guide) (Paso a paso con imágenes).
+*   🛡️ **Armaduras:** [Documento de Armaduras](/inventario#amors) (Mitigaciones, durabilidad y requisitos).
+*   🛡️ **Escudos:** [Documento de Escudos](/inventario#shields) (Bloqueo y durabilidad).
+*   ⚔️ **Armas:** [Documento de Armas](/inventario#weapons) (Daños y tipos de armas).

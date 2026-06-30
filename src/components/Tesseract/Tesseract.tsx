@@ -1,7 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './Tesseract.css';
+import { useConstellationStore } from '../../features/constellation/store/useConstellationStore';
 
 const CopyButton = ({ text }: { text: string }) => {
   const [copied, setCopied] = useState(false);
@@ -100,14 +102,94 @@ export const Tesseract: React.FC<TesseractProps> = ({
   className = '',
   style
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSectionId, setActiveSectionId] = useState<string | null>(sections && sections.length > 0 ? sections[0].id : null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const getInitialState = () => {
+    const pendingSectionId = useConstellationStore.getState().pendingSectionId;
+    
+    // Usar location de react-router-dom asegura que durante la transición de rutas 
+    // tenemos el hash correcto y no hay problemas de carrera con window.location.
+    const hashContent = location.hash.substring(1);
+    const [hashSection, hashQueryString] = hashContent.split('?');
+    const hashParams = new URLSearchParams(hashQueryString || '');
+    const realParams = new URLSearchParams(location.search);
+    const search = hashParams.get('search') || realParams.get('search') || '';
+    
+    let activeId = sections && sections.length > 0 ? sections[0].id : null;
+    
+    // Prioridad 1: pendingSectionId (guardado globalmente en el click)
+    const targetSection = pendingSectionId || hashSection;
+    
+    if (targetSection && sections?.some(s => s.id === targetSection)) {
+      activeId = targetSection;
+    }
+    
+    if (pendingSectionId) {
+      // Limpiar el estado pendiente para no afectar futuras navegaciones
+      setTimeout(() => useConstellationStore.getState().setPendingSectionId(null), 10);
+    }
+    
+    return { activeId, search };
+  };
+
+  const [initialData] = useState(getInitialState);
+  const [searchQuery, setSearchQuery] = useState(initialData.search);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(initialData.activeId);
   const [isMobileIndexOpen, setIsMobileIndexOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string>('Todos');
+
+  // Sync state when location.hash changes externally (e.g. browser back button or internal same-page links)
+  useEffect(() => {
+    const hashContent = location.hash.substring(1);
+    if (!hashContent) return;
+    
+    const [hashSection, hashQueryString] = hashContent.split('?');
+    const hashParams = new URLSearchParams(hashQueryString || '');
+    const realParams = new URLSearchParams(location.search);
+    const search = hashParams.get('search') || realParams.get('search') || '';
+    
+    if (hashSection && sections?.some(s => s.id === hashSection)) {
+      if (hashSection !== activeSectionId) {
+        setActiveSectionId(hashSection);
+      }
+    }
+    if (search && search !== searchQuery) {
+      setSearchQuery(search);
+    }
+  }, [location.hash, location.search, sections]); // Escucha cambios en la URL
 
   // Match navigation state
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
   const [totalMatches, setTotalMatches] = useState(0);
+
+  // Sync to URL
+  useEffect(() => {
+    if (!sections) return; // Only sync if in sections mode
+
+    const currentUrl = new URL(window.location.href);
+    let changed = false;
+
+    let targetHash = activeSectionId || '';
+    if (searchQuery) {
+      targetHash += `?search=${encodeURIComponent(searchQuery)}`;
+    }
+
+    if (currentUrl.hash !== `#${targetHash}`) {
+      currentUrl.hash = targetHash;
+      changed = true;
+    }
+
+    // Limpiar query params reales si existieran
+    if (currentUrl.searchParams.has('search')) {
+      currentUrl.searchParams.delete('search');
+      changed = true;
+    }
+
+    if (changed) {
+      window.history.replaceState(null, '', currentUrl.toString());
+    }
+  }, [activeSectionId, searchQuery, sections]);
 
   // Filter sections based on search query
   const filteredSections = useMemo(() => {
@@ -206,7 +288,48 @@ export const Tesseract: React.FC<TesseractProps> = ({
     li: ({ children }: any) => <li>{renderWithHighlights(children, searchQuery)}</li>,
     strong: ({ children }: any) => <strong className="font-bold text-white" style={{ textShadow: `0 0 5px ${color}40` }}>{renderWithHighlights(children, searchQuery)}</strong>,
     blockquote: ({ children }: any) => <blockquote className="border-l-4 pl-4 italic opacity-80 my-4" style={{ borderColor: color }}>{renderWithHighlights(children, searchQuery)}</blockquote>,
-    a: ({ children, href }: any) => <a href={href} className="underline hover:opacity-80 transition-opacity" style={{ color }}>{renderWithHighlights(children, searchQuery)}</a>,
+    a: ({ children, href }: any) => {
+      const isInternal = href && !href.startsWith('http') && !href.startsWith('mailto:');
+      
+      const handleClick = (e: React.MouseEvent) => {
+        if (isInternal) {
+          // Si es un enlace de ancla pura (ej. #mi-titulo), dejamos el comportamiento por defecto
+          if (href.startsWith('#')) {
+            return;
+          }
+          
+          e.preventDefault();
+          let targetPath = href;
+          // Asegurar que comience con / y que la parte de la ruta sea minúsculas para coincidir con NodeId
+          if (!targetPath.startsWith('/')) {
+            targetPath = '/' + targetPath;
+          }
+          const parts = targetPath.split('#');
+          parts[0] = parts[0].toLowerCase();
+          
+          if (parts[1]) {
+            useConstellationStore.getState().setPendingSectionId(parts[1]);
+          }
+          
+          targetPath = parts.join('#');
+          
+          navigate(targetPath);
+        }
+      };
+
+      return (
+        <a 
+          href={href} 
+          onClick={handleClick}
+          className="underline hover:opacity-80 transition-opacity" 
+          style={{ color }}
+          target={isInternal ? undefined : "_blank"}
+          rel={isInternal ? undefined : "noopener noreferrer"}
+        >
+          {renderWithHighlights(children, searchQuery)}
+        </a>
+      );
+    },
     pre: ({ children }: any) => {
       // Extract text content for the copy button
       let text = '';

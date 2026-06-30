@@ -82,9 +82,9 @@ export const Step2Attributes: React.FC<Step2Props> = ({ state, setState }) => {
       <div className="flex flex-col gap-3">
         {attrs.map(attr => (
           <div key={attr} className="flex items-center justify-between p-4 bg-black/40 border border-white/10 rounded hover:border-gray-600 transition-colors">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-1">
               <span className="text-2xl">{ATTR_ICONS[attr]}</span>
-              <div>
+              <div className="flex-1 text-center pr-4">
                 <div className="text-lg font-bold text-white">{attr}</div>
                 <div className="text-sm text-gray-500">{ATTR_DESC[attr]}</div>
               </div>

@@ -17,6 +17,10 @@ export interface ConstellationState {
   setSelectedAttribute: (attr: AttributeId | null) => void;
   setTransitioningAttribute: (attr: AttributeId | null) => void;
   setReturningAttribute: (attr: AttributeId | null) => void;
+  selectedSchool: string | null;
+  setSelectedSchool: (school: string | null) => void;
+  pendingSectionId: string | null;
+  setPendingSectionId: (id: string | null) => void;
 }
 
 export const useConstellationStore = create<ConstellationState>((set) => ({
@@ -33,5 +37,9 @@ export const useConstellationStore = create<ConstellationState>((set) => ({
   setReturningNode: (id) => set({ returningNodeId: id, selectedAttribute: null, returningAttribute: null, transitioningAttribute: null }),
   setSelectedAttribute: (attr) => set({ selectedAttribute: attr }),
   setTransitioningAttribute: (attr) => set({ transitioningAttribute: attr }),
-  setReturningAttribute: (attr) => set({ returningAttribute: attr, selectedAttribute: null }),
+  setReturningAttribute: (attr) => set({ returningAttribute: attr, selectedAttribute: null, selectedSchool: null }),
+  selectedSchool: null,
+  setSelectedSchool: (school) => set({ selectedSchool: school }),
+  pendingSectionId: null,
+  setPendingSectionId: (id) => set({ pendingSectionId: id }),
 }));

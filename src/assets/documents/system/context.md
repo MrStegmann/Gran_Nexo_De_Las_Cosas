@@ -1,11 +1,10 @@
-# Mecánicas Sistema de Rol Gran Libro de las Cosas
+# Mecánicas del Sistema de Rol
+*Gran Libro de las Cosas*
 
-- **Combate:** [Combate.md](Combate.md)
+Bienvenido a las reglas del sistema. A continuación se detallan los módulos principales:
 
-- **Estados:** [Estados.md](Estados.md)
-
-- **Heridas:** [Heridas.md](Heridas.md)
-
-- **Reglas:** [Reglas.md](Reglas.md)
-
-- **Recursos:** [Recursos.md](Recursos.md)
+- ⚔️ **[Combate](Combate.md)**: Reglas de iniciativa, fases de turno, ventajas y acciones.
+- 🎭 **[Estados Alterados](Estados.md)**: Consecuencias de daños especiales (sangrado, derribo, locura...).
+- 🩸 **[Heridas y Sanación](Heridas.md)**: Sistema de daños graves y cómo tratarlos.
+- 📖 **[Reglas Generales](Reglas.md)**: Terreno, emboscadas, doble empuñadura, pifias y críticos.
+- 💎 **[Recursos](Recursos.md)**: Uso de Vida (HP), Maná (Inteligencia) y Espíritu (Voluntad).
