@@ -20,11 +20,11 @@ export const CharWizard: React.FC = () => {
     const loadData = async () => {
       try {
         const [
-          racesData, 
-          attributesData, 
-          positiveTraits, 
-          negativeTraits, 
-          racesKeys, 
+          racesData,
+          attributesData,
+          positiveTraits,
+          negativeTraits,
+          racesKeys,
           attributesKeys
         ] = await Promise.all([
           import('../../../../assets/data/meta/races_data.json').then(m => m.default),
@@ -112,23 +112,23 @@ export const CharWizard: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col h-full text-white font-sans">
-      
+
       {/* HEADER / PROGRESS BAR */}
       <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-md pt-4 pb-2 border-b border-white/10 mb-6">
         <div className="text-xl font-bold text-[#00ff88] uppercase tracking-widest text-center mb-4">
           ⬡ Crear Personaje
         </div>
-        
+
         <div className="relative flex justify-between items-center mb-6 px-4">
           <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-gray-800 -z-10 -translate-y-1/2"></div>
-          
+
           {STEP_META.map((s, i) => {
             const isActive = i === currentStep;
             const isCompleted = i < currentStep;
-            
+
             return (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className={`relative flex flex-col items-center group ${isActive ? 'text-[#00ff88]' : isCompleted ? 'text-gray-300' : 'text-gray-600'}`}
                 onClick={() => {
                   // Only allow jumping to completed steps or exactly next one (with validation)
@@ -137,11 +137,10 @@ export const CharWizard: React.FC = () => {
                   }
                 }}
               >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 mb-2 transition-all ${
-                  isActive ? 'bg-black border-[#00ff88] shadow-[0_0_10px_rgba(0,255,136,0.5)]' : 
-                  isCompleted ? 'bg-gray-800 border-gray-500 cursor-pointer hover:border-gray-300' : 
-                  'bg-black border-gray-800'
-                }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 mb-2 transition-all ${isActive ? 'bg-black border-[#00ff88] shadow-[0_0_10px_rgba(0,255,136,0.5)]' :
+                    isCompleted ? 'bg-gray-800 border-gray-500 cursor-pointer hover:border-gray-300' :
+                      'bg-black border-gray-800'
+                  }`}>
                   <span className="text-lg">{s.icon}</span>
                 </div>
                 <div className={`absolute -bottom-6 text-[10px] uppercase tracking-widest whitespace-nowrap transition-opacity ${isActive ? 'opacity-100 font-bold' : 'opacity-0 group-hover:opacity-100'}`}>
@@ -153,7 +152,7 @@ export const CharWizard: React.FC = () => {
         </div>
 
         <div className="w-full h-1 bg-gray-800 mt-8">
-          <div className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-[#00ff88] transition-all duration-300" style={{ width: `${pct}%` }}></div>
+          <div className="h-full bg-linear-to-r from-indigo-500 via-purple-500 to-[#00ff88] transition-all duration-300" style={{ width: `${pct}%` }}></div>
         </div>
       </div>
 
@@ -163,26 +162,25 @@ export const CharWizard: React.FC = () => {
       </div>
 
       {/* FOOTER NAV */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-black/90 backdrop-blur border-t border-white/10 z-50 md:fixed">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <button 
-            onClick={handlePrev} 
+      <div className="sticky bottom-0 w-full p-4 bg-black/90 backdrop-blur border-t border-white/10 z-50 mt-auto">
+        <div className="flex justify-between items-center">
+          <button
+            onClick={handlePrev}
             className={`px-6 py-2 rounded font-bold uppercase tracking-widest text-sm transition-colors ${currentStep === 0 ? 'invisible' : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
           >
             ← Anterior
           </button>
-          
+
           <div className="text-sm text-gray-500 uppercase tracking-widest">
             Paso {currentStep + 1} de 7
           </div>
-          
-          <button 
+
+          <button
             onClick={handleNext}
-            className={`px-6 py-2 rounded font-bold uppercase tracking-widest text-sm transition-all ${
-              currentStep === 6 
-                ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50' 
+            className={`px-6 py-2 rounded font-bold uppercase tracking-widest text-sm transition-all ${currentStep === 6
+                ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50'
                 : 'bg-indigo-600 hover:bg-indigo-500 text-white'
-            }`}
+              }`}
           >
             {currentStep === 6 ? '✓ Ficha completada' : 'Siguiente →'}
           </button>

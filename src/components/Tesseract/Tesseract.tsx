@@ -25,6 +25,7 @@ export interface TesseractSection {
   title: string;
   markdown: string;
   customComponent?: React.ReactNode;
+  filterOptions?: string[];
 }
 
 export interface TesseractProps {
@@ -102,6 +103,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSectionId, setActiveSectionId] = useState<string | null>(sections && sections.length > 0 ? sections[0].id : null);
   const [isMobileIndexOpen, setIsMobileIndexOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<string>('Todos');
 
   // Match navigation state
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
@@ -125,6 +127,12 @@ export const Tesseract: React.FC<TesseractProps> = ({
   }, [searchQuery, filteredSections, activeSectionId]);
 
   const activeSection = sections?.find(s => s.id === activeSectionId);
+
+  useEffect(() => {
+    if (activeSection?.filterOptions && activeSection.filterOptions.length > 0) {
+      setActiveFilter(activeSection.filterOptions[0]);
+    }
+  }, [activeSectionId, activeSection?.filterOptions]);
 
   const headings = useMemo(() => {
     if (!activeSection) return [];
@@ -272,29 +280,44 @@ export const Tesseract: React.FC<TesseractProps> = ({
                     className="w-full flex justify-between items-center bg-black/40 border border-transparent rounded px-3 py-2 text-xs uppercase tracking-wider font-semibold"
                     style={{ color }}
                   >
-                    <span>{activeSection ? activeSection.title : 'Índice'}</span>
+                    <span>{activeSection?.filterOptions ? 'Filtros' : (activeSection ? activeSection.title : 'Índice')}</span>
                     <span>{isMobileIndexOpen ? '▲' : '▼'}</span>
                   </button>
                 </div>
 
-                {/* Index List */}
+                {/* Index List or Filters */}
                 <div className={`flex-1 overflow-y-auto custom-scrollbar ${isMobileIndexOpen ? 'block' : 'hidden md:block'} mt-2 md:mt-0`}>
-                  <ul className="space-y-1">
-                    {filteredSections.map(sec => (
-                      <li key={sec.id}>
+                  {activeSection?.filterOptions ? (
+                    <div className="flex flex-col gap-2">
+                      {activeSection.filterOptions.map(f => (
                         <button
-                          onClick={() => { setActiveSectionId(sec.id); setIsMobileIndexOpen(false); }}
-                          className={`w-full text-left px-3 py-2 rounded transition-colors text-xs md:text-sm ${activeSectionId === sec.id ? 'bg-black/60 font-bold' : 'hover:bg-black/40 opacity-80 hover:opacity-100'}`}
-                          style={{ color: activeSectionId === sec.id ? color : 'white', borderLeft: activeSectionId === sec.id ? `3px solid ${color}` : '3px solid transparent' }}
+                          key={f}
+                          onClick={() => setActiveFilter(f)}
+                          className={`w-full text-left px-3 py-2 rounded transition-colors text-xs md:text-sm ${activeFilter === f ? 'bg-black/60 font-bold' : 'hover:bg-black/40 opacity-80 hover:opacity-100'}`}
+                          style={{ color: activeFilter === f ? color : 'white', borderLeft: activeFilter === f ? `3px solid ${color}` : '3px solid transparent' }}
                         >
-                          {sec.title}
+                          {f}
                         </button>
-                      </li>
-                    ))}
-                    {filteredSections.length === 0 && (
-                      <li className="text-center text-xs opacity-50 py-4">No se encontraron resultados</li>
-                    )}
-                  </ul>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul className="space-y-1">
+                      {filteredSections.map(sec => (
+                        <li key={sec.id}>
+                          <button
+                            onClick={() => { setActiveSectionId(sec.id); setIsMobileIndexOpen(false); }}
+                            className={`w-full text-left px-3 py-2 rounded transition-colors text-xs md:text-sm ${activeSectionId === sec.id ? 'bg-black/60 font-bold' : 'hover:bg-black/40 opacity-80 hover:opacity-100'}`}
+                            style={{ color: activeSectionId === sec.id ? color : 'white', borderLeft: activeSectionId === sec.id ? `3px solid ${color}` : '3px solid transparent' }}
+                          >
+                            {sec.title}
+                          </button>
+                        </li>
+                      ))}
+                      {filteredSections.length === 0 && (
+                        <li className="text-center text-xs opacity-50 py-4">No se encontraron resultados</li>
+                      )}
+                    </ul>
+                  )}
                 </div>
               </aside>
 
@@ -303,7 +326,7 @@ export const Tesseract: React.FC<TesseractProps> = ({
                 {activeSection ? (
                   activeSection.customComponent ? (
                     React.isValidElement(activeSection.customComponent) 
-                      ? React.cloneElement(activeSection.customComponent as React.ReactElement<any>, { searchQuery })
+                      ? React.cloneElement(activeSection.customComponent as React.ReactElement<any>, { searchQuery, activeFilter })
                       : activeSection.customComponent
                   ) : (
                     <div className="markdown-body max-w-3xl mx-auto">

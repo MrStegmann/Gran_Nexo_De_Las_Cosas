@@ -38,7 +38,7 @@ const HabilidadesBackground: React.FC = () => {
       <group position={[0, 0, 0]} scale={[1.5, 1.5, 1.5]}>
         <pointLight color={theme.color} intensity={2.0} distance={2000} />
         <pointLight color={0xffffff} intensity={0.5} distance={2500} />
-        
+
         <mesh ref={coreRef} geometry={theme.geom} castShadow receiveShadow>
           <meshStandardMaterial
             color={0xffffff}
@@ -73,7 +73,6 @@ export const SkillsFeature: React.FC = () => {
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
   const transitioningAttribute = useConstellationStore((state) => state.transitioningAttribute);
   const returningAttribute = useConstellationStore((state) => state.returningAttribute);
-  const setTransitioningAttribute = useConstellationStore((state) => state.setTransitioningAttribute);
 
   const handleNodeClick = (nodeId: string) => {
     const state = useConstellationStore.getState();
@@ -125,7 +124,7 @@ export const SkillsFeature: React.FC = () => {
 
       {/* Botón de volver */}
       {selectedAttribute && !transitioningAttribute && (
-        <div className="absolute inset-0 z-[60] pointer-events-none">
+        <div className="absolute inset-0 z-60 pointer-events-none">
           <BackButton
             key="back-from-attribute"
             onClick={() => {
@@ -147,12 +146,13 @@ export const SkillsFeature: React.FC = () => {
         return (
           <div className="absolute inset-0 z-50 md:p-16 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-1000">
             <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
-              <Tesseract 
+              <Tesseract
                 color={selectedAttributeData.color}
                 sections={[{
                   id: 'main',
                   title: selectedAttributeData.label,
                   markdown: selectedAttributeData.description || '',
+                  filterOptions: ['Todos', 'Activa', 'Pasiva'],
                   customComponent: selectedAttributeData.skills && selectedAttributeData.skills.length > 0 ? (
                     <div className="h-full flex flex-col p-2 md:p-6">
                       <div className="flex-1 overflow-hidden min-h-0">

@@ -1,39 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card } from '../../../components/Card/Card';
 
-export const SkillList: React.FC<{ skills: any[], color: string, searchQuery?: string }> = ({ skills, color, searchQuery = '' }) => {
-  const [filter, setFilter] = useState<string>('Todos');
-
-  const filters = ['Todos', 'Activa', 'Pasiva'];
-
+export const SkillList: React.FC<{ skills: any[], color: string, searchQuery?: string, activeFilter?: string }> = ({ skills, color, searchQuery = '', activeFilter = 'Todos' }) => {
   const filteredSkills = skills?.filter(s => {
-    const matchesFilter = filter === 'Todos' || s['Tipo de habilidad'] === filter || s.Tipo === filter;
+    const matchesFilter = activeFilter === 'Todos' || s['Tipo de habilidad'] === activeFilter || s.Tipo === activeFilter;
     const matchesSearch = searchQuery === '' || 
       s.Nombre?.toLowerCase().includes(searchQuery.toLowerCase()) || 
       s.Descripción?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   }) || [];
-
-  return (
-    <div className="flex flex-col h-full text-white">
-      <div className="flex flex-col gap-4 mb-6">
-        <div className="flex flex-wrap gap-2">
-          {filters.map(f => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-3 py-1 rounded border text-sm transition-colors ${filter === f ? 'bg-opacity-40' : 'bg-transparent border-opacity-30 hover:bg-opacity-10'}`}
-              style={{ 
-                borderColor: color, 
-                backgroundColor: filter === f ? color : 'transparent',
-                textShadow: filter === f ? '0 0 5px rgba(255,255,255,0.5)' : 'none'
-              }}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-      </div>
+    return (
+      <div className="flex flex-col h-full text-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-10 overflow-y-auto custom-scrollbar flex-1 pr-2">
         {filteredSkills.map((s, idx) => {
           const stats = [];
