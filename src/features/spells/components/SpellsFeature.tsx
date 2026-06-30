@@ -124,21 +124,21 @@ export const SpellsFeature: React.FC = () => {
         return (
           <div className="absolute inset-0 z-50 md:p-16 bg-black/40 backdrop-blur-sm pointer-events-auto">
             <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
-              <Tesseract color={selectedSchoolData.color}>
-                <div className="flex flex-col h-full overflow-hidden p-2 md:p-6">
-                  <div className="mb-6 shrink-0">
-                    <h1 className="text-3xl font-bold mb-2 border-b pb-2" style={{ color: selectedSchoolData.color, borderColor: `${selectedSchoolData.color}40` }}>
-                      {selectedSchoolData.label}
-                    </h1>
-                    <p className="text-white opacity-90 text-lg">{selectedSchoolData.description}</p>
-                  </div>
-                  {selectedSchoolData.spells && selectedSchoolData.spells.length > 0 && (
-                    <div className="flex-1 overflow-hidden min-h-0">
-                      <SpellList spells={selectedSchoolData.spells} color={selectedSchoolData.color} />
+              <Tesseract 
+                color={selectedSchoolData.color}
+                sections={[{
+                  id: 'main',
+                  title: selectedSchoolData.label,
+                  markdown: selectedSchoolData.description || '',
+                  customComponent: selectedSchoolData.spells && selectedSchoolData.spells.length > 0 ? (
+                    <div className="h-full flex flex-col p-2 md:p-6">
+                      <div className="flex-1 overflow-hidden min-h-0">
+                        <SpellList spells={selectedSchoolData.spells} color={selectedSchoolData.color} />
+                      </div>
                     </div>
-                  )}
-                </div>
-              </Tesseract>
+                  ) : undefined
+                }]}
+              />
             </div>
           </div>
         );

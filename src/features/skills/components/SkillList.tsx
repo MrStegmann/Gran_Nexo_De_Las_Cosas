@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Card } from '../../../components/Card/Card';
 
-export const SkillList: React.FC<{ skills: any[], color: string }> = ({ skills, color }) => {
+export const SkillList: React.FC<{ skills: any[], color: string, searchQuery?: string }> = ({ skills, color, searchQuery = '' }) => {
   const [filter, setFilter] = useState<string>('Todos');
-  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filters = ['Todos', 'Activa', 'Pasiva'];
 
@@ -17,14 +17,6 @@ export const SkillList: React.FC<{ skills: any[], color: string }> = ({ skills, 
   return (
     <div className="flex flex-col h-full text-white">
       <div className="flex flex-col gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Buscar habilidades..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full md:w-1/2 bg-black/50 border rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all text-sm"
-          style={{ borderColor: `${color}60`, outlineColor: color }}
-        />
         <div className="flex flex-wrap gap-2">
           {filters.map(f => (
             <button
@@ -43,20 +35,25 @@ export const SkillList: React.FC<{ skills: any[], color: string }> = ({ skills, 
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-10 overflow-y-auto custom-scrollbar flex-1 pr-2">
-        {filteredSkills.map((s, idx) => (
-          <div key={idx} className="bg-black/50 border rounded p-4 flex flex-col" style={{ borderColor: `${color}40` }}>
-            <h3 className="text-lg font-bold mb-2" style={{ color }}>{s.Nombre}</h3>
-            <p className="text-sm opacity-90 mb-3 flex-1">{s.Descripción}</p>
-            <div className="text-xs opacity-70 grid grid-cols-2 gap-2 mt-auto pt-2 border-t" style={{ borderColor: `${color}20` }}>
-              <div><strong>Tipo:</strong> {s['Tipo de habilidad'] || s.Tipo}</div>
-              {s.Efecto && <div><strong>Efecto:</strong> {s.Efecto}</div>}
-              {s.Coste && <div><strong>Coste:</strong> {s.Coste}</div>}
-              {s['Coste de Acciones'] !== undefined && <div><strong>Coste Acciones:</strong> {s['Coste de Acciones']}</div>}
-              {s['Coste de Ranuras'] !== undefined && <div><strong>Ranuras:</strong> {s['Coste de Ranuras']}</div>}
-              {s['Turnos de Enfriamiento (Cooldown)'] !== undefined && <div><strong>Cooldown:</strong> {s['Turnos de Enfriamiento (Cooldown)']}</div>}
-            </div>
-          </div>
-        ))}
+        {filteredSkills.map((s, idx) => {
+          const stats = [];
+          if (s.Efecto) stats.push({ label: 'Efecto', value: s.Efecto });
+          if (s.Coste) stats.push({ label: 'Coste', value: s.Coste });
+          if (s['Coste de Acciones'] !== undefined) stats.push({ label: 'Acciones', value: String(s['Coste de Acciones']) });
+          if (s['Coste de Ranuras'] !== undefined) stats.push({ label: 'Ranuras', value: String(s['Coste de Ranuras']) });
+          if (s['Turnos de Enfriamiento (Cooldown)'] !== undefined) stats.push({ label: 'Cooldown', value: String(s['Turnos de Enfriamiento (Cooldown)']) });
+          
+          return (
+            <Card
+              key={idx}
+              title={s.Nombre}
+              color={color}
+              description={s.Descripción}
+              tags={[s['Tipo de habilidad'] || s.Tipo]}
+              stats={stats}
+            />
+          );
+        })}
         {filteredSkills.length === 0 && (
           <div className="col-span-1 md:col-span-2 text-center py-10 opacity-50">
             No hay habilidades para este filtro o atributo.

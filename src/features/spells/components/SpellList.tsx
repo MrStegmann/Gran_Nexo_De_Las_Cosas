@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Card } from '../../../components/Card/Card';
 
-export const SpellList: React.FC<{ spells: any[], color: string }> = ({ spells, color }) => {
+export const SpellList: React.FC<{ spells: any[], color: string, searchQuery?: string }> = ({ spells, color, searchQuery = '' }) => {
   const [filter, setFilter] = useState<string>('Todos');
-  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filters = ['Todos', 'Truco', 'Rápido', 'Básico', 'Potente'];
 
@@ -17,14 +17,6 @@ export const SpellList: React.FC<{ spells: any[], color: string }> = ({ spells, 
   return (
     <div className="flex flex-col h-full text-white">
       <div className="flex flex-col gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Buscar hechizos..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full md:w-1/2 bg-black/50 border rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all text-sm"
-          style={{ borderColor: `${color}60`, outlineColor: color }}
-        />
         <div className="flex flex-wrap gap-2">
           {filters.map(f => (
             <button
@@ -43,20 +35,25 @@ export const SpellList: React.FC<{ spells: any[], color: string }> = ({ spells, 
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-10 overflow-y-auto custom-scrollbar flex-1 pr-2">
-        {filteredSpells.map((s, idx) => (
-          <div key={idx} className="bg-black/50 border rounded p-4 flex flex-col" style={{ borderColor: `${color}40` }}>
-            <h3 className="text-lg font-bold mb-2" style={{ color }}>{s.Nombre}</h3>
-            <p className="text-sm opacity-90 mb-3 flex-1">{s.Descripción}</p>
-            <div className="text-xs opacity-70 grid grid-cols-2 gap-2 mt-auto pt-2 border-t" style={{ borderColor: `${color}20` }}>
-              <div><strong>Tipo:</strong> {s['Tipo de hechizo']}</div>
-              <div><strong>Efecto:</strong> {s.Efecto}</div>
-              <div><strong>Ranuras:</strong> {s['Ranuras de hechizo']}</div>
-              <div><strong>Acciones:</strong> {s.Acciones}</div>
-              {s.Maná !== undefined && <div><strong>Maná:</strong> {s.Maná}</div>}
-              {s.Espíritu !== undefined && <div><strong>Espíritu:</strong> {s.Espíritu}</div>}
-            </div>
-          </div>
-        ))}
+        {filteredSpells.map((s, idx) => {
+          const stats = [];
+          if (s.Efecto) stats.push({ label: 'Efecto', value: s.Efecto });
+          if (s['Ranuras de hechizo'] !== undefined) stats.push({ label: 'Ranuras', value: String(s['Ranuras de hechizo']) });
+          if (s.Acciones) stats.push({ label: 'Acciones', value: String(s.Acciones) });
+          if (s.Maná !== undefined) stats.push({ label: 'Maná', value: String(s.Maná) });
+          if (s.Espíritu !== undefined) stats.push({ label: 'Espíritu', value: String(s.Espíritu) });
+
+          return (
+            <Card
+              key={idx}
+              title={s.Nombre}
+              color={color}
+              description={s.Descripción}
+              tags={[s['Tipo de hechizo']]}
+              stats={stats}
+            />
+          );
+        })}
         {filteredSpells.length === 0 && (
           <div className="col-span-1 md:col-span-2 text-center py-10 opacity-50">
             No hay hechizos para este filtro o escuela.

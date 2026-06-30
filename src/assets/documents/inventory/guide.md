@@ -12,11 +12,11 @@ Para empezar a crear cualquier pieza de equipamiento, sigue estos pasos iniciale
 
 1. Abre la base de datos haciendo clic en la opción **Extended objects database** (*Base de datos de objetos extendidos*).
 
-![](assets/documents/inventory/imagenes/extended_objects_database_01.png)
+![](src\assets\documents\inventory\img\extended_objects_database_01.png)
 
 2. En la parte inferior de la ventana, dentro de la sección **Actions** (*Acciones*), pulsa sobre el botón **Create item** (*Crear objeto*).
 
-![](assets/documents/inventory/imagenes/extended_objects_database_02.png)
+![](src\assets\documents\inventory\img\extended_objects_database_02.png)
 
 3. En la ventana emergente que aparecerá, selecciona la opción **Blank item** (*Objeto en blanco*).
 
@@ -95,4 +95,4 @@ El complemento escanea tu equipamiento en un orden muy específico para determin
 
 Asegúrate de colocar tus objetos en los huecos correctos respetando las prioridades que desees asignar a tu arma Principal, Secundaria/Escudo o Tercera arma.
 
-![](assets/documents/inventory/imagenes/extended_objects_database_03.png)
+![](src\assets\documents\inventory\img\extended_objects_database_03.png)

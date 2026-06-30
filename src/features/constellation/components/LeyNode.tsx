@@ -52,7 +52,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
 
       const material = coreRef.current.material as THREE.MeshStandardMaterial;
       if (material) {
-        const targetIntensity = isHovered || isSelected ? 3.0 : 1.0;
+        const targetIntensity = isHovered || isSelected ? 1.65 : 1.0;
         material.emissiveIntensity = THREE.MathUtils.lerp(material.emissiveIntensity, targetIntensity, delta * 5);
       }
     }

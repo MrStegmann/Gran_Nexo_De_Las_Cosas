@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
+import { TesseractSectionId } from '../../../enums/TesseractSectionId';
 
 import introductionMd from '../../../assets/documents/sheet/introduction.md?raw';
 import newCharMd from '../../../assets/documents/sheet/newChar.md?raw';
@@ -15,47 +16,47 @@ import { CharWizard } from './char-wizard/CharWizard';
 
 const sheetSections: TesseractSection[] = [
   {
-    id: 'introduction',
+    id: TesseractSectionId.INTRODUCTION,
     title: 'Introducción',
     markdown: introductionMd
   },
   {
-    id: 'newChar',
-    title: 'Crear Ficha',
+    id: TesseractSectionId.NEW_CHAR,
+    title: 'Nuevo Personaje',
     markdown: newCharMd
   },
   {
-    id: 'attributes',
+    id: TesseractSectionId.ATTRIBUTES,
     title: 'Atributos',
     markdown: attributesMd
   },
   {
-    id: 'races',
+    id: TesseractSectionId.RACES,
     title: 'Razas',
     markdown: racesMd
   },
   {
-    id: 'traits',
+    id: TesseractSectionId.TRAITS,
     title: 'Rasgos',
     markdown: traitsMd
   },
   {
-    id: 'equipment',
+    id: TesseractSectionId.EQUIPMENT,
     title: 'Equipamiento',
     markdown: equipmentMd
   },
   {
-    id: 'pets',
+    id: TesseractSectionId.PETS,
     title: 'Mascotas',
     markdown: petsMd
   },
   {
-    id: 'specials',
+    id: TesseractSectionId.SPECIALS,
     title: 'Especiales',
     markdown: specialsMd
   },
   {
-    id: 'stepByStep',
+    id: TesseractSectionId.STEP_BY_STEP,
     title: 'Crear ficha paso a paso',
     markdown: '', // Will use customComponent instead
     customComponent: <CharWizard />

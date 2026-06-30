@@ -29,7 +29,7 @@ A diferencia de la armadura:
 
 ---
 
-### Escudos ligeros
+**Escudos ligeros**
 
 * Durabilidad: 10
 * Reducción física: +1
@@ -40,7 +40,7 @@ Golpear con escudo:
 
 ---
 
-### Escudos medios
+**Escudos medios**
 
 * Durabilidad: 15
 * Reducción física: +2
@@ -60,7 +60,7 @@ Penalizaciones:
 
 ---
 
-### Escudos pesados
+**Escudos pesados**
 
 * Durabilidad: 20
 * Reducción física: +3

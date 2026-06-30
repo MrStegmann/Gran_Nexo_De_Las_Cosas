@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
+import { TesseractSectionId } from '../../../enums/TesseractSectionId';
 
 import combateMd from '../../../assets/documents/system/Combate.md?raw';
 import estadosMd from '../../../assets/documents/system/Estados.md?raw';
@@ -10,27 +11,27 @@ import recursosMd from '../../../assets/documents/system/Recursos.md?raw';
 
 const systemSections: TesseractSection[] = [
   {
-    id: 'reglas',
+    id: TesseractSectionId.RULES,
     title: 'Reglas',
     markdown: reglasMd
   },
   {
-    id: 'combate',
+    id: TesseractSectionId.COMBAT,
     title: 'Combate',
     markdown: combateMd
   },
   {
-    id: 'estados',
+    id: TesseractSectionId.STATES,
     title: 'Estados',
     markdown: estadosMd
   },
   {
-    id: 'heridas',
+    id: TesseractSectionId.WOUNDS,
     title: 'Heridas',
     markdown: heridasMd
   },
   {
-    id: 'recursos',
+    id: TesseractSectionId.RESOURCES,
     title: 'Recursos',
     markdown: recursosMd
   }

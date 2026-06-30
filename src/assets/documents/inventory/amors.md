@@ -32,17 +32,17 @@ Cada pieza de armadura tiene una **durabilidad**, que representa su vida útil.
 
 Cada armadura puede tener:
 
-### Reducción física
+**Reducción física**
 
 Reduce el daño físico recibido.
 Puede reducir el daño hasta 0.
 
-### Reducción mágica
+**Reducción mágica**
 
 Reduce el daño mágico recibido.
 Puede reducir el daño hasta 0.
 
-### Movimiento
+**Movimiento**
 
 Reduce la distancia que el personaje puede moverse sin tirar dados.
 
@@ -60,19 +60,19 @@ Algunas armaduras requieren atributos mínimos para poder usarse correctamente.
 
 Puedes equipar las siguientes piezas:
 
-### Cabeza
+**Cabeza**
 
 Protege cabeza y cuello.
 
-### Pecho
+**Pecho**
 
 Protege torso completo, incluyendo hombros, cintura y brazos.
 
-### Guantes
+**Guantes**
 
 Protegen antebrazos y manos.
 
-### Piernas
+**Piernas**
 
 Protegen desde la cintura hacia abajo, incluyendo los pies.
 
@@ -158,7 +158,7 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
 
 ## Malla
 
-### Cabeza
+**Cabeza**
 
 * Requisito: 1 Brutalidad
 * Penalización:
@@ -167,13 +167,13 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
   * -1 Acrobacias
   * -1 Defensa Ágil
 
-### Pecho
+**Pecho**
 
 * Penalización:
 
   * -1 Juego de Manos
 
-### Guantes
+**Guantes**
 
 * Requisito: 1 Brutalidad
 * Penalización:
@@ -186,7 +186,7 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
 
 ## Placas
 
-### Cabeza
+**Cabeza**
 
 * Requisito: 1 Brutalidad
 * Penalización:
@@ -195,7 +195,7 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
   * -1 Acrobacias
   * -1 Defensa Ágil
 
-### Pecho
+**Pecho**
 
 * Requisito: 2 Brutalidad
 * Penalización:
@@ -205,7 +205,7 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
   * -4 Defensa Ágil
   * -4 Sigilo
 
-### Guantes
+**Guantes**
 
 * Requisito: 1 Brutalidad
 * Penalización:
@@ -213,7 +213,7 @@ Protegen desde la cintura hacia abajo, incluyendo los pies.
   * -2 Juego de Manos
   * -1 Acrobacias
 
-### Piernas
+**Piernas**
 
 * Requisito: 2 Brutalidad
 * Penalización:
@@ -243,14 +243,14 @@ Los refuerzos son mejoras que pueden añadirse a cada pieza de armadura.
 
 ## Tipos de refuerzo
 
-### Cuero
+**Cuero**
 
 * Reducción física: +1
 * Durabilidad: +1 golpe
 
 ---
 
-### Malla
+**Malla**
 
 * Reducción física: +2
 * Durabilidad: +2 golpes
@@ -258,7 +258,7 @@ Los refuerzos son mejoras que pueden añadirse a cada pieza de armadura.
 
 ---
 
-### Placa
+**Placa**
 
 * Reducción física: +3
 * Durabilidad: +3 golpes

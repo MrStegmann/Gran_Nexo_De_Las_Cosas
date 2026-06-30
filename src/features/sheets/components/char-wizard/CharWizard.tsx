@@ -54,10 +54,6 @@ export const CharWizard: React.FC = () => {
 
   const validateCurrentStep = () => {
     if (currentStep === 0) {
-      if (!state.nombre.trim()) {
-        alert('Introduce un nombre para tu personaje.');
-        return false;
-      }
       if (!state.raza) {
         alert('Por favor, elige una raza antes de continuar.');
         return false;
@@ -167,7 +163,7 @@ export const CharWizard: React.FC = () => {
       </div>
 
       {/* FOOTER NAV */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-black/90 backdrop-blur border-t border-white/10 z-50 md:absolute">
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-black/90 backdrop-blur border-t border-white/10 z-50 md:fixed">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <button 
             onClick={handlePrev} 

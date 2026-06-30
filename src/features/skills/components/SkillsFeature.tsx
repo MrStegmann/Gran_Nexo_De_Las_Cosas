@@ -147,21 +147,21 @@ export const SkillsFeature: React.FC = () => {
         return (
           <div className="absolute inset-0 z-50 md:p-16 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-1000">
             <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
-              <Tesseract color={selectedAttributeData.color}>
-                <div className="flex flex-col h-full overflow-hidden p-2 md:p-6">
-                  <div className="mb-6 shrink-0">
-                    <h1 className="text-3xl font-bold mb-2 border-b pb-2" style={{ color: selectedAttributeData.color, borderColor: `${selectedAttributeData.color}40` }}>
-                      {selectedAttributeData.label}
-                    </h1>
-                    <p className="text-white opacity-90 text-lg">{selectedAttributeData.description}</p>
-                  </div>
-                  {selectedAttributeData.skills && selectedAttributeData.skills.length > 0 && (
-                    <div className="flex-1 overflow-hidden min-h-0">
-                      <SkillList skills={selectedAttributeData.skills} color={selectedAttributeData.color} />
+              <Tesseract 
+                color={selectedAttributeData.color}
+                sections={[{
+                  id: 'main',
+                  title: selectedAttributeData.label,
+                  markdown: selectedAttributeData.description || '',
+                  customComponent: selectedAttributeData.skills && selectedAttributeData.skills.length > 0 ? (
+                    <div className="h-full flex flex-col p-2 md:p-6">
+                      <div className="flex-1 overflow-hidden min-h-0">
+                        <SkillList skills={selectedAttributeData.skills} color={selectedAttributeData.color} />
+                      </div>
                     </div>
-                  )}
-                </div>
-              </Tesseract>
+                  ) : undefined
+                }]}
+              />
             </div>
           </div>
         );

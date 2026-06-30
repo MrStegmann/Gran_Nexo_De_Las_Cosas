@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tesseract, type TesseractSection } from '../../../components/Tesseract/Tesseract';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
+import { TesseractSectionId } from '../../../enums/TesseractSectionId';
 
 import amorsMd from '../../../assets/documents/inventory/amors.md?raw';
 import guideMd from '../../../assets/documents/inventory/guide.md?raw';
@@ -9,22 +10,22 @@ import weaponsMd from '../../../assets/documents/inventory/weapons.md?raw';
 
 const inventorySections: TesseractSection[] = [
   {
-    id: 'guide',
+    id: TesseractSectionId.GUIDE,
     title: 'Guía',
     markdown: guideMd
   },
   {
-    id: 'amors',
+    id: TesseractSectionId.ARMORS,
     title: 'Armaduras',
     markdown: amorsMd
   },
   {
-    id: 'shields',
+    id: TesseractSectionId.SHIELDS,
     title: 'Escudos',
     markdown: shieldsMd
   },
   {
-    id: 'weapons',
+    id: TesseractSectionId.WEAPONS,
     title: 'Armas',
     markdown: weaponsMd
   }

@@ -67,7 +67,7 @@ const RuneColumn = () => {
         
         s.x = r * Math.sin(phi) * Math.cos(theta);
         s.y = r * Math.sin(phi) * Math.sin(theta);
-        s.z = -200 + r * Math.cos(phi);
+        s.z = -5000 + r * Math.cos(phi);
         
         const scaleFactor = r / 1000;
         s.spacing = (25 + Math.random() * 20) * scaleFactor;
@@ -83,7 +83,7 @@ const RuneColumn = () => {
                 sprite.position.set(s.x, s.y - (i * s.spacing), s.z);
                 sprite.material.opacity = 0;
                 sprite.scale.set(0.01, 0.01, 1);
-                sprite.userData = { targetScale: finalSize, targetOpacity: Math.random() * 0.3 + 0.7 };
+                sprite.userData = { targetScale: finalSize, targetOpacity: Math.random() * 0.15 + 0.1 };
             }
         }
         
@@ -134,7 +134,7 @@ const RuneColumn = () => {
                 if (sprite) {
                     sprite.position.y -= s.driftSpeed * delta;
                     if(Math.random() > 0.98) {
-                        sprite.material.opacity = Math.random() * 0.5 + 0.5;
+                        sprite.material.opacity = Math.random() * 0.2 + 0.1;
                     }
                 }
             }

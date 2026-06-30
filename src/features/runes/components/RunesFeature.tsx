@@ -26,27 +26,14 @@ interface RuneData {
   image_url?: string;
 }
 
-const RuneCards: React.FC<{ runes: RuneData[] }> = ({ runes }) => {
-  const [query, setQuery] = useState('');
-
+const RuneCards: React.FC<{ runes: RuneData[], searchQuery?: string }> = ({ runes, searchQuery = '' }) => {
   const filteredRunes = runes.filter(r =>
-    r.nombre.toLowerCase().includes(query.toLowerCase()) ||
-    (r.descripcion_base && r.descripcion_base.toLowerCase().includes(query.toLowerCase()))
+    r.nombre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (r.descripcion_base && r.descripcion_base.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
     <div className="flex flex-col h-full">
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Buscar runas..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="w-full bg-black/50 border rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-all text-xs md:text-sm"
-          style={{ borderColor: '#ffffff60', outlineColor: '#ffffff' }}
-        />
-      </div>
-
       <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-max">
         {filteredRunes.length === 0 ? (
           <p className="text-gray-400 text-center col-span-full">No hay runas registradas en este tomo.</p>

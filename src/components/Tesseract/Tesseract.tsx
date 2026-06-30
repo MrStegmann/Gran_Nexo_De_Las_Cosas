@@ -3,6 +3,23 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './Tesseract.css';
 
+const CopyButton = ({ text }: { text: string }) => {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="absolute top-2 right-2 bg-white/10 hover:bg-white/20 text-xs px-2 py-1 rounded transition-colors border border-white/20 uppercase tracking-wider"
+    >
+      {copied ? '¡Copiado!' : 'Copiar'}
+    </button>
+  );
+};
+
 export interface TesseractSection {
   id: string;
   title: string;
@@ -182,6 +199,27 @@ export const Tesseract: React.FC<TesseractProps> = ({
     strong: ({ children }: any) => <strong className="font-bold text-white" style={{ textShadow: `0 0 5px ${color}40` }}>{renderWithHighlights(children, searchQuery)}</strong>,
     blockquote: ({ children }: any) => <blockquote className="border-l-4 pl-4 italic opacity-80 my-4" style={{ borderColor: color }}>{renderWithHighlights(children, searchQuery)}</blockquote>,
     a: ({ children, href }: any) => <a href={href} className="underline hover:opacity-80 transition-opacity" style={{ color }}>{renderWithHighlights(children, searchQuery)}</a>,
+    pre: ({ children }: any) => {
+      // Extract text content for the copy button
+      let text = '';
+      if (React.isValidElement<any>(children) && children.props && children.props.children) {
+        text = String(children.props.children);
+      }
+      return (
+        <div className="relative group mb-4">
+          <pre className="bg-black/50 border border-white/10 rounded p-4 overflow-x-auto text-sm text-gray-300">
+            {children}
+          </pre>
+          {text && <CopyButton text={text} />}
+        </div>
+      );
+    },
+    code: ({ inline, children }: any) => {
+      if (inline) {
+        return <code className="bg-white/10 px-1 py-0.5 rounded text-sm text-white/90">{children}</code>;
+      }
+      return <code className="font-mono">{children}</code>;
+    },
   }), [searchQuery, color]);
 
   return (
@@ -264,7 +302,9 @@ export const Tesseract: React.FC<TesseractProps> = ({
               <main className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-4 relative">
                 {activeSection ? (
                   activeSection.customComponent ? (
-                    activeSection.customComponent
+                    React.isValidElement(activeSection.customComponent) 
+                      ? React.cloneElement(activeSection.customComponent as React.ReactElement<any>, { searchQuery })
+                      : activeSection.customComponent
                   ) : (
                     <div className="markdown-body max-w-3xl mx-auto">
                       <ReactMarkdown remarkPlugins={[remarkGfm]} components={customComponents}>
