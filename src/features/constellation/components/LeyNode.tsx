@@ -74,7 +74,7 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
     // Shockwave animation
     if (isShockwaveActive.current && shockwaveRef.current && shockwaveMaterialRef.current) {
       shockwaveTime.current += delta;
-      const progress = shockwaveTime.current / 3.0; // 3 seconds duration
+      const progress = shockwaveTime.current / 1.5; // 1.5 seconds duration
 
       if (progress >= 1.0) {
         isShockwaveActive.current = false;
@@ -82,11 +82,11 @@ export const LeyNode: React.FC<LeyNodeProps> = ({ id, label, pos }) => {
       } else {
         // Expands outwards non-linearly
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        const scale = 1 + easeOut * 30; // Expands to 30x its initial size
+        const scale = 1 + easeOut * 12; // Expands to 12x its initial size
         shockwaveRef.current.scale.set(scale, scale, scale);
 
         // Fades out opacity
-        shockwaveMaterialRef.current.opacity = 0.5 * (1 - progress);
+        shockwaveMaterialRef.current.opacity = 0.8 * (1 - progress);
       }
     }
   });
