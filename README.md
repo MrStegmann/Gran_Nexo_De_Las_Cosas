@@ -26,6 +26,8 @@ Esta aplicación ha sido creada con tres pilares fundamentales en mente:
 - **Manejo de Estado:** [Zustand](https://github.com/pmndrs/zustand)
 - **Enrutamiento:** [React Router](https://reactrouter.com/)
 
+- Website: [Gran Nexo de las Cosas](https://gran-nexo-de-las-cosas.vercel.app/)
+
 ## 🛠️ Instalación y Desarrollo Local
 
 Para probar o contribuir al desarrollo de la aplicación, asegúrate de tener Node.js instalado.
