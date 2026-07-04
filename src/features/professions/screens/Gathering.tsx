@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
 
 // Import all JSON files directly
-import cueros from "../../../../sistema_de_rol/professions/cueros.json";
-import encantamiento from "../../../../sistema_de_rol/professions/encantamiento.json";
-import gemas from "../../../../sistema_de_rol/professions/gemas.json";
-import hierbas from "../../../../sistema_de_rol/professions/hierbas.json";
-import maderas from "../../../../sistema_de_rol/professions/maderas.json";
-import minerales from "../../../../sistema_de_rol/professions/minerales.json";
-import telas from "../../../../sistema_de_rol/professions/telas.json";
+import cueros from "../meta/cueros.json";
+import encantamiento from "../meta/encantamiento.json";
+import gemas from "../meta/gemas.json";
+import hierbas from "../meta/hierbas.json";
+import maderas from "../meta/maderas.json";
+import minerales from "../meta/minerales.json";
+import telas from "../meta/telas.json";
 import { renderWithHighlights } from "../../../components/Tesseract/Tesseract";
 import type { MaterialItem } from "../types";
 
