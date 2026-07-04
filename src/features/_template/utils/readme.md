@@ -1,0 +1,1 @@
+La carpeta utils contendrá funciones reutilizables para la feature agrupados por trabajo en el mismo archivo.

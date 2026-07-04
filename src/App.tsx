@@ -10,6 +10,7 @@ import { SheetsFeature } from './features/sheets/screens/SheetsFeature';
 import { SkillsFeature } from './features/skills/components/SkillsFeature';
 import { InventoryFeature } from './features/inventory/screens/InventoryFeature';
 import { RunesFeature } from './features/runes/components/RunesFeature';
+import { ProfessionsFeature } from './features/professions/index';
 import './App.css';
 
 function RouteSync() {
@@ -106,6 +107,7 @@ function App() {
           <Route path={`/${NodeId.FICHAS}/*`} element={<SheetsFeature />} />
           <Route path={`/${NodeId.HABILIDADES}/*`} element={<SkillsFeature />} />
           <Route path={`/${NodeId.INVENTARIO}/*`} element={<InventoryFeature />} />
+          <Route path={`/${NodeId.PROFESIONES}/*`} element={<ProfessionsFeature />} />
         </Routes>
       </div>
     </Layout>

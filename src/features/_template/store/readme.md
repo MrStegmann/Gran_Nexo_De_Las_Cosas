@@ -1,0 +1,1 @@
+Store contendrá los estados globales para la feature usando Zustand

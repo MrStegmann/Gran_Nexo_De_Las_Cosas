@@ -28,6 +28,7 @@ export interface TesseractSection {
   markdown: string;
   customComponent?: React.ReactNode;
   filterOptions?: string[];
+  matchSearch?: (query: string) => boolean;
 }
 
 export interface TesseractProps {
@@ -45,7 +46,7 @@ export interface TesseractProps {
   onClose?: () => void;
 }
 
-const HighlightText = ({ text, query }: { text: string; query: string }) => {
+export const HighlightText = ({ text, query }: { text: string; query: string }) => {
   if (!query) return <>{text}</>;
   const parts = text.split(new RegExp(`(${query})`, 'gi'));
   return (
@@ -61,7 +62,7 @@ const HighlightText = ({ text, query }: { text: string; query: string }) => {
   );
 };
 
-const renderWithHighlights = (node: React.ReactNode, query: string): React.ReactNode => {
+export const renderWithHighlights = (node: React.ReactNode, query: string): React.ReactNode => {
   if (!query) return node;
   if (typeof node === 'string') {
     return <HighlightText text={node} query={query} />;
@@ -197,7 +198,9 @@ export const Tesseract: React.FC<TesseractProps> = ({
     if (!searchQuery.trim()) return sections;
     const q = searchQuery.toLowerCase();
     return sections.filter(sec =>
-      sec.title.toLowerCase().includes(q) || sec.markdown.toLowerCase().includes(q)
+      sec.title.toLowerCase().includes(q) || 
+      sec.markdown.toLowerCase().includes(q) ||
+      (sec.matchSearch && sec.matchSearch(q))
     );
   }, [sections, searchQuery]);
 

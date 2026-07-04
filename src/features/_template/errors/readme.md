@@ -1,0 +1,1 @@
+Carpeta que centraliza todos los errores de la feature

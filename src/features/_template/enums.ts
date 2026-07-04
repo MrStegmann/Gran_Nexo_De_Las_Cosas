@@ -1,0 +1,1 @@
+// Contendrá todas las constantes AUXILIARES para consistencia
