@@ -54,7 +54,6 @@ const TYPE_CONFIG = {
 
 export const AzulitoMascot: React.FC = () => {
   const { speech, mood, isVisible, sendNoty, queue, currentNoty, popNoty, clearCurrentNoty } = useAzulitoStore();
-  const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
 
   const [showSpeech, setShowSpeech] = useState(false);

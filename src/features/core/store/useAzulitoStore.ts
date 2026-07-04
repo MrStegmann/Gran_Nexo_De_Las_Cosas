@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { AZULITO_SPEECHES } from '../constants/azulitoSpeeches';
 
 export type AzulitoMood = 'talk' | 'confused' | 'hehe';
 export type NotyType = 'alert' | 'info' | 'error';

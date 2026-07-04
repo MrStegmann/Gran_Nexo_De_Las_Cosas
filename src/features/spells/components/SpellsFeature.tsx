@@ -10,8 +10,6 @@ import { useConstellationStore } from '../../constellation/store/useConstellatio
 import { AttributeId } from '../../constellation/enums/AttributeId';
 import { SpellList } from './SpellList';
 import { useAzulitoStore } from '../../core/store/useAzulitoStore';
-import { AZULITO_SPEECHES } from '../../core/constants/azulitoSpeeches';
-import { NodeId } from '../../constellation/enums/NodeId';
 
 export const SpellsFeature: React.FC = () => {
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);

@@ -115,7 +115,8 @@ export const Gathering: React.FC<{ searchQuery?: string }> = ({ searchQuery = ""
     }
   };
 
-  const translateType = (t: string) => {
+  const translateType = (t?: string) => {
+    if (!t) return "";
     switch (t) {
       case "cloth": return "Tela";
       case "metal": return "Metal";
@@ -133,7 +134,8 @@ export const Gathering: React.FC<{ searchQuery?: string }> = ({ searchQuery = ""
     }
   };
 
-  const translateMaterial = (material: string) => {
+  const translateMaterial = (material?: string) => {
+    if (!material) return "";
     for (const list of Object.values(collections)) {
       const item = list.find(i => i.material === material);
       if (item) return item.label;

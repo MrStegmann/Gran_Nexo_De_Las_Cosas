@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { ConstellationScene } from '../../constellation/components/Scene';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { NodeId } from '../../constellation/enums/NodeId';
