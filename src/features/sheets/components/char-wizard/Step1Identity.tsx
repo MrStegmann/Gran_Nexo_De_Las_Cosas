@@ -138,7 +138,7 @@ export const Step1Identity: React.FC<Step1Props> = ({ state, setState, metaData 
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-3xl font-bold text-white mb-6 border-b border-white/10 pb-4">🪪 Identidad del Personaje</h2>
+      <h2 className="text-3xl font-bold text-white mb-6 border-b border-white/10 pb-4">🪪 Personaje Nuevo</h2>
       <div className="mb-8">
         <label className="block text-gray-400 text-sm uppercase tracking-widest mb-4">Categoría <span className="text-[#00ff88]">*</span></label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

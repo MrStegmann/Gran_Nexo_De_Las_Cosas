@@ -1,6 +1,7 @@
 import React from 'react';
 import type { CharacterState } from './types';
 import { ATTR_ICONS, ATTR_DESC, CATEGORY_DATA } from './constants';
+import { useAzulitoStore } from '../../../core/store/useAzulitoStore';
 
 interface Step2Props {
   state: CharacterState;
@@ -8,6 +9,7 @@ interface Step2Props {
 }
 
 export const Step2Attributes: React.FC<Step2Props> = ({ state, setState }) => {
+  const { sendNoty } = useAzulitoStore();
   const cat = CATEGORY_DATA[state.categoria];
   
   const calcStats = () => ({
@@ -37,6 +39,8 @@ export const Step2Attributes: React.FC<Step2Props> = ({ state, setState }) => {
   const handlePlus = (attr: string) => {
     if (rem > 0) {
       setState({ ...state, atributos: { ...state.atributos, [attr]: (state.atributos[attr] || 0) + 1 } });
+    } else {
+      sendNoty('No tienes más puntos de atributo disponibles', 'error', 3000);
     }
   };
 

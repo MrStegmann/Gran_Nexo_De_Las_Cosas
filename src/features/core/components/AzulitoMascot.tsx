@@ -14,30 +14,82 @@ const MOOD_IMAGES = {
   hehe: azulitoHehe,
 };
 
+const TYPE_CONFIG = {
+  info: {
+    image: azulitoTalk,
+    bubbleBg: 'bg-slate-900/90',
+    bubbleBorder: 'border-blue-400/50',
+    shadow: 'shadow-[0_0_15px_rgba(59,130,246,0.3)]',
+    text: 'text-blue-100',
+    tail: 'bg-slate-900/90 border-blue-400/50',
+    dropShadow: 'drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]',
+  },
+  error: {
+    image: azulitoConfused,
+    bubbleBg: 'bg-slate-900/90',
+    bubbleBorder: 'border-red-400/50',
+    shadow: 'shadow-[0_0_15px_rgba(239,68,68,0.3)]',
+    text: 'text-red-100',
+    tail: 'bg-slate-900/90 border-red-400/50',
+    dropShadow: 'drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]',
+  },
+  alert: {
+    image: azulitoHehe,
+    bubbleBg: 'bg-slate-900/90',
+    bubbleBorder: 'border-orange-400/50',
+    shadow: 'shadow-[0_0_15px_rgba(249,115,22,0.3)]',
+    text: 'text-orange-100',
+    tail: 'bg-slate-900/90 border-orange-400/50',
+    dropShadow: 'drop-shadow-[0_0_20px_rgba(249,115,22,0.4)]',
+  },
+  default: {
+    bubbleBg: 'bg-slate-900/90',
+    bubbleBorder: 'border-cyan-400/50',
+    shadow: 'shadow-[0_0_15px_rgba(6,182,212,0.3)]',
+    text: 'text-cyan-100',
+    tail: 'bg-slate-900/90 border-cyan-400/50',
+    dropShadow: 'drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]',
+  },
+};
+
 export const AzulitoMascot: React.FC = () => {
-  const { speech, mood, isVisible, setSpeechAndMood } = useAzulitoStore();
+  const { speech, mood, isVisible, sendNoty, queue, currentNoty, popNoty, clearCurrentNoty } = useAzulitoStore();
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const hoveredNodeId = useConstellationStore((state) => state.hoveredNodeId);
-  const [showSpeech, setShowSpeech] = useState(false);
-  const lastSpokenSelectedNodeId = React.useRef<string | null>(null);
 
+  const [showSpeech, setShowSpeech] = useState(false);
+
+  // Queue Processing
+  useEffect(() => {
+    if (!currentNoty && queue.length > 0) {
+      popNoty();
+    }
+  }, [queue, currentNoty, popNoty]);
+
+  useEffect(() => {
+    if (currentNoty) {
+      const timer = setTimeout(() => {
+        clearCurrentNoty();
+      }, currentNoty.timeLife);
+      return () => clearTimeout(timer);
+    }
+  }, [currentNoty, clearCurrentNoty]);
+
+  // Constellation Speech Logic
   useEffect(() => {
     if (hoveredNodeId) {
-      setSpeechAndMood(AZULITO_SPEECHES[hoveredNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
-    } else if (selectedNodeId) {
-      if (lastSpokenSelectedNodeId.current !== selectedNodeId) {
-        setSpeechAndMood(AZULITO_SPEECHES[selectedNodeId] || AZULITO_SPEECHES.DEFAULT, 'talk');
-        lastSpokenSelectedNodeId.current = selectedNodeId;
-      } else {
-        setSpeechAndMood('', 'talk');
-      }
+      sendNoty(AZULITO_SPEECHES[hoveredNodeId] || AZULITO_SPEECHES.DEFAULT, 'info');
     } else {
-      setSpeechAndMood('', 'talk');
-      lastSpokenSelectedNodeId.current = null;
+      popNoty();
     }
-  }, [selectedNodeId, hoveredNodeId, setSpeechAndMood]);
+  }, [hoveredNodeId, sendNoty]);
 
   useEffect(() => {
+    if (currentNoty) {
+      setShowSpeech(false);
+      return;
+    }
+
     if (!speech) {
       setShowSpeech(false);
       return;
@@ -52,32 +104,45 @@ export const AzulitoMascot: React.FC = () => {
     }, readingTime);
 
     return () => clearTimeout(timer);
-  }, [speech]);
+  }, [speech, currentNoty]);
 
   if (!isVisible) return null;
 
-  const imageSrc = showSpeech ? (MOOD_IMAGES[mood] || azulitoDefault) : azulitoDefault;
+  const isActive = currentNoty || showSpeech;
+  const activeMessage = currentNoty ? currentNoty.msg : speech;
+
+  let config = TYPE_CONFIG.default as any;
+  if (currentNoty) {
+    config = TYPE_CONFIG[currentNoty.type] || TYPE_CONFIG.info;
+  } else if (showSpeech) {
+    config = { ...TYPE_CONFIG.default, image: MOOD_IMAGES[mood] || azulitoDefault };
+  }
+
+  const imageSrc = isActive ? config.image : azulitoDefault;
 
   return (
     <div className="absolute bottom-10 md:bottom-5 right-4 sm:right-8 z-30 flex items-end justify-end pointer-events-none">
       <div className="relative flex items-end">
         {/* Speech Bubble */}
-        <div 
-          className={`relative mb-32 -mr-18 z-10 w-48 sm:w-64 p-3 sm:p-4 rounded-2xl bg-slate-900/90 border border-cyan-400/50 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300 transform ${showSpeech ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto cursor-pointer hover:bg-slate-800/90' : 'translate-y-4 opacity-0 scale-95 pointer-events-none'}`}
-          onClick={() => setShowSpeech(false)}
+        <div
+          className={`relative mb-32 -mr-18 z-10 w-48 sm:w-64 p-3 sm:p-4 rounded-2xl ${config.bubbleBg} border ${config.bubbleBorder} backdrop-blur-md ${config.shadow} transition-all duration-300 transform ${isActive ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto cursor-pointer hover:bg-slate-800/90' : 'translate-y-4 opacity-0 scale-95 pointer-events-none'}`}
+          onClick={() => {
+            if (currentNoty) clearCurrentNoty();
+            else setShowSpeech(false);
+          }}
         >
-          <p className="text-cyan-100 text-xs sm:text-sm font-mono leading-relaxed select-none">
-            {speech}
+          <p className={`${config.text} text-xs sm:text-sm font-mono leading-relaxed select-none`}>
+            {activeMessage}
           </p>
           {/* Bubble Tail */}
-          <div className="absolute -bottom-2 right-12 w-4 h-4 bg-slate-900/90 border-b border-r border-cyan-400/50 transform rotate-45 backdrop-blur-sm"></div>
+          <div className={`absolute -bottom-2 right-12 w-4 h-4 border-b border-r transform rotate-45 backdrop-blur-sm ${config.tail}`}></div>
         </div>
 
         {/* Mascot Image */}
         <img
           src={imageSrc}
           alt="Azulito"
-          className="w-32 sm:w-40 md:w-48 h-auto object-contain pointer-events-auto drop-shadow-[0_0_20px_rgba(6,182,212,0.4)] relative z-20"
+          className={`w-32 sm:w-40 md:w-48 h-auto object-contain pointer-events-auto relative z-20 ${isActive ? config.dropShadow : TYPE_CONFIG.default.dropShadow}`}
           style={{ transformOrigin: 'bottom center' }}
         />
       </div>

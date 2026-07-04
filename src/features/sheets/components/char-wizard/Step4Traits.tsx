@@ -1,6 +1,7 @@
 import React from 'react';
 import type { CharacterState, MetaData } from './types';
 import { CATEGORY_DATA } from './constants';
+import { useAzulitoStore } from '../../../core/store/useAzulitoStore';
 
 interface Step4Props {
   state: CharacterState;
@@ -9,6 +10,7 @@ interface Step4Props {
 }
 
 export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData }) => {
+  const { sendNoty } = useAzulitoStore();
   const cat = CATEGORY_DATA[state.categoria];
   
   const usedPositiveSlots = () => {
@@ -38,7 +40,10 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
         rasgosPositivos: state.rasgosPositivos.filter(r => r.nombre !== traitName)
       });
     } else {
-      if (slotsUsed >= slotsTotal) return;
+      if (slotsUsed >= slotsTotal) {
+        sendNoty('No tienes más ranuras positivas disponibles', 'error', 3000);
+        return;
+      }
       const traitData = metaData?.positiveTraits.find(t => t.Nombre === traitName);
       const levels = [1, 2, 3].filter(l => traitData?.[`Nivel ${l}`] !== null && traitData?.[`Nivel ${l}`] !== undefined);
       const defaultLevel = levels.length > 0 ? 1 : null;
@@ -56,7 +61,10 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
       const currentCost = existing.nivel || 1;
       const newCost = level || 1;
       const slotsWithoutThis = slotsUsed - currentCost;
-      if (slotsWithoutThis + newCost > slotsTotal) return;
+      if (slotsWithoutThis + newCost > slotsTotal) {
+        sendNoty('Esta mejora supera tu límite de ranuras positivas', 'error', 3000);
+        return;
+      }
       setState({
         ...state,
         rasgosPositivos: state.rasgosPositivos.map(r => r.nombre === traitName ? { ...r, nivel: level } : r)
@@ -68,7 +76,10 @@ export const Step4Traits: React.FC<Step4Props> = ({ state, setState, metaData })
     const isSel = state.rasgosNegativos.includes(traitName);
     const incompat = isIncompatible(traitName);
 
-    if (incompat && !isSel) return;
+    if (incompat && !isSel) {
+      sendNoty('Este rasgo es incompatible con tus selecciones actuales', 'error', 3000);
+      return;
+    }
 
     if (isSel) {
       setState({

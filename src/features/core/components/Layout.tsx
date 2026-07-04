@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { ConstellationScene } from '../../constellation/components/Scene';
 import { useConstellationStore } from '../../constellation/store/useConstellationStore';
 import { NodeId } from '../../constellation/enums/NodeId';
 import { AzulitoMascot } from './AzulitoMascot';
 import { BackButton } from './BackButton';
+import { useAzulitoStore } from '../store/useAzulitoStore';
+import { AZULITO_GREETINGS } from '../constants/azulitoSpeeches';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -72,6 +74,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const selectedNodeId = useConstellationStore((state) => state.selectedNodeId);
   const selectedAttribute = useConstellationStore((state) => state.selectedAttribute);
   const activeTheme = selectedNodeId && FOOTER_THEMES[selectedNodeId] ? FOOTER_THEMES[selectedNodeId] : FOOTER_THEMES.DEFAULT;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const msg = AZULITO_GREETINGS[Math.floor(Math.random() * AZULITO_GREETINGS.length)];
+      useAzulitoStore.getState().sendNoty(msg, 'info');
+    }, 50)
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-slate-950">

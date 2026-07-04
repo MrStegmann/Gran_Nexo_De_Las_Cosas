@@ -42,12 +42,10 @@ export const SpellsFeature: React.FC = () => {
     if (nodeId) {
       const node = currentNodes.find((n: any) => n.id === nodeId);
       if (node && node.description) {
-        useAzulitoStore.getState().setSpeechAndMood(node.description, 'talk');
+        useAzulitoStore.getState().sendNoty(node.description, 'info');
       } else if (node) {
-        useAzulitoStore.getState().setSpeechAndMood(`Explorando ${node.label}...`, 'talk');
+        useAzulitoStore.getState().sendNoty(`Explorando ${node.label}...`, 'info');
       }
-    } else {
-      useAzulitoStore.getState().setSpeechAndMood(AZULITO_SPEECHES[NodeId.HECHIZOS] || '', 'talk');
     }
   };
 
@@ -126,7 +124,7 @@ export const SpellsFeature: React.FC = () => {
         return (
           <div className="absolute inset-0 z-50 md:p-16 bg-black/40 backdrop-blur-sm pointer-events-auto">
             <div className="w-full mt-[1%] h-[80vh] pointer-events-auto relative md:absolute md:top-0 md:left-0 md:mt-0 md:w-[80%] md:h-[95vh] md:max-w-none md:z-40">
-              <Tesseract 
+              <Tesseract
                 color={selectedSchoolData.color}
                 sections={[{
                   id: 'main',

@@ -5,6 +5,7 @@ import { schoolsData } from '../../../spells/data/spellsData';
 import { skillsAttributes } from '../../../skills/data/skillsData';
 import { AttributeId } from '../../../constellation/enums/AttributeId';
 import { Card } from '../../../../components/Card/Card';
+import { useAzulitoStore } from '../../../core/store/useAzulitoStore';
 
 interface Step6Props {
   state: CharacterState;
@@ -12,6 +13,7 @@ interface Step6Props {
 }
 
 export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
+  const { sendNoty } = useAzulitoStore();
   const cat = CATEGORY_DATA[state.categoria];
   const [activeTab, setActiveTab] = useState<'hechizos' | 'habilidades'>('hechizos');
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,7 +37,7 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
     if (!isSelected) {
       const cost = typeof spell['Ranuras de hechizo'] === 'number' ? spell['Ranuras de hechizo'] : 0;
       if (availableSlots < cost) {
-        alert("No tienes suficientes ranuras disponibles.");
+        sendNoty("No tienes suficientes ranuras disponibles.", "error", 3000);
         return;
       }
     }
@@ -61,7 +63,7 @@ export const Step6Spells: React.FC<Step6Props> = ({ state, setState }) => {
     if (!isSelected) {
       const cost = typeof skill['Coste de Ranuras'] === 'number' ? skill['Coste de Ranuras'] : 0;
       if (availableSlots < cost) {
-        alert("No tienes suficientes ranuras disponibles.");
+        sendNoty("No tienes suficientes ranuras disponibles.", "error", 3000);
         return;
       }
     }

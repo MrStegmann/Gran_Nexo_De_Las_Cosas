@@ -1,6 +1,7 @@
 import React from 'react';
 import type { CharacterState, MetaData } from './types';
 import { ATTR_ICONS } from './constants';
+import { useAzulitoStore } from '../../../core/store/useAzulitoStore';
 
 interface Step3Props {
   state: CharacterState;
@@ -9,6 +10,7 @@ interface Step3Props {
 }
 
 export const Step3Talents: React.FC<Step3Props> = ({ state, setState, metaData }) => {
+  const { sendNoty } = useAzulitoStore();
   const attrEntries = Object.entries(state.atributos).filter(([, val]) => val > 0);
 
   const talentSpent = (attr: string) => {
@@ -30,6 +32,8 @@ export const Step3Talents: React.FC<Step3Props> = ({ state, setState, metaData }
   const handlePlus = (talent: string, attr: string) => {
     if (talentRemaining(attr) > 0) {
       setState({ ...state, talentos: { ...state.talentos, [talent]: (state.talentos[talent] || 0) + 1 } });
+    } else {
+      sendNoty(`No te quedan puntos para la rama de ${attr}`, 'error', 3000);
     }
   };
 

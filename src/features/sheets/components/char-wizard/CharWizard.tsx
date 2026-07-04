@@ -11,8 +11,10 @@ import { Step6Spells } from './Step6Spells';
 import { Step7Summary } from './Step7Summary';
 import { Modal } from '../../../../components/Modal/Modal';
 import { buildExportString } from './exportUtils';
+import { useAzulitoStore } from '../../../core/store/useAzulitoStore';
 
 export const CharWizard: React.FC = () => {
+  const { sendNoty } = useAzulitoStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [state, setState] = useState<CharacterState>(INITIAL_STATE);
   const [metaData, setMetaData] = useState<MetaData | null>(null);
@@ -58,7 +60,7 @@ export const CharWizard: React.FC = () => {
   const validateCurrentStep = () => {
     if (currentStep === 0) {
       if (!state.raza) {
-        alert('Por favor, elige una raza antes de continuar.');
+        sendNoty('Por favor, elige una raza antes de continuar.', 'alert', 3000);
         return false;
       }
     }
@@ -149,8 +151,8 @@ export const CharWizard: React.FC = () => {
                 }}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 mb-2 transition-all ${isActive ? 'bg-black border-[#00ff88] shadow-[0_0_10px_rgba(0,255,136,0.5)]' :
-                    isCompleted ? 'bg-gray-800 border-gray-500 cursor-pointer hover:border-gray-300' :
-                      'bg-black border-gray-800'
+                  isCompleted ? 'bg-gray-800 border-gray-500 cursor-pointer hover:border-gray-300' :
+                    'bg-black border-gray-800'
                   }`}>
                   <span className="text-lg">{s.icon}</span>
                 </div>
@@ -189,8 +191,8 @@ export const CharWizard: React.FC = () => {
           <button
             onClick={handleNext}
             className={`px-6 py-2 rounded font-bold uppercase tracking-widest text-sm transition-all ${currentStep === 6
-                ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50'
-                : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+              ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/50'
+              : 'bg-indigo-600 hover:bg-indigo-500 text-white'
               }`}
           >
             {currentStep === 6 ? 'Terminado' : 'Siguiente →'}
@@ -198,23 +200,23 @@ export const CharWizard: React.FC = () => {
         </div>
       </div>
 
-      <Modal 
-        isOpen={showFinishModal} 
+      <Modal
+        isOpen={showFinishModal}
         onClose={() => setShowFinishModal(false)}
         title="¿Has exportado los datos?"
         actions={
           <>
-            <button 
+            <button
               onClick={() => setShowFinishModal(false)}
               className="px-4 py-2 rounded bg-gray-800 text-white hover:bg-gray-700 transition-colors"
             >
               Cancelar
             </button>
-            <button 
+            <button
               onClick={() => {
                 const str = buildExportString(state, metaData);
                 navigator.clipboard.writeText(str).then(() => {
-                  alert("¡Cadena copiada al portapapeles!");
+                  sendNoty("¡Cadena de exportación copiada al portapapeles!", 'info', 5000);
                   setShowFinishModal(false);
                   setState(INITIAL_STATE);
                   setCurrentStep(0);

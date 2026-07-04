@@ -15,3 +15,11 @@ export const AZULITO_SPEECHES: Record<string, string> = {
   WARNING: "¡Cuidado! Parece que algo no va del todo bien. Mantén los ojos abiertos.",
   ERROR: "¡Ups! Algo se ha roto en el tejido del espacio-tiempo. Estamos intentando arreglarlo."
 };
+
+export const AZULITO_GREETINGS: string[] = [
+  "¡Hola! Soy Azulito. Toca uno de los nodos estelares para descubrir más sobre este universo.",
+  "¡Has vuelto! ¡Bien! ¡Se acabó el aburrimiento! ¡Yujuuuuuu!",
+  "¡Eh! ¡Eh! ¡Aquí! ¡Aquíííííííííí! ¡EEEEEEEEEEEEEEEEEEEEEEEEEEEH!",
+  "¡Un nuevo amigo! ¡Eh! ¿Jugamos al escondite Arcano?",
+  "¡Hola-hola! ¿En busca de algo de información? ¡Preguntame! Soy un experto en cosas arcanas... ¿no? Bueno, estoy... por aquí... por si acaso."
+];
