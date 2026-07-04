@@ -4,7 +4,8 @@ export const NodeId = {
   RUNAS: 'runas',
   HABILIDADES: 'habilidades',
   FICHAS: 'fichas',
-  INVENTARIO: 'inventario'
+  INVENTARIO: 'inventario',
+  PROFESIONES: 'profesiones'
 } as const;
 
 export type NodeId = typeof NodeId[keyof typeof NodeId];

@@ -7,7 +7,8 @@ export const constellationData = [
     { id: NodeId.RUNAS, label: 'Runas', pos: new THREE.Vector3(190, 80, -160), mobilePos: new THREE.Vector3(100, 200, -220) },
     { id: NodeId.HABILIDADES, label: 'Habilidades', pos: new THREE.Vector3(-90, -110, -250), mobilePos: new THREE.Vector3(-110, -36, -250) },
     { id: NodeId.FICHAS, label: 'Fichas', pos: new THREE.Vector3(-120, -80, -80), mobilePos: new THREE.Vector3(-45, -108, -80) },
-    { id: NodeId.INVENTARIO, label: 'Inventario', pos: new THREE.Vector3(-130, 10, -280), mobilePos: new THREE.Vector3(45, -180, -280) }
+    { id: NodeId.INVENTARIO, label: 'Inventario', pos: new THREE.Vector3(-130, 10, -280), mobilePos: new THREE.Vector3(45, -180, -280) },
+    { id: NodeId.PROFESIONES, label: 'Profesiones', pos: new THREE.Vector3(100, -50, -200), mobilePos: new THREE.Vector3(0, -250, -200) }
 ];
 
 export const nodeThemes: Record<NodeId, { color: number, emissive: THREE.Color, geom: THREE.BufferGeometry, shellGeom: THREE.BufferGeometry }> = {
@@ -46,5 +47,11 @@ export const nodeThemes: Record<NodeId, { color: number, emissive: THREE.Color, 
         emissive: new THREE.Color(0xcc0011).multiplyScalar(11.25),
         geom: new THREE.BoxGeometry(3.96, 3.96, 3.96),
         shellGeom: new THREE.BoxGeometry(5.61, 5.61, 5.61)
+    },
+    [NodeId.PROFESIONES]: {
+        color: 0xffd700,
+        emissive: new THREE.Color(0xffaa00).multiplyScalar(11.25),
+        geom: new THREE.TetrahedronGeometry(4.5, 0),
+        shellGeom: new THREE.TetrahedronGeometry(6.15, 0)
     }
 };

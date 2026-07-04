@@ -22,6 +22,10 @@ export const TesseractSectionId = {
   STATES: 'estados',
   WOUNDS: 'heridas',
   RESOURCES: 'recursos',
+
+  // Professions
+  PROFESSIONS_INFO: 'informacion',
+  PROFESSIONS_GATHERING: 'recoleccion',
 } as const;
 
 export type TesseractSectionId = typeof TesseractSectionId[keyof typeof TesseractSectionId];

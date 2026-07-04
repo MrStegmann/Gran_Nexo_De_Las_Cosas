@@ -70,3 +70,26 @@
         linear-gradient(to top right, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 0 100% / var(--tesseract-inset) var(--tesseract-inset) no-repeat,
         linear-gradient(to top left, transparent calc(50% - 0.5px), color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent) 50%, transparent calc(50% + 0.5px)) 100% 100% / var(--tesseract-inset) var(--tesseract-inset) no-repeat;
 }
+
+/* Dynamic Scrollbar Styling */
+.tesseract-layout-bg ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.tesseract-layout-bg ::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--theme-color, #00f0ff) 5%, transparent);
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.tesseract-layout-bg ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--theme-color, #00f0ff) 40%, transparent);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.tesseract-layout-bg ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--theme-color, #00f0ff);
+}

@@ -1,0 +1,1 @@
+La carpeta meta contendrá datos, archivos json, csv o excel que servirán como datos.

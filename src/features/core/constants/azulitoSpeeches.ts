@@ -9,6 +9,7 @@ export const AZULITO_SPEECHES: Record<string, string> = {
   [NodeId.HABILIDADES]: "Tus Habilidades definen quién eres. Descubre todo tu potencial y mejora constantemente.",
   [NodeId.FICHAS]: "Aquí puedes gestionar tus Fichas de personaje. ¡Cada detalle cuenta en tu aventura!",
   [NodeId.INVENTARIO]: "Revisa tu Inventario para ver todos los objetos y tesoros que has acumulado en tu viaje.",
+  [NodeId.PROFESIONES]: "Las profesiones son habilidades especiales que te permiten crear objetos y mejorar tu personaje. ¡Descubre todo lo que puedes hacer!",
   [AttributeId.CONSTITUCION]: "La base de tu resistencia física y aguante. ¡Para que no te derriben al primer golpe!",
   [AttributeId.FUERZA]: "Puro poder físico. ¡Aplasta a tus enemigos y levanta objetos pesados!",
   [AttributeId.DESTREZA]: "Agilidad, reflejos y precisión en el combate. ¡Muévete como el viento!",

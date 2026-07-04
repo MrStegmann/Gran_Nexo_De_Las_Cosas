@@ -1,0 +1,1 @@
+La carpeta componentes contendrá todos los componentes REUTILIZABLES que conforman la feature.
