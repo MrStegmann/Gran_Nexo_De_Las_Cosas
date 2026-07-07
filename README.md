@@ -1,4 +1,4 @@
-# Gran Nexo de las Cosas (Project Creating Things)
+# Gran Nexo de las Cosas
 
 Bienvenido al repositorio oficial de **Gran Nexo de las Cosas**, una aplicación web interactiva diseñada para combinar tecnología de vanguardia en la web con la experiencia del rol de mesa.
 
