@@ -2,8 +2,6 @@
 
 Welcome to the official repository of **Gran Nexo de las Cosas**, an interactive web application designed to combine cutting-edge web technology with tabletop role-playing game (TTRPG) experience.
 
-_Available demo at: [https://gran-nexo-de-las-cosas.vercel.app/](https://gran-nexo-de-las-cosas.vercel.app/)_ 
-
 ## 🌟 Project Purpose
 
 This application has been created with three fundamental pillars in mind:
