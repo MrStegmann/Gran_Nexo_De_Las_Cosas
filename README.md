@@ -1,66 +1,68 @@
 # Gran Nexo de las Cosas
 
-Bienvenido al repositorio oficial de **Gran Nexo de las Cosas**, una aplicación web interactiva diseñada para combinar tecnología de vanguardia en la web con la experiencia del rol de mesa.
+Welcome to the official repository of **Gran Nexo de las Cosas**, an interactive web application designed to combine cutting-edge web technology with tabletop role-playing game (TTRPG) experience.
 
-## 🌟 Propósito del Proyecto
+_Available demo at: [https://gran-nexo-de-las-cosas.vercel.app/](https://gran-nexo-de-las-cosas.vercel.app/)_ 
 
-Esta aplicación ha sido creada con tres pilares fundamentales en mente:
+## 🌟 Project Purpose
 
-1. **Laboratorio de Experimentación 3D (ThreeJS / React Three Fiber)**
-   Exploramos el potencial de la web 3D utilizando `Three.js` a través de `@react-three/fiber` y `@react-three/drei`. La interfaz principal está construida alrededor de componentes visuales avanzados como "Tesseracts", constelaciones interactivas, nexos geométricos y efectos de post-procesamiento dinámicos, ofreciendo una inmersión visual única.
+This application has been created with three fundamental pillars in mind:
 
-2. **Herramienta Integral para Grupo de Rol**
-   Desarrollada específicamente para facilitar las partidas de nuestro grupo de rol. Proporciona una plataforma centralizada para:
-   - **Consultar Información:** Acceder rápidamente a compendios de mecánicas, hechizos, runas, habilidades e inventario.
-   - **Asistente de Fichas (Char Wizard):** Una herramienta paso a paso diseñada para crear, configurar y revisar fichas de personajes de forma rápida e intuitiva.
-   - **Exportación Rápida:** Una vez que la ficha está lista, la web genera una cadena codificada lista para ser exportada e importada en el Addon in-game o en las herramientas de la campaña.
+1. **3D Experimentation Lab (ThreeJS / React Three Fiber)**
+   We explore the potential of 3D web using `Three.js` via `@react-three/fiber` and `@react-three/drei`. The main interface is built around advanced visual components such as "Tesseracts", interactive constellations, geometric nexuses, and dynamic post-processing effects, offering a unique visual immersion.
 
-3. **Experimentación con AI Agents**
-   Este proyecto sirve como entorno de pruebas y desarrollo colaborativo utilizando agentes de inteligencia artificial (AI Agents) para asistir en el desarrollo, iteración y diseño de los componentes y las mecánicas de software, llevando el flujo de trabajo a nuevas metodologías.
+2. **Comprehensive Tool for Tabletop RPG Groups**
+   Developed specifically to facilitate our tabletop RPG group's gaming sessions. It provides a centralized platform to:
+   - **Consult Information:** Quickly access compendiums for mechanics, spells, runes, skills, and inventory.
+   - **Character Wizard (Char Wizard):** A step-by-step tool designed to create, configure, and review character sheets quickly and intuitively.
+   - **Fast Export:** Once the character sheet is ready, the web app generates an encoded string ready to be exported and imported into the in-game Addon or campaign tools.
 
-## 🚀 Tecnologías Principales
+3. **Experimentation with AI Agents**
+   This project serves as a testing and collaborative development environment using artificial intelligence agents (AI Agents) to assist in the development, iteration, and design of software components and mechanics, bringing the workflow to new methodologies.
+
+## 🚀 Core Technologies
 
 - **Frontend Core:** [React 18](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) + [Vite](https://vitejs.dev/)
-- **Gráficos 3D:** [Three.js](https://threejs.org/) + [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/) + [@react-three/drei](https://github.com/pmndrs/drei) + [@react-three/postprocessing](https://docs.pmnd.rs/react-three-postprocessing)
-- **Estilos y UI:** [Tailwind CSS](https://tailwindcss.com/)
-- **Manejo de Estado:** [Zustand](https://github.com/pmndrs/zustand)
-- **Enrutamiento:** [React Router](https://reactrouter.com/)
+- **3D Graphics:** [Three.js](https://threejs.org/) + [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/) + [@react-three/drei](https://github.com/pmndrs/drei) + [@react-three/postprocessing](https://docs.pmnd.rs/react-three-postprocessing)
+- **Styling & UI:** [Tailwind CSS](https://tailwindcss.com/)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Routing:** [React Router](https://reactrouter.com/)
 
 - Website: [Gran Nexo de las Cosas](https://gran-nexo-de-las-cosas.vercel.app/)
 
-## 🛠️ Instalación y Desarrollo Local
+## 🛠️ Installation & Local Development
 
-Para probar o contribuir al desarrollo de la aplicación, asegúrate de tener Node.js instalado.
+To test or contribute to the development of the application, make sure you have Node.js installed.
 
-1. **Clona el repositorio**
+1. **Clone the repository**
    ```bash
-   git clone <url-del-repositorio>
+   git clone <repository-url>
    cd Project-CreatingThings
    ```
 
-2. **Instala las dependencias**
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Inicia el servidor de desarrollo local**
+3. **Start the local development server**
    ```bash
    npm run dev
    ```
-   El servidor se levantará por defecto en el puerto configurado por Vite (habitualmente `http://localhost:5173`).
+   The server will run by default on the port configured by Vite (usually `http://localhost:5173`).
 
-4. **Compilar para Producción**
+4. **Build for Production**
    ```bash
    npm run build
    ```
-   Los archivos estáticos listos para producción se generarán en la carpeta `dist`.
+   Production-ready static files will be generated in the `dist` folder.
 
-## 📖 Estructura Principal
+## 📖 Main Structure
 
-- `src/components/`: Componentes reutilizables generales (Tesseract, Cards, Formularios, etc.).
-- `src/features/`: Módulos de dominio de la aplicación (Fichas, Constelación, Hechizos, Habilidades, Inventario, Runas, Mecánicas).
-- `src/assets/`: Recursos estáticos (documentos Markdown, imágenes, bases de datos en JSON).
+- `src/components/`: General reusable components (Tesseract, Cards, Forms, etc.).
+- `src/features/`: Application domain modules (Character Sheets, Constellations, Spells, Skills, Inventory, Runes, Mechanics).
+- `src/assets/`: Static resources (Markdown documents, images, JSON databases).
 
 ---
 
-*Diseñado y desarrollado para unificar la magia del rol, la inmersión del entorno 3D y la vanguardia de la IA.*
+*Designed and developed to unify the magic of tabletop RPGs, the immersion of a 3D environment, and the forefront of AI.*
